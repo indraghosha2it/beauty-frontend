@@ -1,5 +1,767 @@
 
 
+// 'use client';
+
+// import Link from 'next/link';
+// import { useState, useEffect, useRef } from 'react';
+// import { usePathname, useRouter } from 'next/navigation';
+// import { 
+//   LogOut, 
+//   User, 
+//   LayoutDashboard, 
+//   ShoppingCart,
+//   Search,
+//   X,
+//   Home,
+//   Package,
+//   Info,
+//   Phone,
+//   Menu,
+//   UserCircle,
+//   ChevronDown,
+//   MapPin,
+// } from 'lucide-react';
+// import { toast } from 'sonner';
+// import CartSidebar from '../CartSidebar';
+
+
+// export default function Navbar() {
+//   const [isMenuOpen, setIsMenuOpen] = useState(false);
+//   const [userMenuOpen, setUserMenuOpen] = useState(false);
+//   const [searchOpen, setSearchOpen] = useState(false);
+//   const [searchQuery, setSearchQuery] = useState('');
+//   const [searchResults, setSearchResults] = useState([]);
+//   const [searchLoading, setSearchLoading] = useState(false);
+//   const [showResults, setShowResults] = useState(false);
+//   const [user, setUser] = useState(null);
+//   const [cartCount, setCartCount] = useState(0);
+//   const [authLoading, setAuthLoading] = useState(true);
+//   const [scrolled, setScrolled] = useState(false);
+//   const [profileImageError, setProfileImageError] = useState(false);
+//   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+//   const [isCartOpen, setIsCartOpen] = useState(false);
+
+//   const searchRef = useRef(null);
+//   const mobileSearchRef = useRef(null);
+//   const pathname = usePathname();
+//   const router = useRouter();
+
+//   // Handle scroll effect
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       setScrolled(window.scrollY > 10);
+//     };
+//     window.addEventListener('scroll', handleScroll);
+//     return () => window.removeEventListener('scroll', handleScroll);
+//   }, []);
+
+//   // Close search on click outside (desktop)
+//   useEffect(() => {
+//     const handleClickOutside = (event) => {
+//       if (searchRef.current && !searchRef.current.contains(event.target)) {
+//         setShowResults(false);
+//         if (!event.target.closest('.search-trigger')) {
+//           setSearchOpen(false);
+//         }
+//       }
+//     };
+//     document.addEventListener('mousedown', handleClickOutside);
+//     return () => document.removeEventListener('mousedown', handleClickOutside);
+//   }, []);
+
+//   // Close mobile search on click outside
+//   useEffect(() => {
+//     const handleClickOutside = (event) => {
+//       if (mobileSearchRef.current && !mobileSearchRef.current.contains(event.target) && !event.target.closest('.mobile-search-trigger')) {
+//         setMobileSearchOpen(false);
+//         setShowResults(false);
+//         setSearchQuery('');
+//       }
+//     };
+//     document.addEventListener('mousedown', handleClickOutside);
+//     return () => document.removeEventListener('mousedown', handleClickOutside);
+//   }, []);
+
+//   // Prevent body scroll when mobile menu is open
+//   useEffect(() => {
+//     if (isMenuOpen) {
+//       document.body.style.overflow = 'hidden';
+//     } else {
+//       document.body.style.overflow = 'unset';
+//     }
+//     return () => {
+//       document.body.style.overflow = 'unset';
+//     };
+//   }, [isMenuOpen]);
+
+//   useEffect(() => {
+//     if (!authLoading) {
+//       fetchCartCount();
+//     }
+//   }, [user, authLoading]);
+  
+//   // Check user state
+//   const checkUserState = () => {
+//     if (typeof window !== 'undefined') {
+//       const userData = localStorage.getItem('user');
+//       if (userData) {
+//         try {
+//           const parsedUser = JSON.parse(userData);
+//           setUser(parsedUser);
+//           setProfileImageError(false);
+//         } catch (error) {
+//           console.error('Error parsing user data:', error);
+//           setUser(null);
+//         }
+//       } else {
+//         setUser(null);
+//       }
+//       setAuthLoading(false);
+//     }
+//   };
+
+//   // Fetch cart count
+//   const fetchCartCount = async () => {
+//     try {
+//       const token = localStorage.getItem('token');
+//       const headers = {};
+      
+//       if (token) {
+//         headers['Authorization'] = `Bearer ${token}`;
+//       } else {
+//         const sessionId = localStorage.getItem('cartSessionId');
+//         if (sessionId) {
+//           headers['x-session-id'] = sessionId;
+//         }
+//       }
+      
+//       const response = await fetch('http://localhost:5000/api/cart', { headers });
+      
+//       if (response.ok) {
+//         const data = await response.json();
+//         setCartCount(data.data?.totalItems || 0);
+//       } else {
+//         setCartCount(0);
+//       }
+//     } catch (error) {
+//       console.error('Fetch cart count error:', error);
+//       setCartCount(0);
+//     }
+//   };
+
+//   useEffect(() => {
+//     checkUserState();
+//     fetchCartCount();
+
+//     const handleAuthChange = () => {
+//       checkUserState();
+//       fetchCartCount();
+//     };
+
+//     window.addEventListener('auth-change', handleAuthChange);
+//     window.addEventListener('focus', handleAuthChange);
+//     window.addEventListener('cart-update', fetchCartCount);
+
+//     return () => {
+//       window.removeEventListener('auth-change', handleAuthChange);
+//       window.removeEventListener('focus', handleAuthChange);
+//       window.removeEventListener('cart-update', fetchCartCount);
+//     };
+//   }, []);
+
+//   useEffect(() => {
+//     fetchCartCount();
+//   }, [pathname]);
+
+//   useEffect(() => {
+//     const handleCartUpdate = () => {
+//       fetchCartCount();
+//     };
+    
+//     window.addEventListener('cart-update', handleCartUpdate);
+    
+//     return () => {
+//       window.removeEventListener('cart-update', handleCartUpdate);
+//     };
+//   }, []);
+
+//   const navItems = [
+//     { name: 'Home', href: '/', icon: Home },
+//     { name: 'Products', href: '/products', icon: Package },
+//     { name: 'Track Order', href: '/track', icon: MapPin },
+//     { name: 'About', href: '/about', icon: Info },
+//     { name: 'Contact', href: '/contact', icon: Phone },
+//   ];
+
+//   const isActive = (path) => {
+//     if (path === '/') return pathname === '/';
+//     return pathname.startsWith(path);
+//   };
+
+//   const performSearch = async (query) => {
+//     if (!query.trim()) {
+//       setSearchResults([]);
+//       setShowResults(false);
+//       return;
+//     }
+    
+//     setSearchLoading(true);
+//     try {
+//       const response = await fetch(`http://localhost:5000/api/products?search=${encodeURIComponent(query)}&limit=5`);
+//       const data = await response.json();
+      
+//       if (data.success && data.data && data.data.length > 0) {
+//         setSearchResults(data.data);
+//         setShowResults(true);
+//       } else {
+//         setSearchResults([]);
+//         setShowResults(false);
+//       }
+//     } catch (error) {
+//       console.error('Search error:', error);
+//       setSearchResults([]);
+//       setShowResults(false);
+//     } finally {
+//       setSearchLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     const timer = setTimeout(() => {
+//       if (searchQuery) {
+//         performSearch(searchQuery);
+//       } else {
+//         setSearchResults([]);
+//         setShowResults(false);
+//       }
+//     }, 300);
+//     return () => clearTimeout(timer);
+//   }, [searchQuery]);
+
+//   const handleSearchSubmit = (e) => {
+//     e.preventDefault();
+//     if (searchQuery.trim()) {
+//       router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+//       setSearchOpen(false);
+//       setMobileSearchOpen(false);
+//       setSearchQuery('');
+//       setShowResults(false);
+//     }
+//   };
+
+//   const handleResultClick = (result) => {
+//     const productId = result._id;
+//     if (productId) {
+//       router.push(`/productDetails?id=${productId}`);
+//     } else {
+//       router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+//     }
+//     setSearchOpen(false);
+//     setMobileSearchOpen(false);
+//     setSearchQuery('');
+//     setShowResults(false);
+//   };
+  
+//   const logout = () => {
+//     localStorage.removeItem('token');
+//     localStorage.removeItem('user');
+//     setUser(null);
+//     setCartCount(0);
+//     setUserMenuOpen(false);
+//     window.dispatchEvent(new Event('cart-update'));
+//     window.dispatchEvent(new Event('auth-change'));
+//     toast.success('Logged out successfully!');
+//     router.push('/');
+//   };
+
+//   const getDashboardLink = () => {
+//     if (!user) return '/';
+//     switch (user.role) {
+//       case 'admin': return '/admin/dashboard';
+//       case 'moderator': return '/moderator/dashboard';
+//       default: return '/customer/dashboard';
+//     }
+//   };
+
+//   const getDisplayName = () => {
+//     if (!user) return '';
+//     return user.companyName || user.contactPerson || user.email?.split('@')[0] || 'User';
+//   };
+
+//   const getInitials = () => {
+//     if (!user) return 'U';
+//     const name = getDisplayName();
+//     return name.charAt(0).toUpperCase();
+//   };
+
+//   const getProfilePicture = () => {
+//     return user?.profilePicture || user?.photoURL || null;
+//   };
+
+//   if (authLoading) {
+//     return (
+//       <div className="fixed top-0 z-50 w-full bg-white border-b border-gray-100">
+//         <div className="container mx-auto px-4">
+//           <div className="flex items-center justify-between h-16">
+//             <div className="w-10 h-10 bg-gray-200 rounded animate-pulse"></div>
+//             <div className="flex gap-4">
+//               <div className="w-8 h-8 bg-gray-200 rounded animate-pulse"></div>
+//               <div className="w-8 h-8 bg-gray-200 rounded animate-pulse"></div>
+//               <div className="w-16 h-8 bg-gray-200 rounded animate-pulse"></div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <>
+//       {/* Main Navbar */}
+//       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+//         scrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-white shadow-sm'
+//       }`}>
+//         <div className="container mx-auto px-4">
+//           <div className="flex items-center justify-between h-16">
+            
+//             {/* Mobile Menu Button - Left Side for Mobile */}
+//             <button
+//               onClick={() => setIsMenuOpen(!isMenuOpen)}
+//               className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-all duration-200"
+//             >
+//               <Menu className="w-5 h-5 text-gray-700" />
+//             </button>
+
+//             {/* Logo - Left Side */}
+//             <Link href="/" className="flex items-center flex-shrink-0 group">
+//               <div className={`relative w-32 h-14 transition-transform group-hover:scale-105 duration-300 ${
+//                 !user ? '-ml-16 md:-ml-0' : ' -ml-4 md:-ml-0'
+//               }`}>
+//                 <img 
+//                   src="/logo.png"
+//                   alt="Smart Gadget Logo"
+//                   className="w-full h-full object-contain"
+//                 />
+//               </div>
+//             </Link>
+
+//             {/* Desktop Navigation - Center */}
+//             <div className="hidden md:flex items-center space-x-1 flex-1 justify-center">
+//               {navItems.map((item) => (
+//                 <Link
+//                   key={item.name}
+//                   href={item.href}
+//                   className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+//                     isActive(item.href)
+//                       ? 'text-blue-500'
+//                       : 'text-gray-600 hover:text-gray-900'
+//                   }`}
+//                 >
+//                   {item.name}
+//                   {isActive(item.href) && (
+//                     <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-0.5 bg-blue-600 rounded-full"></span>
+//                   )}
+//                 </Link>
+//               ))}
+//             </div>
+
+//             {/* Right Section - Search Icon, Cart, Sign In */}
+//             <div className="flex items-center gap-2">
+              
+//               {/* Desktop Search - Full width input that doesn't overlap */}
+//               <div className="hidden md:block relative" ref={searchRef}>
+//                 <div className="flex items-center">
+//                   {!searchOpen ? (
+//                     <button
+//                       onClick={() => setSearchOpen(true)}
+//                       className="search-trigger p-2 rounded-lg hover:bg-gray-100 transition-all duration-200"
+//                     >
+//                       <Search className="w-4.5 h-4.5 text-gray-600" />
+//                     </button>
+//                   ) : (
+//                     <div className="relative">
+//                       <form onSubmit={handleSearchSubmit} className="relative">
+//                         <input
+//                           type="text"
+//                           value={searchQuery}
+//                           onChange={(e) => setSearchQuery(e.target.value)}
+//                           placeholder="Search products..."
+//                           className="w-80 px-4 py-2 pr-20 text-sm text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-400 focus:bg-white transition-all shadow-sm"
+//                           autoFocus
+//                         />
+//                         <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+//                           <button type="submit" className="p-1">
+//                             {searchLoading ? (
+//                               <div className="w-3.5 h-3.5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+//                             ) : (
+//                               <Search className="w-3.5 h-3.5 text-gray-500" />
+//                             )}
+//                           </button>
+//                           <button
+//                             type="button"
+//                             onClick={() => {
+//                               setSearchOpen(false);
+//                               setSearchQuery('');
+//                               setShowResults(false);
+//                             }}
+//                             className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
+//                           >
+//                             <X className="w-3.5 h-3.5" />
+//                           </button>
+//                         </div>
+//                       </form>
+
+//                       {/* Search Results Dropdown */}
+//                       {showResults && searchResults.length > 0 && (
+//                         <div className="absolute top-full right-0 mt-2 w-96 bg-white rounded-xl shadow-xl border border-gray-100 max-h-96 overflow-y-auto z-50">
+//                           <div className="py-2">
+//                             {searchResults.map((product) => (
+//                               <button
+//                                 key={product._id}
+//                                 onClick={() => handleResultClick(product)}
+//                                 className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors flex items-center gap-3 border-b border-gray-50 last:border-0"
+//                               >
+//                                 {product.images && product.images.length > 0 ? (
+//                                   <img 
+//                                     src={product.images[0]?.url || product.images[0]} 
+//                                     alt={product.productName || product.name} 
+//                                     className="w-10 h-10 rounded-lg object-cover bg-gray-100"
+//                                   />
+//                                 ) : (
+//                                   <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
+//                                     <Package className="w-5 h-5 text-gray-400" />
+//                                   </div>
+//                                 )}
+//                                 <div className="flex-1">
+//                                   <p className="font-medium text-gray-900 text-sm line-clamp-1">
+//                                     {product.productName || product.name || product.title}
+//                                   </p>
+//                                   <div className="flex items-center gap-2 mt-0.5">
+//                                     <p className="text-sm font-semibold text-blue-500">
+//                                       ৳{product.discountPrice || product.regularPrice || product.price}
+//                                     </p>
+//                                     {product.discountPrice && product.regularPrice && (
+//                                       <p className="text-xs text-gray-400 line-through">
+//                                         ৳{product.regularPrice}
+//                                       </p>
+//                                     )}
+//                                   </div>
+//                                 </div>
+//                               </button>
+//                             ))}
+//                             <button
+//                               onClick={handleSearchSubmit}
+//                               className="w-full px-4 py-2.5 text-center text-sm text-blue-500 hover:bg-blue-50 font-medium border-t border-gray-100 transition-colors"
+//                             >
+//                               View all results for "{searchQuery}" →
+//                             </button>
+//                           </div>
+//                         </div>
+//                       )}
+//                     </div>
+//                   )}
+//                 </div>
+//               </div>
+
+//               {/* Mobile Search Trigger */}
+//               <button
+//                 onClick={() => setMobileSearchOpen(true)}
+//                 className="mobile-search-trigger md:hidden p-2 rounded-lg hover:bg-gray-100 transition-all duration-200"
+//               >
+//                 <Search className="w-4.5 h-4.5 text-gray-600" />
+//               </button>
+
+//               {/* Cart Icon - Opens Sidebar */}
+//               <button 
+//                 onClick={() => setIsCartOpen(true)} 
+//                 className="relative p-2 rounded-lg hover:bg-gray-100 transition-all duration-200 group"
+//               >
+//                 <ShoppingCart className="w-4.5 h-4.5 text-gray-700 group-hover:scale-105 transition-transform" />
+//                 {cartCount > 0 && (
+//                   <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-[10px] font-bold rounded-full min-w-[16px] h-[16px] flex items-center justify-center px-1 shadow-sm">
+//                     {cartCount > 9 ? '9+' : cartCount}
+//                   </span>
+//                 )}
+//               </button>
+
+//               {/* Sign In / User Menu */}
+//               {user ? (
+//                 <div className="relative">
+//                   <button
+//                     onClick={() => setUserMenuOpen(!userMenuOpen)}
+//                     className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-all duration-200 text-sm"
+//                   >
+//                     {getProfilePicture() && !profileImageError ? (
+//                       <img 
+//                         src={getProfilePicture()} 
+//                         alt={getDisplayName()}
+//                         className="w-7 h-7 rounded-full object-cover border-2 border-gray-200"
+//                       />
+//                     ) : (
+//                       <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold text-xs shadow-sm">
+//                         {getInitials()}
+//                       </div>
+//                     )}
+//                     <span className="hidden sm:inline text-gray-700 font-medium text-sm max-w-[100px] truncate">
+//                       {getDisplayName()}
+//                     </span>
+//                     <ChevronDown className={`w-3.5 h-3.5 text-gray-500 transition-transform duration-200 ${userMenuOpen ? 'rotate-180' : ''}`} />
+//                   </button>
+
+//                   {userMenuOpen && (
+//                     <>
+//                       <div className="fixed inset-0 z-40" onClick={() => setUserMenuOpen(false)} />
+//                       <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50 animate-fadeIn">
+//                         <div className="px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+//                           <p className="text-gray-900 font-semibold text-sm truncate">{getDisplayName()}</p>
+//                           <p className="text-gray-500 text-xs truncate mt-0.5">{user.email}</p>
+//                         </div>
+//                         <div className="py-2">
+//                           <Link href={getDashboardLink()} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors" onClick={() => setUserMenuOpen(false)}>
+//                             <LayoutDashboard className="w-4 h-4 text-gray-500" />
+//                             <span>Dashboard</span>
+//                           </Link>
+//                           <button onClick={() => { setUserMenuOpen(false); logout(); }} className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors w-full">
+//                             <LogOut className="w-4 h-4" />
+//                             <span>Logout</span>
+//                           </button>
+//                         </div>
+//                       </div>
+//                     </>
+//                   )}
+//                 </div>
+//               ) : (
+//                 <Link 
+//                   href="/login" 
+//                   className="hidden sm:block px-4 py-1.5 rounded-lg text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 transition-all duration-200 shadow-sm hover:shadow-md"
+//                 >
+//                   Sign In
+//                 </Link>
+//               )}
+//             </div>
+//           </div>
+//         </div>
+//       </nav>
+
+//       {/* Mobile Search Overlay - Opens below navbar */}
+//       {mobileSearchOpen && (
+//         <div className="fixed top-16 left-0 right-0 z-40 bg-white shadow-lg border-b border-gray-100 animate-slideDown md:hidden">
+//           <div className="container mx-auto px-4 py-3" ref={mobileSearchRef}>
+//             <form onSubmit={handleSearchSubmit} className="relative">
+//               <input
+//                 type="text"
+//                 value={searchQuery}
+//                 onChange={(e) => setSearchQuery(e.target.value)}
+//                 placeholder="Search products..."
+//                 className="w-full px-4 py-3 pr-20 text-sm text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-400 focus:bg-white transition-all"
+//                 autoFocus
+//               />
+//               <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-2">
+//                 <button type="submit" className="p-1.5">
+//                   {searchLoading ? (
+//                     <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+//                   ) : (
+//                     <Search className="w-4 h-4 text-gray-500" />
+//                   )}
+//                 </button>
+//                 <button
+//                   type="button"
+//                   onClick={() => {
+//                     setMobileSearchOpen(false);
+//                     setSearchQuery('');
+//                     setShowResults(false);
+//                   }}
+//                   className="p-1.5 text-gray-400 hover:text-gray-600 transition-colors"
+//                 >
+//                   <X className="w-4 h-4" />
+//                 </button>
+//               </div>
+//             </form>
+
+//             {/* Mobile Search Results */}
+//             {showResults && searchResults.length > 0 && (
+//               <div className="mt-3 bg-white rounded-lg border border-gray-100 max-h-96 overflow-y-auto">
+//                 {searchResults.map((product) => (
+//                   <button
+//                     key={product._id}
+//                     onClick={() => handleResultClick(product)}
+//                     className="w-full px-3 py-3 text-left hover:bg-gray-50 transition-colors flex items-center gap-3 border-b border-gray-100 last:border-0"
+//                   >
+//                     {product.images && product.images.length > 0 ? (
+//                       <img 
+//                         src={product.images[0]?.url || product.images[0]} 
+//                         alt={product.productName || product.name} 
+//                         className="w-12 h-12 rounded-lg object-cover bg-gray-100"
+//                       />
+//                     ) : (
+//                       <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center">
+//                         <Package className="w-6 h-6 text-gray-400" />
+//                       </div>
+//                     )}
+//                     <div className="flex-1">
+//                       <p className="font-medium text-gray-900 text-sm line-clamp-1">
+//                         {product.productName || product.name || product.title}
+//                       </p>
+//                       <p className="text-sm font-semibold text-blue-500 mt-0.5">
+//                         ৳{product.discountPrice || product.regularPrice || product.price}
+//                       </p>
+//                     </div>
+//                   </button>
+//                 ))}
+//                 <button
+//                   onClick={handleSearchSubmit}
+//                   className="w-full px-4 py-3 text-center text-sm text-blue-500 hover:bg-blue-50 font-medium border-t border-gray-100"
+//                 >
+//                   View all results for "{searchQuery}" →
+//                 </button>
+//               </div>
+//             )}
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Mobile Menu Sidebar */}
+//       <div className={`fixed inset-0 z-50 md:hidden ${isMenuOpen ? 'visible' : 'invisible'}`}>
+//         <div className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`} onClick={() => setIsMenuOpen(false)} />
+        
+//         <div className={`absolute left-0 top-0 h-full w-[80%] max-w-sm bg-white shadow-2xl transition-transform duration-300 ease-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+//           <div className="flex flex-col h-full">
+//             {/* Header */}
+//             <div className="flex items-center justify-between p-5 border-b border-gray-100">
+//               <div className="flex items-center space-x-2.5">
+//                 <div className="w-8 h-8">
+//                   <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
+//                 </div>
+//                 <div>
+//                   <span className="font-bold text-gray-900 text-base">Smart Gadget</span>
+//                 </div>
+//               </div>
+//               <button onClick={() => setIsMenuOpen(false)} className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+//                 <X className="w-5 h-5 text-gray-700" />
+//               </button>
+//             </div>
+
+//             {/* Navigation Items */}
+//             <div className="flex-1 overflow-y-auto py-3">
+//               {navItems.map((item) => (
+//                 <Link
+//                   key={item.name}
+//                   href={item.href}
+//                   onClick={() => setIsMenuOpen(false)}
+//                   className={`flex items-center gap-3 px-5 py-3 mx-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+//                     isActive(item.href) 
+//                       ? 'text-blue-500 bg-blue-50' 
+//                       : 'text-gray-700 hover:bg-gray-50'
+//                   }`}
+//                 >
+//                   <item.icon className={`w-4.5 h-4.5 ${isActive(item.href) ? 'text-blue-500' : 'text-gray-500'}`} />
+//                   <span>{item.name}</span>
+//                 </Link>
+//               ))}
+
+//               <div className="my-3 mx-5 h-px bg-gray-100"></div>
+
+//               {/* Auth Section for Mobile */}
+//               {!user ? (
+//                 <div className="px-5 mt-3">
+//                   <Link
+//                     href="/login"
+//                     onClick={() => setIsMenuOpen(false)}
+//                     className="flex items-center justify-center w-full px-4 py-2.5 rounded-lg text-sm font-medium bg-gray-900 text-white hover:bg-gray-800 transition-all shadow-sm"
+//                   >
+//                     Sign In
+//                   </Link>
+//                 </div>
+//               ) : (
+//                 <div className="px-5 mt-3">
+//                   <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-gray-50 to-white rounded-lg mb-3">
+//                     {getProfilePicture() && !profileImageError ? (
+//                       <img src={getProfilePicture()} alt={getDisplayName()} className="w-10 h-10 rounded-full object-cover border-2 border-gray-200" />
+//                     ) : (
+//                       <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold text-sm">
+//                         {getInitials()}
+//                       </div>
+//                     )}
+//                     <div className="flex-1">
+//                       <p className="font-semibold text-gray-900 text-sm">{getDisplayName()}</p>
+//                       <p className="text-gray-500 text-xs truncate">{user.email}</p>
+//                     </div>
+//                   </div>
+//                   <button
+//                     onClick={() => { setIsMenuOpen(false); logout(); }}
+//                     className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg text-sm font-medium bg-red-500 text-white hover:bg-red-600 transition-all"
+//                   >
+//                     <LogOut className="w-4 h-4" />
+//                     Logout
+//                   </button>
+//                 </div>
+//               )}
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Cart Sidebar */}
+//       <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+
+//       {/* Spacer */}
+//       <div className="h-16"></div>
+
+//       <style jsx>{`
+//         @keyframes slideLeft {
+//           from {
+//             opacity: 0;
+//             transform: translateX(20px);
+//           }
+//           to {
+//             opacity: 1;
+//             transform: translateX(0);
+//           }
+//         }
+//         .animate-slideLeft {
+//           animation: slideLeft 0.25s ease-out;
+//         }
+        
+//         @keyframes slideDown {
+//           from {
+//             opacity: 0;
+//             transform: translateY(-10px);
+//           }
+//           to {
+//             opacity: 1;
+//             transform: translateY(0);
+//           }
+//         }
+//         .animate-slideDown {
+//           animation: slideDown 0.25s ease-out;
+//         }
+        
+//         @keyframes fadeIn {
+//           from {
+//             opacity: 0;
+//             transform: translateY(-10px);
+//           }
+//           to {
+//             opacity: 1;
+//             transform: translateY(0);
+//           }
+//         }
+//         .animate-fadeIn {
+//           animation: fadeIn 0.2s ease-out;
+//         }
+        
+//         .w-4.5 {
+//           width: 1.125rem;
+//         }
+//         .h-4.5 {
+//           height: 1.125rem;
+//         }
+//       `}</style>
+//     </>
+//   );
+// }
+
+
 'use client';
 
 import Link from 'next/link';
@@ -20,10 +782,12 @@ import {
   UserCircle,
   ChevronDown,
   MapPin,
+  Sparkles,
+  Heart,
+  Flower2,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import CartSidebar from '../CartSidebar';
-
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -135,7 +899,7 @@ export default function Navbar() {
         }
       }
       
-      const response = await fetch('https://gadget-backend.vercel.app/api/cart', { headers });
+      const response = await fetch('http://localhost:5000/api/cart', { headers });
       
       if (response.ok) {
         const data = await response.json();
@@ -187,9 +951,9 @@ export default function Navbar() {
 
   const navItems = [
     { name: 'Home', href: '/', icon: Home },
-    { name: 'Products', href: '/products', icon: Package },
+    { name: 'Products', href: '/products', icon: Sparkles },
     { name: 'Track Order', href: '/track', icon: MapPin },
-    { name: 'About', href: '/about', icon: Info },
+    { name: 'About', href: '/about', icon: Flower2 },
     { name: 'Contact', href: '/contact', icon: Phone },
   ];
 
@@ -207,7 +971,7 @@ export default function Navbar() {
     
     setSearchLoading(true);
     try {
-      const response = await fetch(`https://gadget-backend.vercel.app/api/products?search=${encodeURIComponent(query)}&limit=5`);
+      const response = await fetch(`http://localhost:5000/api/products?search=${encodeURIComponent(query)}&limit=5`);
       const data = await response.json();
       
       if (data.success && data.data && data.data.length > 0) {
@@ -300,14 +1064,14 @@ export default function Navbar() {
 
   if (authLoading) {
     return (
-      <div className="fixed top-0 z-50 w-full bg-white border-b border-gray-100">
+      <div className="fixed top-0 z-50 w-full bg-white border-b border-[#F7C7D3]">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
-            <div className="w-10 h-10 bg-gray-200 rounded animate-pulse"></div>
+            <div className="w-10 h-10 bg-[#F7C7D3] rounded animate-pulse"></div>
             <div className="flex gap-4">
-              <div className="w-8 h-8 bg-gray-200 rounded animate-pulse"></div>
-              <div className="w-8 h-8 bg-gray-200 rounded animate-pulse"></div>
-              <div className="w-16 h-8 bg-gray-200 rounded animate-pulse"></div>
+              <div className="w-8 h-8 bg-[#F7C7D3] rounded animate-pulse"></div>
+              <div className="w-8 h-8 bg-[#F7C7D3] rounded animate-pulse"></div>
+              <div className="w-16 h-8 bg-[#F7C7D3] rounded animate-pulse"></div>
             </div>
           </div>
         </div>
@@ -319,7 +1083,9 @@ export default function Navbar() {
     <>
       {/* Main Navbar */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-white shadow-sm'
+        scrolled 
+          ? 'bg-white/95 backdrop-blur-md shadow-lg' 
+          : 'bg-white shadow-sm'
       }`}>
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
@@ -327,42 +1093,46 @@ export default function Navbar() {
             {/* Mobile Menu Button - Left Side for Mobile */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-all duration-200"
+              className="md:hidden p-2 rounded-lg hover:bg-[#F7C7D3]/30 transition-all duration-200"
             >
-              <Menu className="w-5 h-5 text-gray-700" />
+              <Menu className="w-5 h-5 text-[#EE4275]" />
             </button>
 
             {/* Logo - Left Side */}
             <Link href="/" className="flex items-center flex-shrink-0 group">
-              <div className={`relative w-32 h-14 transition-transform group-hover:scale-105 duration-300 ${
+              <div className={`relative transition-transform group-hover:scale-105 duration-300 ${
                 !user ? '-ml-16 md:-ml-0' : ' -ml-4 md:-ml-0'
               }`}>
                 <img 
                   src="/logo.png"
-                  alt="Smart Gadget Logo"
-                  className="w-full h-full object-contain"
+                  alt="Beauty Store Logo"
+                  className="w-32 h-14 object-contain"
                 />
               </div>
             </Link>
 
             {/* Desktop Navigation - Center */}
-            <div className="hidden md:flex items-center space-x-1 flex-1 justify-center">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    isActive(item.href)
-                      ? 'text-blue-500'
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
-                >
-                  {item.name}
-                  {isActive(item.href) && (
-                    <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-0.5 bg-blue-600 rounded-full"></span>
-                  )}
-                </Link>
-              ))}
+            <div className="navbar-center hidden lg:flex">
+              <ul className="menu menu-horizontal px-1">
+                {navItems.map((item) => (
+                  <li key={item.name}>
+                    <Link 
+                      href={item.href}
+                      style={{
+                        color: isActive(item.href) ? '#EE4275' : '#666666',
+                        fontWeight: isActive(item.href) ? '600' : '500',
+                        borderBottom: isActive(item.href) ? '2px solid #EE4275' : 'none',
+                        fontFamily: '"Playfair Display", "Georgia", serif',
+                        letterSpacing: '0.3px',
+                      }}
+                      className={`hover:text-[#EE4275] transition-all duration-200 pb-1 flex items-center gap-1.5`}
+                    >
+                      <item.icon className={`w-4 h-4 ${isActive(item.href) ? 'text-[#EE4275]' : 'text-gray-400'}`} />
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
 
             {/* Right Section - Search Icon, Cart, Sign In */}
@@ -374,9 +1144,9 @@ export default function Navbar() {
                   {!searchOpen ? (
                     <button
                       onClick={() => setSearchOpen(true)}
-                      className="search-trigger p-2 rounded-lg hover:bg-gray-100 transition-all duration-200"
+                      className="search-trigger p-2 rounded-lg hover:bg-[#F7C7D3]/30 transition-all duration-200"
                     >
-                      <Search className="w-4.5 h-4.5 text-gray-600" />
+                      <Search className="w-4.5 h-4.5 text-[#EE4275]" />
                     </button>
                   ) : (
                     <div className="relative">
@@ -385,16 +1155,20 @@ export default function Navbar() {
                           type="text"
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
-                          placeholder="Search products..."
-                          className="w-80 px-4 py-2 pr-20 text-sm text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-400 focus:bg-white transition-all shadow-sm"
+                          placeholder="Search beauty products..."
+                          className="w-80 px-4 py-2 pr-20 text-sm text-gray-700 bg-[#F7C7D3]/10 border border-[#EE4275]/20 rounded-lg focus:outline-none focus:border-[#EE4275] focus:ring-2 focus:ring-[#EE4275]/20 transition-all"
+                          style={{
+                            fontFamily: '"Playfair Display", "Georgia", serif',
+                            letterSpacing: '0.2px',
+                          }}
                           autoFocus
                         />
                         <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
                           <button type="submit" className="p-1">
                             {searchLoading ? (
-                              <div className="w-3.5 h-3.5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                              <div className="w-3.5 h-3.5 border-2 border-[#EE4275] border-t-transparent rounded-full animate-spin"></div>
                             ) : (
-                              <Search className="w-3.5 h-3.5 text-gray-500" />
+                              <Search className="w-3.5 h-3.5 text-[#EE4275]" />
                             )}
                           </button>
                           <button
@@ -404,7 +1178,7 @@ export default function Navbar() {
                               setSearchQuery('');
                               setShowResults(false);
                             }}
-                            className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                            className="p-1 text-gray-400 hover:text-[#EE4275] transition-colors"
                           >
                             <X className="w-3.5 h-3.5" />
                           </button>
@@ -413,31 +1187,31 @@ export default function Navbar() {
 
                       {/* Search Results Dropdown */}
                       {showResults && searchResults.length > 0 && (
-                        <div className="absolute top-full right-0 mt-2 w-96 bg-white rounded-xl shadow-xl border border-gray-100 max-h-96 overflow-y-auto z-50">
+                        <div className="absolute top-full right-0 mt-2 w-96 bg-white rounded-xl shadow-lg border border-[#EE4275]/10 max-h-96 overflow-y-auto z-50">
                           <div className="py-2">
                             {searchResults.map((product) => (
                               <button
                                 key={product._id}
                                 onClick={() => handleResultClick(product)}
-                                className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors flex items-center gap-3 border-b border-gray-50 last:border-0"
+                                className="w-full px-4 py-3 text-left hover:bg-[#F7C7D3]/20 transition-colors flex items-center gap-3 border-b border-[#F7C7D3]/30 last:border-0"
                               >
                                 {product.images && product.images.length > 0 ? (
                                   <img 
                                     src={product.images[0]?.url || product.images[0]} 
                                     alt={product.productName || product.name} 
-                                    className="w-10 h-10 rounded-lg object-cover bg-gray-100"
+                                    className="w-10 h-10 rounded-lg object-cover bg-[#F7C7D3]/20"
                                   />
                                 ) : (
-                                  <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-                                    <Package className="w-5 h-5 text-gray-400" />
+                                  <div className="w-10 h-10 rounded-lg bg-[#F7C7D3]/20 flex items-center justify-center">
+                                    <Sparkles className="w-5 h-5 text-[#EE4275]" />
                                   </div>
                                 )}
                                 <div className="flex-1">
-                                  <p className="font-medium text-gray-900 text-sm line-clamp-1">
+                                  <p className="font-medium text-gray-700 text-sm line-clamp-1" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
                                     {product.productName || product.name || product.title}
                                   </p>
                                   <div className="flex items-center gap-2 mt-0.5">
-                                    <p className="text-sm font-semibold text-blue-500">
+                                    <p className="text-sm font-semibold text-[#EE4275]" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
                                       ৳{product.discountPrice || product.regularPrice || product.price}
                                     </p>
                                     {product.discountPrice && product.regularPrice && (
@@ -451,7 +1225,8 @@ export default function Navbar() {
                             ))}
                             <button
                               onClick={handleSearchSubmit}
-                              className="w-full px-4 py-2.5 text-center text-sm text-blue-500 hover:bg-blue-50 font-medium border-t border-gray-100 transition-colors"
+                              className="w-full px-4 py-2.5 text-center text-sm text-[#EE4275] hover:bg-[#F7C7D3]/20 font-medium border-t border-[#F7C7D3]/30 transition-colors"
+                              style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}
                             >
                               View all results for "{searchQuery}" →
                             </button>
@@ -466,19 +1241,19 @@ export default function Navbar() {
               {/* Mobile Search Trigger */}
               <button
                 onClick={() => setMobileSearchOpen(true)}
-                className="mobile-search-trigger md:hidden p-2 rounded-lg hover:bg-gray-100 transition-all duration-200"
+                className="mobile-search-trigger md:hidden p-2 rounded-lg hover:bg-[#F7C7D3]/30 transition-all duration-200"
               >
-                <Search className="w-4.5 h-4.5 text-gray-600" />
+                <Search className="w-4.5 h-4.5 text-[#EE4275]" />
               </button>
 
               {/* Cart Icon - Opens Sidebar */}
               <button 
                 onClick={() => setIsCartOpen(true)} 
-                className="relative p-2 rounded-lg hover:bg-gray-100 transition-all duration-200 group"
+                className="relative p-2 rounded-lg hover:bg-[#F7C7D3]/30 transition-all duration-200 group"
               >
-                <ShoppingCart className="w-4.5 h-4.5 text-gray-700 group-hover:scale-105 transition-transform" />
+                <ShoppingCart className="w-4.5 h-4.5 text-[#EE4275] group-hover:scale-105 transition-transform" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-[10px] font-bold rounded-full min-w-[16px] h-[16px] flex items-center justify-center px-1 shadow-sm">
+                  <span className="absolute -top-1 -right-1 bg-[#EE4275] text-white text-[10px] font-bold rounded-full min-w-[16px] h-[16px] flex items-center justify-center px-1 shadow-sm" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
                     {cartCount > 9 ? '9+' : cartCount}
                   </span>
                 )}
@@ -489,39 +1264,39 @@ export default function Navbar() {
                 <div className="relative">
                   <button
                     onClick={() => setUserMenuOpen(!userMenuOpen)}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-all duration-200 text-sm"
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-[#F7C7D3]/30 transition-all duration-200 text-sm"
                   >
                     {getProfilePicture() && !profileImageError ? (
                       <img 
                         src={getProfilePicture()} 
                         alt={getDisplayName()}
-                        className="w-7 h-7 rounded-full object-cover border-2 border-gray-200"
+                        className="w-7 h-7 rounded-full object-cover border-2 border-[#EE4275]/30"
                       />
                     ) : (
-                      <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold text-xs shadow-sm">
+                      <div className="w-7 h-7 rounded-full bg-[#EE4275] flex items-center justify-center text-white font-semibold text-xs shadow-sm">
                         {getInitials()}
                       </div>
                     )}
-                    <span className="hidden sm:inline text-gray-700 font-medium text-sm max-w-[100px] truncate">
+                    <span className="hidden sm:inline text-gray-600 font-medium text-sm max-w-[100px] truncate" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
                       {getDisplayName()}
                     </span>
-                    <ChevronDown className={`w-3.5 h-3.5 text-gray-500 transition-transform duration-200 ${userMenuOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`w-3.5 h-3.5 text-[#EE4275] transition-transform duration-200 ${userMenuOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   {userMenuOpen && (
                     <>
                       <div className="fixed inset-0 z-40" onClick={() => setUserMenuOpen(false)} />
-                      <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50 animate-fadeIn">
-                        <div className="px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
-                          <p className="text-gray-900 font-semibold text-sm truncate">{getDisplayName()}</p>
-                          <p className="text-gray-500 text-xs truncate mt-0.5">{user.email}</p>
+                      <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-[#EE4275]/10 overflow-hidden z-50 animate-fadeIn">
+                        <div className="px-4 py-3 border-b border-[#F7C7D3]/30 bg-[#F7C7D3]/10">
+                          <p className="text-gray-700 font-semibold text-sm truncate" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>{getDisplayName()}</p>
+                          <p className="text-[#EE4275] text-xs truncate mt-0.5" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>{user.email}</p>
                         </div>
                         <div className="py-2">
-                          <Link href={getDashboardLink()} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors" onClick={() => setUserMenuOpen(false)}>
-                            <LayoutDashboard className="w-4 h-4 text-gray-500" />
+                          <Link href={getDashboardLink()} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-[#F7C7D3]/20 transition-colors" onClick={() => setUserMenuOpen(false)} style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
+                            <LayoutDashboard className="w-4 h-4 text-[#EE4275]" />
                             <span>Dashboard</span>
                           </Link>
-                          <button onClick={() => { setUserMenuOpen(false); logout(); }} className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors w-full">
+                          <button onClick={() => { setUserMenuOpen(false); logout(); }} className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors w-full" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
                             <LogOut className="w-4 h-4" />
                             <span>Logout</span>
                           </button>
@@ -533,7 +1308,8 @@ export default function Navbar() {
               ) : (
                 <Link 
                   href="/login" 
-                  className="hidden sm:block px-4 py-1.5 rounded-lg text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 transition-all duration-200 shadow-sm hover:shadow-md"
+                  className="hidden sm:block px-5 py-1.5 rounded-lg text-sm font-medium text-white bg-[#EE4275] hover:bg-[#EE4275]/80 transition-all duration-200 shadow-sm hover:shadow-md"
+                  style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}
                 >
                   Sign In
                 </Link>
@@ -545,23 +1321,27 @@ export default function Navbar() {
 
       {/* Mobile Search Overlay - Opens below navbar */}
       {mobileSearchOpen && (
-        <div className="fixed top-16 left-0 right-0 z-40 bg-white shadow-lg border-b border-gray-100 animate-slideDown md:hidden">
+        <div className="fixed top-16 left-0 right-0 z-40 bg-white shadow-lg border-b border-[#EE4275]/10 animate-slideDown md:hidden">
           <div className="container mx-auto px-4 py-3" ref={mobileSearchRef}>
             <form onSubmit={handleSearchSubmit} className="relative">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search products..."
-                className="w-full px-4 py-3 pr-20 text-sm text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-400 focus:bg-white transition-all"
+                placeholder="Search beauty products..."
+                className="w-full px-4 py-3 pr-20 text-sm text-gray-700 bg-[#F7C7D3]/10 border border-[#EE4275]/20 rounded-lg focus:outline-none focus:border-[#EE4275] focus:ring-2 focus:ring-[#EE4275]/20 transition-all"
+                style={{
+                  fontFamily: '"Playfair Display", "Georgia", serif',
+                  letterSpacing: '0.2px',
+                }}
                 autoFocus
               />
               <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-2">
                 <button type="submit" className="p-1.5">
                   {searchLoading ? (
-                    <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-4 h-4 border-2 border-[#EE4275] border-t-transparent rounded-full animate-spin"></div>
                   ) : (
-                    <Search className="w-4 h-4 text-gray-500" />
+                    <Search className="w-4 h-4 text-[#EE4275]" />
                   )}
                 </button>
                 <button
@@ -571,7 +1351,7 @@ export default function Navbar() {
                     setSearchQuery('');
                     setShowResults(false);
                   }}
-                  className="p-1.5 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="p-1.5 text-gray-400 hover:text-[#EE4275] transition-colors"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -580,29 +1360,29 @@ export default function Navbar() {
 
             {/* Mobile Search Results */}
             {showResults && searchResults.length > 0 && (
-              <div className="mt-3 bg-white rounded-lg border border-gray-100 max-h-96 overflow-y-auto">
+              <div className="mt-3 bg-white rounded-lg border border-[#EE4275]/10 max-h-96 overflow-y-auto">
                 {searchResults.map((product) => (
                   <button
                     key={product._id}
                     onClick={() => handleResultClick(product)}
-                    className="w-full px-3 py-3 text-left hover:bg-gray-50 transition-colors flex items-center gap-3 border-b border-gray-100 last:border-0"
+                    className="w-full px-3 py-3 text-left hover:bg-[#F7C7D3]/20 transition-colors flex items-center gap-3 border-b border-[#F7C7D3]/30 last:border-0"
                   >
                     {product.images && product.images.length > 0 ? (
                       <img 
                         src={product.images[0]?.url || product.images[0]} 
                         alt={product.productName || product.name} 
-                        className="w-12 h-12 rounded-lg object-cover bg-gray-100"
+                        className="w-12 h-12 rounded-lg object-cover bg-[#F7C7D3]/20"
                       />
                     ) : (
-                      <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center">
-                        <Package className="w-6 h-6 text-gray-400" />
+                      <div className="w-12 h-12 rounded-lg bg-[#F7C7D3]/20 flex items-center justify-center">
+                        <Sparkles className="w-6 h-6 text-[#EE4275]" />
                       </div>
                     )}
                     <div className="flex-1">
-                      <p className="font-medium text-gray-900 text-sm line-clamp-1">
+                      <p className="font-medium text-gray-700 text-sm line-clamp-1" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
                         {product.productName || product.name || product.title}
                       </p>
-                      <p className="text-sm font-semibold text-blue-500 mt-0.5">
+                      <p className="text-sm font-semibold text-[#EE4275] mt-0.5" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
                         ৳{product.discountPrice || product.regularPrice || product.price}
                       </p>
                     </div>
@@ -610,7 +1390,8 @@ export default function Navbar() {
                 ))}
                 <button
                   onClick={handleSearchSubmit}
-                  className="w-full px-4 py-3 text-center text-sm text-blue-500 hover:bg-blue-50 font-medium border-t border-gray-100"
+                  className="w-full px-4 py-3 text-center text-sm text-[#EE4275] hover:bg-[#F7C7D3]/20 font-medium border-t border-[#F7C7D3]/30"
+                  style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}
                 >
                   View all results for "{searchQuery}" →
                 </button>
@@ -622,22 +1403,21 @@ export default function Navbar() {
 
       {/* Mobile Menu Sidebar */}
       <div className={`fixed inset-0 z-50 md:hidden ${isMenuOpen ? 'visible' : 'invisible'}`}>
-        <div className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`} onClick={() => setIsMenuOpen(false)} />
+        <div className={`absolute inset-0 bg-black/30 backdrop-blur-sm transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`} onClick={() => setIsMenuOpen(false)} />
         
         <div className={`absolute left-0 top-0 h-full w-[80%] max-w-sm bg-white shadow-2xl transition-transform duration-300 ease-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           <div className="flex flex-col h-full">
             {/* Header */}
-            <div className="flex items-center justify-between p-5 border-b border-gray-100">
+            <div className="flex items-center justify-between p-5 border-b border-[#F7C7D3]/30">
               <div className="flex items-center space-x-2.5">
-                <div className="w-8 h-8">
-                  <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
-                </div>
+                <img src="/logo.png" alt="Logo" className="w-8 h-8 object-contain" />
                 <div>
-                  <span className="font-bold text-gray-900 text-base">Smart Gadget</span>
+                  <span className="font-bold text-gray-700 text-base" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>Glow&Co</span>
+                  <span className="text-[10px] text-[#EE4275] block -mt-1 tracking-wider" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>BEAUTY</span>
                 </div>
               </div>
-              <button onClick={() => setIsMenuOpen(false)} className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                <X className="w-5 h-5 text-gray-700" />
+              <button onClick={() => setIsMenuOpen(false)} className="p-2 rounded-lg hover:bg-[#F7C7D3]/20 transition-colors">
+                <X className="w-5 h-5 text-[#EE4275]" />
               </button>
             </div>
 
@@ -650,16 +1430,22 @@ export default function Navbar() {
                   onClick={() => setIsMenuOpen(false)}
                   className={`flex items-center gap-3 px-5 py-3 mx-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                     isActive(item.href) 
-                      ? 'text-blue-500 bg-blue-50' 
-                      : 'text-gray-700 hover:bg-gray-50'
+                      ? 'text-[#EE4275] font-semibold' 
+                      : 'text-gray-600 hover:text-[#EE4275] hover:bg-[#F7C7D3]/20'
                   }`}
+                  style={{
+                    fontFamily: '"Playfair Display", "Georgia", serif',
+                    borderLeft: isActive(item.href) ? '3px solid #EE4275' : 'none',
+                    paddingLeft: isActive(item.href) ? '17px' : '20px',
+                    letterSpacing: '0.3px',
+                  }}
                 >
-                  <item.icon className={`w-4.5 h-4.5 ${isActive(item.href) ? 'text-blue-500' : 'text-gray-500'}`} />
+                  <item.icon className={`w-4.5 h-4.5 ${isActive(item.href) ? 'text-[#EE4275]' : 'text-gray-400'}`} />
                   <span>{item.name}</span>
                 </Link>
               ))}
 
-              <div className="my-3 mx-5 h-px bg-gray-100"></div>
+              <div className="my-3 mx-5 h-px bg-gradient-to-r from-[#EE4275]/20 via-[#EE4275]/40 to-[#EE4275]/20"></div>
 
               {/* Auth Section for Mobile */}
               {!user ? (
@@ -667,29 +1453,31 @@ export default function Navbar() {
                   <Link
                     href="/login"
                     onClick={() => setIsMenuOpen(false)}
-                    className="flex items-center justify-center w-full px-4 py-2.5 rounded-lg text-sm font-medium bg-gray-900 text-white hover:bg-gray-800 transition-all shadow-sm"
+                    className="flex items-center justify-center w-full px-4 py-2.5 rounded-lg text-sm font-medium bg-[#EE4275] text-white hover:bg-[#EE4275]/80 transition-all shadow-sm"
+                    style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}
                   >
                     Sign In
                   </Link>
                 </div>
               ) : (
                 <div className="px-5 mt-3">
-                  <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-gray-50 to-white rounded-lg mb-3">
+                  <div className="flex items-center gap-3 p-3 bg-[#F7C7D3]/10 rounded-lg mb-3">
                     {getProfilePicture() && !profileImageError ? (
-                      <img src={getProfilePicture()} alt={getDisplayName()} className="w-10 h-10 rounded-full object-cover border-2 border-gray-200" />
+                      <img src={getProfilePicture()} alt={getDisplayName()} className="w-10 h-10 rounded-full object-cover border-2 border-[#EE4275]/30" />
                     ) : (
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold text-sm">
+                      <div className="w-10 h-10 rounded-full bg-[#EE4275] flex items-center justify-center text-white font-semibold text-sm">
                         {getInitials()}
                       </div>
                     )}
                     <div className="flex-1">
-                      <p className="font-semibold text-gray-900 text-sm">{getDisplayName()}</p>
-                      <p className="text-gray-500 text-xs truncate">{user.email}</p>
+                      <p className="font-semibold text-gray-700 text-sm" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>{getDisplayName()}</p>
+                      <p className="text-[#EE4275] text-xs truncate" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>{user.email}</p>
                     </div>
                   </div>
                   <button
                     onClick={() => { setIsMenuOpen(false); logout(); }}
                     className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg text-sm font-medium bg-red-500 text-white hover:bg-red-600 transition-all"
+                    style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}
                   >
                     <LogOut className="w-4 h-4" />
                     Logout

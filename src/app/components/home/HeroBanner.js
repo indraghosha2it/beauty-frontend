@@ -1,10 +1,11 @@
 
+
 // // components/home/HeroBanner.js
 // 'use client';
 
 // import { useState, useEffect, useRef, useCallback } from 'react';
 // import Link from 'next/link';
-// import { ChevronLeft, ChevronRight, Clock, Shield, Truck, Star, TrendingUp, Headphones, ArrowRight } from 'lucide-react';
+// import { ChevronLeft, ChevronRight, Clock, Shield, Truck, Star, TrendingUp, Headphones, ArrowRight, Sparkles, Flower2 } from 'lucide-react';
 // import { getHomepageBanners, trackBannerClick } from '@/app/services/bannerService';
 
 // // Icon mapping
@@ -51,24 +52,25 @@
 //     return [
 //       {
 //         id: 'fallback-1',
-//         title: 'Premium Gadgets',
-//         subtitle: 'Latest Technology',
-//         mainText: 'Experience the Future Today',
-//         description: 'Discover cutting-edge electronics with premium quality and unmatched performance',
-//         badge: 'Limited Edition',
+//         title: 'Premium Beauty Collection',
+//         subtitle: 'Luxury Skincare',
+//         mainText: 'Experience the Beauty',
+//         description: 'Discover premium beauty products with unmatched quality and radiant results',
+//         badge: '✨ Limited Edition',
 //         discount: '40% OFF',
-//         category: 'Electronics',
-//         bgImage: '/images/1.png',
-//         productImage: '/images/product1.png',
+//         category: 'Beauty',
+//         bgImage: '/images/banner.jpeg',
+//         productImage: 'https://res.cloudinary.com/dta5ahuh9/image/upload/v1781580462/rt3xpskc6vmqj5oieltz.jpg',
 //         features: [
 //           { icon: 'Truck', text: 'Free Shipping' },
-//           { icon: 'Shield', text: '2 Year Warranty' },
+//           { icon: 'Shield', text: '100% Authentic' },
 //           { icon: 'Clock', text: '24/7 Support' }
 //         ],
 //         buttons: [
 //           { text: 'Shop Now', link: '/products', isPrimary: true },
 //           { text: 'Learn More', link: '/about', isPrimary: false }
-//         ]
+//         ],
+//         featuredProducts: []
 //       }
 //     ];
 //   };
@@ -138,7 +140,7 @@
 
 //   if (isLoading) {
 //     return (
-//       <div className="relative w-full h-[400px] sm:h-[500px] md:h-[560px] lg:h-[520px] xl:h-[530px] bg-gray-200 animate-pulse flex items-center justify-center">
+//       <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[520px] xl:h-[530px] bg-gray-200 animate-pulse flex items-center justify-center">
 //         <div className="text-gray-500">Loading banners...</div>
 //       </div>
 //     );
@@ -156,16 +158,29 @@
 //       onTouchStart={handleTouchStart}
 //       onTouchEnd={handleTouchEnd}
 //     >
-//       <div className="relative h-[400px] sm:h-[500px] md:h-[560px] lg:h-[520px] xl:h-[530px]">
+//       <div className="relative min-h-[280px] sm:min-h-[400px] md:min-h-[480px] lg:h-[520px] xl:h-[530px]">
 //         {banners.map((slide, index) => {
 //           const IconComponent = (iconName) => {
 //             const Icon = ICON_MAP[iconName];
-//             return Icon ? <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 group-hover:scale-110 transition-transform" /> : null;
+//             return Icon ? <Icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-pink-500 group-hover:scale-110 transition-transform" /> : null;
 //           };
+
+//           // Get bgImage URL
+//           const bgImageUrl = typeof slide.bgImage === 'string' 
+//             ? slide.bgImage 
+//             : slide.bgImage?.url || '';
+
+//           // Get product image
+//           const productImageUrl = typeof slide.productImage === 'string' 
+//             ? slide.productImage 
+//             : slide.productImage?.url || '';
+
+//           // Get featured products
+//           const featuredProducts = slide.featuredProducts || [];
 
 //           return (
 //             <div
-//               key={slide.id}
+//               key={slide.id || index}
 //               className={`absolute inset-0 transition-opacity duration-600 ${
 //                 currentSlide === index ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
 //               }`}
@@ -177,81 +192,83 @@
 //               <div 
 //                 className="absolute inset-0 bg-cover bg-center bg-no-repeat"
 //                 style={{ 
-//                   backgroundImage: `url(${slide.bgImage})`,
+//                   backgroundImage: `url(${bgImageUrl})`,
 //                   backgroundPosition: 'center',
 //                   transform: `scale(${currentSlide === index ? 1 : 1.05})`,
 //                   transition: 'transform 8s ease-out',
 //                 }}
 //               />
               
-//               {/* Gradient Overlay */}
-//               <div className="absolute inset-0 bg-gradient-to-r from-white/40 via-white/20 to-transparent" />
+//               {/* Gradient Overlay - Beauty Style */}
+//               <div className="absolute inset-0 bg-gradient-to-r from-[#FFF5F6]/80 via-white/40 to-transparent" />
               
-//               {/* Decorative Elements */}
-//               <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-//               <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+//               {/* Decorative Beauty Elements */}
+//               <div className="absolute top-0 right-0 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 bg-pink-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+//               <div className="absolute bottom-0 left-0 w-40 h-40 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 bg-purple-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+              
+//               {/* Floating Sparkles */}
+//               <div className="absolute top-8 right-12 opacity-30">
+//                 <Sparkles className="w-6 h-6 text-pink-400" />
+//               </div>
+//               <div className="absolute bottom-20 left-10 opacity-20">
+//                 <Sparkles className="w-4 h-4 text-pink-300" />
+//               </div>
+//               <div className="absolute top-1/3 right-1/4 opacity-15">
+//                 <Flower2 className="w-8 h-8 text-pink-400" />
+//               </div>
               
 //               {/* Content Container */}
-//               <div className="relative h-full flex items-center">
-//                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-//                   <div className="flex items-center justify-between">
-//                     <div className="max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
+//               <div className="relative h-full flex items-center py-3 sm:py-4 md:py-0">
+//                 <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12">
+//                   <div className="flex items-center gap-2 sm:gap-4 md:gap-6">
+//                     {/* Left Content */}
+//                     <div className="flex-1 min-w-0 max-w-full sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
 //                       {/* Badge */}
-//                       <div className={`mb-1 md:mb-0 inline-block transition-all duration-700 delay-100 ${
+//                       <div className={`mb-1 sm:mb-2 inline-block transition-all duration-700 delay-100 ${
 //                         currentSlide === index && !isTransitioning ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
 //                       }`}>
-//                         <span className="px-3 py-1 text-xs font-medium text-gray-700 bg-white/80 backdrop-blur-md rounded-full border border-gray-200 shadow-sm">
+//                         <span className="px-3 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-medium text-pink-600 bg-white/90 backdrop-blur-md rounded-full border border-pink-200 shadow-sm" style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}>
 //                           {slide.badge}
 //                         </span>
 //                       </div>
                       
-//                       {/* Main Title */}
-//                       <h1 className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl font-bold font-serif text-gray-900 mb-2 sm:mb-3 tracking-tight leading-[1.1] transition-all duration-700 delay-200 ${
+//                       {/* Main Title - Cursive */}
+//                       <h1 className={`text-lg sm:text-3xl md:text-4xl lg:text-6xl xl:text-6xl font-bold text-gray-900 mb-1 sm:mb-2 md:mb-3 tracking-tight leading-[1.1] transition-all duration-700 delay-200 ${
 //                         currentSlide === index && !isTransitioning ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-//                       }`}>
+//                       } line-clamp-2 sm:line-clamp-none`}
+//                       style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}>
 //                         {slide.title}
 //                       </h1>
                       
-//                       {/* Subtitle */}
-//                       <h2 className={`text-xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-3 sm:mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent transition-all duration-700 delay-300 ${
-//                         currentSlide === index && !isTransitioning ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-//                       }`}>
-//                         {slide.subtitle}
-//                       </h2>
-                      
-//                       {/* Main Text */}
-//                       <p className={`text-lg sm:text-2xl md:text-3xl lg:text-4xl text-gray-800 mb-3 sm:mb-4 font-light leading-tight transition-all duration-700 delay-400 ${
-//                         currentSlide === index && !isTransitioning ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-//                       }`}>
-//                         {slide.mainText}
-//                       </p>
-                      
 //                       {/* Description */}
-//                       <p className={`text-sm sm:text-base md:text-lg text-gray-600 mb-5 sm:mb-7 max-w-full sm:max-w-xl md:max-w-2xl leading-relaxed transition-all duration-700 delay-500 ${
+//                       <p className={`text-sm sm:text-base md:text-lg text-gray-700 mb-3 sm:mb-4 md:mb-5 max-w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl leading-relaxed transition-all duration-700 delay-500 ${
 //                         currentSlide === index && !isTransitioning ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-//                       }`}>
+//                       } line-clamp-2 sm:line-clamp-none`}
+//                       style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}>
 //                         {slide.description}
 //                       </p>
                       
 //                       {/* Features */}
 //                       {slide.features && slide.features.length > 0 && (
-//                         <div className={`flex flex-wrap gap-2 sm:gap-3 mb-6 sm:mb-8 transition-all duration-700 delay-600 ${
+//                         <div className={`flex flex-wrap gap-1.5 sm:gap-2 md:gap-3 mb-3 sm:mb-4 md:mb-5 transition-all duration-700 delay-600 ${
 //                           currentSlide === index && !isTransitioning ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
 //                         }`}>
 //                           {slide.features.map((feature, idx) => (
 //                             <div 
 //                               key={idx} 
-//                               className="group flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/80 backdrop-blur-md rounded-full border border-gray-200 hover:bg-white hover:shadow-md transition-all duration-300"
+//                               className="group flex items-center gap-1 sm:gap-1.5 md:gap-2 px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 bg-white/80 backdrop-blur-md rounded-full border border-pink-200 hover:bg-white hover:shadow-md transition-all duration-300"
 //                             >
 //                               {IconComponent(feature.icon)}
-//                               <span className="text-gray-700 text-xs sm:text-sm font-medium">{feature.text}</span>
+//                               <span className="text-gray-700 text-[9px] sm:text-[10px] md:text-xs lg:text-sm font-medium" style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}>
+//                                 {feature.text}
+//                               </span>
 //                             </div>
 //                           ))}
 //                         </div>
 //                       )}
                       
 //                       {/* Buttons */}
-//                       <div className={`flex flex-wrap gap-2 sm:gap-4 transition-all duration-700 delay-700 ${
+//                       <div className={`flex flex-wrap gap-1.5 sm:gap-2 md:gap-3 lg:gap-4 mb-16 transition-all duration-700 delay-700 ${
 //                         currentSlide === index && !isTransitioning ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
 //                       }`}>
 //                         {slide.buttons && slide.buttons.map((button, idx) => (
@@ -259,40 +276,85 @@
 //                             key={idx}
 //                             href={button.link}
 //                             onClick={() => handleBannerClick(slide.id)}
-//                             className={`group relative overflow-hidden flex-1 sm:flex-none px-4 sm:px-8 py-2.5 sm:py-3.5 ${
+//                             className={`group relative overflow-hidden flex-1 sm:flex-none px-4 sm:px-6 md:px-8 lg:px-10 py-1.5 sm:py-2.5 md:py-3 lg:py-4 ${
 //                               button.isPrimary 
-//                                 ? 'bg-gray-900 text-white hover:shadow-2xl' 
-//                                 : 'bg-white/80 backdrop-blur-md border border-gray-300 text-gray-700 hover:bg-white hover:shadow-lg'
-//                             } font-semibold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-xs sm:text-sm md:text-base`}
+//                                 ? 'bg-pink-500 text-white hover:bg-pink-600 shadow-lg hover:shadow-xl' 
+//                                 : 'bg-white/80 backdrop-blur-md border border-pink-300 text-gray-700 hover:bg-white hover:shadow-lg'
+//                             } font-semibold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-[9px] sm:text-xs md:text-sm lg:text-base`}
+//                             style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}
 //                           >
-//                             <span className="relative z-10 flex items-center justify-center gap-1 sm:gap-2">
+//                             <span className="relative z-10 flex items-center justify-center gap-1 sm:gap-1.5 md:gap-2">
 //                               {button.text}
 //                               {button.isPrimary && (
-//                                 <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
+//                                 <ArrowRight className="w-2 h-2 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 lg:w-4 lg:h-4 group-hover:translate-x-1 transition-transform" />
 //                               )}
 //                             </span>
 //                             {button.isPrimary && (
-//                               <div className="absolute inset-0 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
+//                               <div className="absolute inset-0 bg-pink-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
 //                             )}
 //                           </Link>
 //                         ))}
 //                       </div>
 //                     </div>
 
-//                     {/* Product Image - Right Side - INCREASED SIZE */}
-//                     {slide.productImage && (
-//                       <div className="hidden md:block flex-shrink-0 ml-8 w-64 lg:w-80 xl:w-96 2xl:w-[400px]">
-//                         <div className="relative">
-//                           <img
-//                             src={slide.productImage}
-//                             alt={slide.title}
-//                             className="w-full h-auto object-contain drop-shadow-2xl"
-//                             style={{ 
-//                               filter: 'drop-shadow(0 25px 25px rgba(0,0,0,0.15))',
-//                               maxHeight: '400px' // Increased from 280px
-//                             }}
-//                           />
-//                           <div className="absolute inset-0 rounded-full bg-blue-500/10 blur-3xl -z-10 scale-150" />
+//                     {/* Right Side - Product Image in Circle with Animated Border */}
+//                     {productImageUrl && (
+//                       <div className="hidden md:block flex-shrink-0 ml-2 sm:ml-4 md:ml-6 lg:ml-8">
+//                         <div className="relative w-48 sm:w-56 md:w-64 lg:w-72 xl:w-80">
+//                           {/* Animated Border Ring */}
+//                           <div className="absolute -inset-3 rounded-full">
+//                             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-400 via-rose-500 to-pink-400 animate-spin-slow opacity-75 blur-sm"></div>
+//                             <div className="absolute inset-[3px] rounded-full bg-gradient-to-r from-pink-300 via-rose-400 to-pink-300 animate-spin-slow opacity-50 blur-sm" style={{ animationDirection: 'reverse' }}></div>
+//                           </div>
+                          
+//                           {/* Main Circle Container */}
+//                           <div className="relative rounded-full overflow-hidden shadow-2xl border-4 border-white/60"
+//                                style={{
+//                                  width: '100%',
+//                                  aspectRatio: '1/1',
+//                                  background: 'linear-gradient(135deg, #FFF5F6 0%, #FFE4E8 100%)',
+//                                  boxShadow: '0 25px 50px -12px rgba(238, 66, 117, 0.25)'
+//                                }}>
+//                             <img
+//                               src={productImageUrl}
+//                               alt={slide.title}
+//                               className="w-full h-full object-contain p-4"
+//                               style={{ 
+//                                 objectPosition: 'center',
+//                                 filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.1))'
+//                               }}
+//                             />
+//                             {/* Inner Glow */}
+//                             <div className="absolute inset-0 rounded-full bg-gradient-to-t from-pink-500/10 via-transparent to-transparent pointer-events-none" />
+//                             {/* Decorative Ring */}
+//                             <div className="absolute inset-2 rounded-full border-2 border-white/30 pointer-events-none" />
+                            
+//                             {/* Pulsing Dot Decorations */}
+//                             <div className="absolute -top-1 -right-1 w-3 h-3 bg-pink-400 rounded-full animate-pulse"></div>
+//                             <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-rose-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+//                           </div>
+                          
+//                           {/* Floating Glow Effect */}
+//                           <div className="absolute -inset-6 rounded-full bg-pink-500/10 blur-3xl -z-10" />
+                          
+//                           {/* Discount Badge */}
+//                           {slide.discount && (
+//                             <div className={`absolute -top-2 -right-2 sm:-top-3 sm:-right-3 md:-top-4 md:-right-4 transition-all duration-700 delay-400 ${
+//                               currentSlide === index && !isTransitioning ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+//                             }`}>
+//                               <div className="relative group">
+//                                 <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow-2xl border-2 border-white/30 hover:scale-110 transition-transform duration-300">
+//                                   <div className="text-center">
+//                                     <div className="text-white font-black text-[8px] sm:text-[10px] md:text-xs lg:text-sm leading-tight" style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}>
+//                                       {slide.discount}
+//                                     </div>
+//                                     <div className="text-white/90 text-[5px] sm:text-[6px] md:text-[8px] font-medium">OFF</div>
+//                                   </div>
+//                                 </div>
+//                                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 blur-md opacity-40 -z-10" />
+//                               </div>
+//                             </div>
+//                           )}
 //                         </div>
 //                       </div>
 //                     )}
@@ -300,20 +362,53 @@
 //                 </div>
 //               </div>
 
-//               {/* Discount Badge */}
-//               <div className={`hidden sm:block absolute -top-4 -right-4 sm:top-8 sm:right-8 md:top-12 md:right-12 transition-all duration-700 delay-400 ${
-//                 currentSlide === index && !isTransitioning ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
-//               }`}>
-//                 <div className="relative">
-//                   <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center shadow-2xl">
-//                     <div className="text-center">
-//                       <div className="text-white font-black text-sm sm:text-base md:text-xl leading-tight">{slide.discount}</div>
-//                       <div className="text-white/90 text-[10px] sm:text-xs font-medium">OFF</div>
-//                     </div>
+//               {/* Featured Products at Bottom - Cards with Pink Border */}
+//               {featuredProducts.length > 0 && (
+//                 <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-10 w-[90%] max-w-4xl">
+//                   <div className="flex gap-1.5 sm:gap-2">
+//                     {featuredProducts.slice(0, 3).map((item, idx) => (
+//                       <Link 
+//                         key={idx}
+//                         href={`/productDetails?id=${item.productId?._id || item.productId}`}
+//                         className="flex-1 bg-white/20 backdrop-blur-sm rounded-xl border-2 border-pink-300/60 hover:border-pink-500 transition-all overflow-hidden shadow-sm hover:shadow-md hover:bg-white/30"
+//                       >
+//                         <div className="flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2">
+//                           <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden flex-shrink-0 bg-white/20 border border-pink-200/50">
+//                             <img
+//                               src={item.productId?.images?.[0]?.url || '/images/placeholder.jpg'}
+//                               alt={item.productId?.productName || 'Product'}
+//                               className="w-full h-full object-cover"
+//                             />
+//                           </div>
+//                           <div className="flex-1 min-w-0">
+//                             <p className="text-[8px] sm:text-[10px] md:text-xs font-medium text-gray-800 truncate" style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}>
+//                               {item.productId?.productName || 'Product'}
+//                             </p>
+//                             {item.productId?.discountPrice > 0 ? (
+//                               <div className="flex items-center gap-1">
+//                                 <span className="text-[8px] sm:text-[10px] md:text-xs font-bold text-pink-500">৳{item.productId.discountPrice}</span>
+//                                 <span className="text-[6px] sm:text-[7px] md:text-[8px] text-gray-400 line-through">৳{item.productId.regularPrice}</span>
+//                               </div>
+//                             ) : (
+//                               <span className="text-[8px] sm:text-[10px] md:text-xs font-bold text-gray-700">৳{item.productId?.regularPrice}</span>
+//                             )}
+//                           </div>
+//                           <button
+//                             onClick={(e) => {
+//                               e.preventDefault();
+//                               window.open(`/productDetails?id=${item.productId?._id || item.productId}`, '_blank');
+//                             }}
+//                             className="flex-shrink-0 px-2 sm:px-3 py-0.5 sm:py-1 text-[7px] sm:text-[9px] md:text-[10px] font-semibold text-white bg-pink-500 rounded-lg hover:bg-pink-600 transition-colors shadow-md hover:shadow-lg whitespace-nowrap"
+//                             style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}
+//                           >
+//                             Shop Now
+//                           </button>
+//                         </div>
+//                       </Link>
+//                     ))}
 //                   </div>
-//                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-red-500 to-orange-500 blur-md opacity-50 -z-10" />
 //                 </div>
-//               </div>
+//               )}
 //             </div>
 //           );
 //         })}
@@ -324,50 +419,32 @@
 //         <>
 //           <button
 //             onClick={prevSlide}
-//             className="hidden sm:flex absolute left-3 sm:left-6 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur-md border border-gray-300 text-gray-800 hover:bg-white hover:scale-110 transition-all duration-200 z-20 items-center justify-center shadow-lg group"
+//             className="absolute left-0 sm:left-2 md:left-4 lg:left-6 xl:left-8 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-white/90 backdrop-blur-md border-2 border-pink-200 text-gray-800 hover:bg-pink-500 hover:text-white hover:border-pink-500 hover:scale-110 transition-all duration-200 z-20 flex items-center justify-center shadow-lg group"
 //             aria-label="Previous slide"
 //           >
-//             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-0.5 transition-transform" />
+//             <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 group-hover:-translate-x-0.5 transition-transform" />
 //           </button>
 
 //           <button
 //             onClick={nextSlide}
-//             className="hidden sm:flex absolute right-3 sm:right-6 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur-md border border-gray-300 text-gray-800 hover:bg-white hover:scale-110 transition-all duration-200 z-20 items-center justify-center shadow-lg group"
+//             className="absolute right-0 sm:right-2 md:right-4 lg:right-6 xl:right-8 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-white/90 backdrop-blur-md border-2 border-pink-200 text-gray-800 hover:bg-pink-500 hover:text-white hover:border-pink-500 hover:scale-110 transition-all duration-200 z-20 flex items-center justify-center shadow-lg group"
 //             aria-label="Next slide"
 //           >
-//             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-0.5 transition-transform" />
+//             <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 group-hover:translate-x-0.5 transition-transform" />
 //           </button>
-
-//           {/* Mobile Navigation Arrows */}
-//           <div className="sm:hidden absolute bottom-20 left-0 right-0 flex justify-center gap-4 z-20">
-//             <button
-//               onClick={prevSlide}
-//               className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-md border border-gray-300 text-gray-800 hover:bg-white transition-all duration-200 flex items-center justify-center shadow-lg"
-//               aria-label="Previous slide"
-//             >
-//               <ChevronLeft className="w-5 h-5" />
-//             </button>
-//             <button
-//               onClick={nextSlide}
-//               className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-md border border-gray-300 text-gray-800 hover:bg-white transition-all duration-200 flex items-center justify-center shadow-lg"
-//               aria-label="Next slide"
-//             >
-//               <ChevronRight className="w-5 h-5" />
-//             </button>
-//           </div>
 //         </>
 //       )}
 
 //       {/* Dots Indicator */}
-//       <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3 z-20">
+//       <div className="absolute bottom-14 sm:bottom-16 md:bottom-20 lg:bottom-24 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 md:gap-3 z-20">
 //         {banners.map((_, index) => (
 //           <button
 //             key={index}
 //             onClick={() => goToSlide(index)}
 //             className={`transition-all duration-300 rounded-full ${
 //               currentSlide === index
-//                 ? 'w-8 sm:w-10 md:w-12 h-1 bg-gray-800 shadow-lg'
-//                 : 'w-5 sm:w-6 md:w-7 h-1 bg-gray-400 hover:bg-gray-600'
+//                 ? 'w-6 sm:w-8 md:w-10 h-1 bg-pink-500 shadow-lg'
+//                 : 'w-4 sm:w-5 md:w-6 h-1 bg-pink-300/50 hover:bg-pink-400'
 //             }`}
 //             aria-label={`Go to slide ${index + 1}`}
 //           />
@@ -376,9 +453,9 @@
 
 //       {/* Auto-play progress bar */}
 //       {isAutoPlaying && banners.length > 1 && (
-//         <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-300 z-20">
+//         <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-pink-200/50 z-20">
 //           <div 
-//             className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
+//             className="h-full bg-gradient-to-r from-pink-400 to-rose-500 rounded-full"
 //             style={{
 //               width: '100%',
 //               animation: 'progress 5s linear infinite',
@@ -397,8 +474,42 @@
 //           }
 //         }
         
+//         @keyframes spin-slow {
+//           from {
+//             transform: rotate(0deg);
+//           }
+//           to {
+//             transform: rotate(360deg);
+//           }
+//         }
+        
+//         .animate-spin-slow {
+//           animation: spin-slow 4s linear infinite;
+//         }
+        
 //         .duration-600 {
 //           transition-duration: 600ms;
+//         }
+        
+//         .line-clamp-1 {
+//           display: -webkit-box;
+//           -webkit-line-clamp: 1;
+//           -webkit-box-orient: vertical;
+//           overflow: hidden;
+//         }
+        
+//         .line-clamp-2 {
+//           display: -webkit-box;
+//           -webkit-line-clamp: 2;
+//           -webkit-box-orient: vertical;
+//           overflow: hidden;
+//         }
+        
+//         .line-clamp-none {
+//           display: block;
+//           -webkit-line-clamp: unset;
+//           -webkit-box-orient: unset;
+//           overflow: visible;
 //         }
 //       `}</style>
 //     </div>
@@ -410,7 +521,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight, Clock, Shield, Truck, Star, TrendingUp, Headphones, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Clock, Shield, Truck, Star, TrendingUp, Headphones, ArrowRight, Sparkles, Flower2 } from 'lucide-react';
 import { getHomepageBanners, trackBannerClick } from '@/app/services/bannerService';
 
 // Icon mapping
@@ -457,24 +568,25 @@ export default function BannerCarousel() {
     return [
       {
         id: 'fallback-1',
-        title: 'Premium Gadgets',
-        subtitle: 'Latest Technology',
-        mainText: 'Experience the Future Today',
-        description: 'Discover cutting-edge electronics with premium quality and unmatched performance',
-        badge: 'Limited Edition',
+        title: 'Premium Beauty Collection',
+        subtitle: 'Luxury Skincare',
+        mainText: 'Experience the Beauty',
+        description: 'Discover premium beauty products with unmatched quality and radiant results',
+        badge: '✨ Limited Edition',
         discount: '40% OFF',
-        category: 'Electronics',
-        bgImage: 'https://i.ibb.co.com/WWQ097yx/Gemini-Generated-Image-3wcrdr3wcrdr3wcr.png',
+        category: 'Beauty',
+        bgImage: '/images/banner.jpeg',
         productImage: 'https://res.cloudinary.com/dta5ahuh9/image/upload/v1781580462/rt3xpskc6vmqj5oieltz.jpg',
         features: [
           { icon: 'Truck', text: 'Free Shipping' },
-          { icon: 'Shield', text: '2 Year Warranty' },
+          { icon: 'Shield', text: '100% Authentic' },
           { icon: 'Clock', text: '24/7 Support' }
         ],
         buttons: [
           { text: 'Shop Now', link: '/products', isPrimary: true },
           { text: 'Learn More', link: '/about', isPrimary: false }
-        ]
+        ],
+        featuredProducts: []
       }
     ];
   };
@@ -562,14 +674,14 @@ export default function BannerCarousel() {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="relative min-h-[280px] sm:min-h-[400px] md:min-h-[480px] lg:h-[520px] xl:h-[530px]">
+      <div className="relative -mt-14 md:-mt-4 min-h-[280px] sm:min-h-[400px] md:min-h-[480px] lg:h-[520px] xl:h-[550px]">
         {banners.map((slide, index) => {
           const IconComponent = (iconName) => {
             const Icon = ICON_MAP[iconName];
-            return Icon ? <Icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-blue-600 group-hover:scale-110 transition-transform" /> : null;
+            return Icon ? <Icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-pink-500 group-hover:scale-110 transition-transform" /> : null;
           };
 
-          // Get bgImage URL (handle both string and object)
+          // Get bgImage URL
           const bgImageUrl = typeof slide.bgImage === 'string' 
             ? slide.bgImage 
             : slide.bgImage?.url || '';
@@ -578,6 +690,9 @@ export default function BannerCarousel() {
           const productImageUrl = typeof slide.productImage === 'string' 
             ? slide.productImage 
             : slide.productImage?.url || '';
+
+          // Get featured products
+          const featuredProducts = slide.featuredProducts || [];
 
           return (
             <div
@@ -600,178 +715,282 @@ export default function BannerCarousel() {
                 }}
               />
               
-              {/* Gradient Overlay - Same for all devices */}
-              <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-white/30 to-transparent" />
+              {/* Gradient Overlay - Beauty Style */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#FFF5F6]/80 via-white/40 to-transparent" />
               
-              {/* Decorative Elements - Responsive */}
-              <div className="absolute top-0 right-0 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 bg-blue-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+              {/* Decorative Beauty Elements */}
+              <div className="absolute top-0 right-0 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 bg-pink-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
               <div className="absolute bottom-0 left-0 w-40 h-40 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 bg-purple-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
               
-              {/* Content Container */}
+              {/* Floating Sparkles */}
+              <div className="absolute top-8 right-12 opacity-30">
+                <Sparkles className="w-6 h-6 text-pink-400" />
+              </div>
+              <div className="absolute bottom-20 left-10 opacity-20">
+                <Sparkles className="w-4 h-4 text-pink-300" />
+              </div>
+              <div className="absolute top-1/3 right-1/4 opacity-15">
+                <Flower2 className="w-8 h-8 text-pink-400" />
+              </div>
+              
+              {/* Content Container - Large device same, small device adjusted */}
               <div className="relative h-full flex items-center py-3 sm:py-4 md:py-0">
                 <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12">
                   <div className="flex items-center gap-2 sm:gap-4 md:gap-6">
-                    {/* Left Content - Takes remaining space */}
-                    <div className="flex-1 min-w-0 max-w-full sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
+                    {/* Left Content - Reduced width on small devices to give more space to image */}
+                    <div className="flex-1 min-w-0 max-w-[45%] sm:max-w-full md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
                       {/* Badge */}
                       <div className={`mb-1 sm:mb-2 inline-block transition-all duration-700 delay-100 ${
                         currentSlide === index && !isTransitioning ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                       }`}>
-                        <span className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-medium text-gray-700 bg-white/80 backdrop-blur-md rounded-full border border-gray-200 shadow-sm">
+                        <span className="px-2 sm:px-3 md:px-4 py-0.5 sm:py-1 md:py-1.5 text-[8px] sm:text-[10px] md:text-xs font-medium text-pink-600 bg-white/90 backdrop-blur-md rounded-full border border-pink-200 shadow-sm" style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}>
                           {slide.badge}
                         </span>
                       </div>
                       
-                      {/* Main Title - 2 lines on mobile, no limit on desktop */}
-                      <h1 className={`text-lg sm:text-3xl md:text-4xl lg:text-6xl xl:text-7xl font-bold font-serif text-gray-900 mb-1 sm:mb-2 md:mb-3 tracking-tight leading-[1.1] transition-all duration-700 delay-200 ${
+                      {/* Main Title - Large device same, small device smaller */}
+                      <h1 className={`text-sm sm:text-3xl md:text-4xl lg:text-6xl xl:text-6xl font-bold text-gray-900 mb-1 sm:mb-2 md:mb-3 tracking-tight leading-[1.1] transition-all duration-700 delay-200 ${
                         currentSlide === index && !isTransitioning ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                      } line-clamp-2 sm:line-clamp-none`}>
+                      } line-clamp-2 sm:line-clamp-2 lg:line-clamp-none`}
+                      style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}>
                         {slide.title}
                       </h1>
                       
-                      {/* Subtitle - No truncation */}
-                      <h2 className={`text-base sm:text-xl md:text-2xl lg:text-4xl xl:text-5xl font-semibold mb-1 sm:mb-2 md:mb-3 lg:mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent transition-all duration-700 delay-300 ${
+                      {/* Description - Large device same, small device smaller */}
+                      <p className={`text-[10px] sm:text-sm md:text-base lg:text-lg text-gray-700 mb-2 sm:mb-3 md:mb-4 max-w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl leading-relaxed transition-all duration-700 delay-500 ${
                         currentSlide === index && !isTransitioning ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                      }`}>
-                        {slide.subtitle}
-                      </h2>
-                      
-                      {/* Main Text - 1 line on mobile, no limit on desktop */}
-                      <p className={`text-sm sm:text-lg md:text-xl lg:text-3xl xl:text-4xl text-gray-800 mb-1 sm:mb-2 md:mb-3 lg:mb-4 font-light leading-tight transition-all duration-700 delay-400 ${
-                        currentSlide === index && !isTransitioning ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                      } line-clamp-1 sm:line-clamp-none`}>
-                        {slide.mainText}
-                      </p>
-                      
-                      {/* Description - 2 lines on mobile, no limit on desktop */}
-                      <p className={`text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 mb-2 sm:mb-3 md:mb-4 lg:mb-5 max-w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl leading-relaxed transition-all duration-700 delay-500 ${
-                        currentSlide === index && !isTransitioning ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                      } line-clamp-2 sm:line-clamp-none`}>
+                      } line-clamp-2 sm:line-clamp-2 lg:line-clamp-none`}
+                      style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}>
                         {slide.description}
                       </p>
                       
-                      {/* Features */}
+                      {/* Features - Large device same, small device smaller */}
                       {slide.features && slide.features.length > 0 && (
-                        <div className={`flex flex-wrap gap-1 sm:gap-1.5 md:gap-2 lg:gap-3 mb-2 sm:mb-3 md:mb-4 lg:mb-6 transition-all duration-700 delay-600 ${
+                        <div className={`flex flex-wrap gap-1 sm:gap-1.5 md:gap-2 mb-2 sm:mb-3 md:mb-4 transition-all duration-700 delay-600 ${
                           currentSlide === index && !isTransitioning ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                         }`}>
                           {slide.features.map((feature, idx) => (
                             <div 
                               key={idx} 
-                              className="group flex items-center gap-1 sm:gap-1.5 md:gap-2 px-1.5 sm:px-2 md:px-3 lg:px-4 py-0.5 sm:py-1 md:py-1.5 lg:py-2 bg-white/80 backdrop-blur-md rounded-full border border-gray-200 hover:bg-white hover:shadow-md transition-all duration-300"
+                              className="group flex items-center gap-0.5 sm:gap-1 md:gap-1.5 px-1.5 sm:px-2 md:px-3 py-0.5 sm:py-1 md:py-1.5 bg-white/80 backdrop-blur-md rounded-full border border-pink-200 hover:bg-white hover:shadow-md transition-all duration-300"
                             >
                               {IconComponent(feature.icon)}
-                              <span className="text-gray-700 text-[9px] sm:text-[10px] md:text-xs lg:text-sm font-medium">{feature.text}</span>
+                              <span className="text-gray-700 text-[6px] sm:text-[9px] md:text-xs font-medium" style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}>
+                                {feature.text}
+                              </span>
                             </div>
                           ))}
                         </div>
                       )}
                       
-                      {/* Buttons */}
-                     {/* Buttons */}
+                      {/* Buttons - Large device same, small device smaller */}
+                   {/* Buttons - Large device same, small device smaller */}
 <div className={`flex flex-wrap gap-1.5 sm:gap-2 md:gap-3 lg:gap-4 transition-all duration-700 delay-700 ${
   currentSlide === index && !isTransitioning ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
 }`}>
-  {slide.buttons && slide.buttons.map((button, idx) => (
-    <Link
-      key={idx}
-      href={button.link}
-      onClick={() => handleBannerClick(slide.id)}
-      className={`group relative overflow-hidden flex-1 sm:flex-none px-2 sm:px-4 md:px-6 lg:px-8 py-1 sm:py-2 md:py-2.5 lg:py-3.5 ${
-        button.isPrimary 
-          ? 'bg-gray-900 text-white hover:shadow-2xl' 
-          : 'bg-white/80 backdrop-blur-md border border-gray-300 text-gray-700 hover:bg-white hover:shadow-lg'
-      } font-semibold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-[8px] sm:text-xs md:text-sm lg:text-base`}
-    >
-      <span className="relative z-10 flex items-center justify-center gap-0.5 sm:gap-1.5 md:gap-2">
-        {button.text}
+  {slide.buttons && slide.buttons.map((button, idx) => {
+    // Determine the correct link for "Shop Now" button
+    let buttonLink = button.link;
+    
+    if (button.isPrimary) {
+      // First priority: Use productId from banner
+      if (slide.productId) {
+        buttonLink = `/productDetails?id=${slide.productId}`;
+      }
+      // Second priority: Use first featured product
+      else if (slide.featuredProducts && slide.featuredProducts.length > 0) {
+        const firstProduct = slide.featuredProducts[0];
+        const productId = firstProduct.productId?._id || firstProduct.productId;
+        if (productId) {
+          buttonLink = `/productDetails?id=${productId}`;
+        }
+      }
+    }
+    
+    return (
+      <Link
+        key={idx}
+        href={buttonLink}
+        onClick={() => handleBannerClick(slide.id)}
+        className={`group relative overflow-hidden flex-1 sm:flex-none px-2 sm:px-5 md:px-7 lg:px-10 py-0.5 sm:py-2 md:py-2.5 lg:py-4 ${
+          button.isPrimary 
+            ? 'bg-pink-500 text-white hover:bg-pink-600 shadow-md hover:shadow-lg' 
+            : 'bg-white/80 backdrop-blur-md border border-pink-300 text-gray-700 hover:bg-white hover:shadow-md'
+        } font-semibold rounded-full transition-all duration-300 transform hover:scale-105 text-center text-[7px] sm:text-[10px] md:text-sm lg:text-base`}
+        style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}
+      >
+        <span className="relative z-10 flex items-center justify-center gap-0.5 sm:gap-1 md:gap-1.5">
+          {button.text}
+          {button.isPrimary && (
+            <ArrowRight className="w-2 h-2 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 lg:w-4 lg:h-4 group-hover:translate-x-1 transition-transform" />
+          )}
+        </span>
         {button.isPrimary && (
-          <ArrowRight className="w-2 h-2 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 lg:w-4 lg:h-4 group-hover:translate-x-1 transition-transform" />
+          <div className="absolute inset-0 bg-pink-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
         )}
-      </span>
-      {button.isPrimary && (
-        <div className="absolute inset-0 bg-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
-      )}
-    </Link>
-  ))}
+      </Link>
+    );
+  })}
 </div>
                     </div>
 
-                    {/* Product Image Container - Right Side */}
+                    {/* Right Side - Product Image in Circle - Larger on small devices */}
                     {productImageUrl && (
-                      <div className="relative flex-shrink-0 ml-1 sm:ml-2 md:ml-4 lg:ml-6">
-                        {/* Product Image */}
-                        <div className="relative">
-                          <img
-                            src={productImageUrl}
-                            alt={slide.title}
-                            className="w-28 sm:w-28 md:w-44 lg:w-64 xl:w-80 2xl:w-[420px] h-auto object-contain drop-shadow-2xl"
-                            style={{ 
-                              filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.15))',
-                              maxHeight: '120px sm:160px md:280px lg:380px xl:420px'
-                            }}
-                          />
-                          <div className="absolute inset-0 rounded-full bg-blue-500/10 blur-3xl -z-10 scale-150" />
-                        </div>
+                      <div className="flex-shrink-0 ml-18 sm:ml-3 md:ml-6 lg:ml-8">
+                        {/* <div className="relative w-24 sm:w-32 md:w-48 lg:w-72 xl:w-80"> */}
+                        <div className="relative w-28 sm:w-40 md:w-56 lg:w-80 xl:w-88">
+                          {/* Animated Border Ring - Larger on mobile */}
+                          {/* <div className="absolute -inset-1 sm:-inset-2 md:-inset-3 rounded-full">
+                            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-400 via-rose-500 to-pink-400 animate-spin-slow opacity-75 blur-sm"></div>
+                            <div className="absolute inset-[1px] sm:inset-[2px] md:inset-[3px] rounded-full bg-gradient-to-r from-pink-300 via-rose-400 to-pink-300 animate-spin-slow opacity-50 blur-sm" style={{ animationDirection: 'reverse' }}></div>
+                          </div> */}
 
-                        {/* Discount Badge - Positioned on Top-Right Corner of Product Image */}
-                        {slide.discount && (
-                          <div className={`absolute -top-2 -right-2 sm:-top-3 sm:-right-3 md:-top-4 md:-right-4 lg:-top-5 lg:-right-5 transition-all duration-700 delay-400 ${
-                            currentSlide === index && !isTransitioning ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
-                          }`}>
-                            <div className="relative">
-                              <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-24 lg:h-24 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center shadow-2xl border-2 border-white/20">
-                                <div className="text-center">
-                                  <div className="text-white font-black text-[8px] sm:text-[10px] md:text-xs lg:text-xl leading-tight">{slide.discount}</div>
-                                  <div className="text-white/90 text-[5px] sm:text-[6px] md:text-[8px] lg:text-[10px] xl:text-xs font-medium">OFF</div>
-                                </div>
-                              </div>
-                              {/* Glow effect */}
-                              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-red-500 to-orange-500 blur-md opacity-40 -z-10" />
-                            </div>
+                          <div className="absolute -inset-0.5 sm:-inset-1 md:-inset-1.5 rounded-full">
+  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-400 via-rose-500 to-pink-400 animate-spin-slow opacity-75 blur-sm"></div>
+  <div className="absolute inset-[0.5px] sm:inset-[1px] md:inset-[1.5px] rounded-full bg-gradient-to-r from-pink-300 via-rose-400 to-pink-300 animate-spin-slow opacity-50 blur-sm" style={{ animationDirection: 'reverse' }}></div>
+</div>
+                          
+                          {/* Main Circle Container */}
+                         <div className="relative rounded-full overflow-hidden shadow-2xl border-2 sm:border-4 border-white/60"
+     style={{
+       width: '100%',
+       aspectRatio: '1/1',
+       background: 'linear-gradient(135deg, #FFF5F6 0%, #FFE4E8 100%)',
+       boxShadow: '0 25px 50px -12px rgba(238, 66, 117, 0.25)'
+     }}>
+  <img
+    src={productImageUrl}
+    alt={slide.title}
+    className="w-full h-full object-cover p-0"
+    style={{ 
+      objectPosition: 'center',
+      filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.1))'
+    }}
+    loading="lazy"
+  />
+                            {/* Inner Glow */}
+                            <div className="absolute inset-0 rounded-full bg-gradient-to-t from-pink-500/10 via-transparent to-transparent pointer-events-none" />
+                            {/* Decorative Ring */}
+                            <div className="absolute inset-1 sm:inset-2 rounded-full border border-white/30 pointer-events-none" />
+                            
+                            {/* Pulsing Dot Decorations - Larger on mobile */}
+                            <div className="absolute  -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-1.5 h-1.5 sm:w-3 sm:h-3 bg-pink-400 rounded-full animate-pulse"></div>
+                            <div className="absolute -bottom-0.5 -left-0.5 sm:-bottom-1 sm:-left-1 w-1.5 h-1.5 sm:w-3 sm:h-3 bg-rose-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
                           </div>
-                        )}
+                          
+                          {/* Floating Glow Effect */}
+                          <div className="absolute -inset-2 sm:-inset-4 md:-inset-6 rounded-full bg-pink-500/10 blur-3xl -z-10" />
+                          
+                          {/* Discount Badge - Larger on mobile */}
+                          {slide.discount && (
+                            <div className={`absolute -top-1 -right-1 sm:-top-2 sm:-right-2 md:-top-4 md:-right-2 transition-all duration-700 delay-400 ${
+                              currentSlide === index && !isTransitioning ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+                            }`}>
+                              <div className="relative group">
+                                <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow-2xl border border-white/30 hover:scale-110 transition-transform duration-300">
+                                  <div className="text-center">
+                                    <div className="text-white font-black text-[6px] sm:text-[8px] md:text-[10px] lg:text-sm leading-tight" style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}>
+                                      {slide.discount}
+                                    </div>
+                                    <div className="text-white/90 text-[4px] sm:text-[5px] md:text-[7px] font-medium">OFF</div>
+                                  </div>
+                                </div>
+                                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 blur-md opacity-40 -z-10" />
+                              </div>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     )}
+
+
+
+
                   </div>
                 </div>
               </div>
+
+              {/* Featured Products at Bottom - Cards with Pink Border */}
+            {/* Featured Products at Bottom - Cards with Pink Border */}
+{featuredProducts.length > 0 && (
+  <div className="absolute bottom-2 sm:bottom-3 md:bottom-4 left-1/2 -translate-x-1/2 z-10 w-[95%] sm:w-[90%] max-w-4xl">
+    <div className="flex gap-1 sm:gap-1.5 md:gap-2">
+      {featuredProducts.slice(0, 3).map((item, idx) => (
+        <Link 
+          key={idx}
+          href={`/productDetails?id=${item.productId?._id || item.productId}`}
+          onClick={() => handleBannerClick(slide.id)}
+          className="flex-1 bg-white/15 backdrop-blur-sm rounded-lg sm:rounded-xl border border-pink-300/40 hover:border-pink-500 transition-all duration-300 overflow-hidden shadow-sm hover:shadow-md hover:bg-white/25"
+        >
+          <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2 p-1 sm:p-1.5 md:p-2">
+            <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-lg overflow-hidden flex-shrink-0 bg-white/20 border border-pink-200/30">
+              <img
+                src={item.productId?.images?.[0]?.url || '/images/placeholder.jpg'}
+                alt={item.productId?.productName || 'Product'}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[6px] sm:text-[8px] md:text-[10px] font-medium text-gray-800 truncate group-hover:text-pink-600 transition-colors" style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}>
+                {item.productId?.productName || 'Product'}
+              </p>
+              <div className="flex items-center gap-0.5 sm:gap-1">
+                {item.productId?.discountPrice > 0 ? (
+                  <>
+                    <span className="text-[6px] sm:text-[8px] md:text-[10px] font-bold text-pink-500">৳{item.productId.discountPrice}</span>
+                    <span className="text-[4px] sm:text-[6px] md:text-[8px] text-gray-400 line-through">৳{item.productId.regularPrice}</span>
+                  </>
+                ) : (
+                  <span className="text-[6px] sm:text-[8px] md:text-[10px] font-bold text-gray-700">৳{item.productId?.regularPrice}</span>
+                )}
+              </div>
+            </div>
+            <span className="flex-shrink-0 px-1 sm:px-2 md:px-3 py-0.5 sm:py-0.5 md:py-1 text-[5px] sm:text-[7px] md:text-[9px] font-semibold text-white bg-gradient-to-r from-pink-500 to-rose-500 rounded-md sm:rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105 whitespace-nowrap">
+              Shop Now
+            </span>
+          </div>
+        </Link>
+      ))}
+    </div>
+  </div>
+)}
             </div>
           );
         })}
       </div>
 
-      {/* Navigation Buttons - Same design, responsive size */}
+      {/* Navigation Buttons */}
       {banners.length > 1 && (
         <>
           <button
             onClick={prevSlide}
-            className="absolute left-0 sm:left-2 md:left-4 lg:left-6 xl:left-8 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full bg-white/90 backdrop-blur-md border border-gray-300 text-gray-800 hover:bg-white hover:scale-110 transition-all duration-200 z-20 flex items-center justify-center shadow-lg group"
+            className="absolute left-0 sm:left-2 md:left-4 lg:left-6 xl:left-8 top-1/2 -translate-y-1/2 w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full bg-white/90 backdrop-blur-md border-2 border-pink-200 text-gray-800 hover:bg-pink-500 hover:text-white hover:border-pink-500 hover:scale-110 transition-all duration-200 z-20 flex items-center justify-center shadow-lg group"
             aria-label="Previous slide"
           >
-            <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 group-hover:-translate-x-0.5 transition-transform" />
+            <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 group-hover:-translate-x-0.5 transition-transform" />
           </button>
 
           <button
             onClick={nextSlide}
-            className="absolute right-0 sm:right-2 md:right-4 lg:right-6 xl:right-8 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full bg-white/90 backdrop-blur-md border border-gray-300 text-gray-800 hover:bg-white hover:scale-110 transition-all duration-200 z-20 flex items-center justify-center shadow-lg group"
+            className="absolute right-0 sm:right-2 md:right-4 lg:right-6 xl:right-8 top-1/2 -translate-y-1/2 w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full bg-white/90 backdrop-blur-md border-2 border-pink-200 text-gray-800 hover:bg-pink-500 hover:text-white hover:border-pink-500 hover:scale-110 transition-all duration-200 z-20 flex items-center justify-center shadow-lg group"
             aria-label="Next slide"
           >
-            <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 group-hover:translate-x-0.5 transition-transform" />
+            <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 group-hover:translate-x-0.5 transition-transform" />
           </button>
         </>
       )}
 
       {/* Dots Indicator */}
-      <div className="absolute bottom-1 sm:bottom-3 md:bottom-6 lg:bottom-8 left-1/2 -translate-x-1/2 flex gap-1 sm:gap-1.5 md:gap-2 lg:gap-3 z-20">
+      <div className="absolute bottom-8 sm:bottom-12 md:bottom-16 lg:bottom-20 left-1/2 -translate-x-1/2 flex gap-1 sm:gap-1.5 md:gap-2 lg:gap-3 z-20">
         {banners.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
             className={`transition-all duration-300 rounded-full ${
               currentSlide === index
-                ? 'w-4 sm:w-5 md:w-8 lg:w-10 h-0.5 sm:h-0.5 md:h-1 bg-gray-800 shadow-lg'
-                : 'w-3 sm:w-4 md:w-5 lg:w-6 h-0.5 sm:h-0.5 md:h-1 bg-gray-400 hover:bg-gray-600'
+                ? 'w-3 sm:w-5 md:w-8 lg:w-10 h-0.5 sm:h-0.5 md:h-1 bg-pink-500 shadow-lg'
+                : 'w-2 sm:w-4 md:w-5 lg:w-6 h-0.5 sm:h-0.5 md:h-1 bg-pink-300/50 hover:bg-pink-400'
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />
@@ -780,9 +999,9 @@ export default function BannerCarousel() {
 
       {/* Auto-play progress bar */}
       {isAutoPlaying && banners.length > 1 && (
-        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-300 z-20">
+        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-pink-200/50 z-20">
           <div 
-            className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
+            className="h-full bg-gradient-to-r from-pink-400 to-rose-500 rounded-full"
             style={{
               width: '100%',
               animation: 'progress 5s linear infinite',
@@ -801,11 +1020,23 @@ export default function BannerCarousel() {
           }
         }
         
+        @keyframes spin-slow {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        
+        .animate-spin-slow {
+          animation: spin-slow 4s linear infinite;
+        }
+        
         .duration-600 {
           transition-duration: 600ms;
         }
         
-        /* Line clamp utilities */
         .line-clamp-1 {
           display: -webkit-box;
           -webkit-line-clamp: 1;

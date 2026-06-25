@@ -65,7 +65,7 @@
 //     setLoading(true);
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/orders/${order._id}/cancel`, {
+//       const response = await fetch(`http://localhost:5000/api/orders/${order._id}/cancel`, {
 //         method: 'PUT',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -424,7 +424,7 @@
 //       if (paymentStatusFilter) queryParams.append('paymentStatus', paymentStatusFilter);
 //       if (paymentMethodFilter) queryParams.append('paymentMethod', paymentMethodFilter);
 
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/orders?${queryParams}`, {
+//       const response = await fetch(`http://localhost:5000/api/orders?${queryParams}`, {
 //         headers: { 'Authorization': `Bearer ${token}` }
 //       });
 
@@ -840,7 +840,7 @@ const CancelOrderModal = ({ isOpen, onClose, order, onCancel }) => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://gadget-backend.vercel.app/api/orders/${order._id}/cancel`, {
+      const response = await fetch(`http://localhost:5000/api/orders/${order._id}/cancel`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -1210,7 +1210,7 @@ export default function CustomerOrdersPage() {
       if (paymentStatusFilter) queryParams.append('paymentStatus', paymentStatusFilter);
       if (paymentMethodFilter) queryParams.append('paymentMethod', paymentMethodFilter);
 
-      const response = await fetch(`https://gadget-backend.vercel.app/api/orders?${queryParams}`, {
+      const response = await fetch(`http://localhost:5000/api/orders?${queryParams}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 

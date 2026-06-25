@@ -39,7 +39,8 @@ import {
   ScanBarcode,
   Cpu,
   PanelTop,
-  LayoutTemplate
+  LayoutTemplate,
+  Tag
 } from 'lucide-react';
 
 export default function ModeratorLayout({ children }) {
@@ -94,23 +95,27 @@ export default function ModeratorLayout({ children }) {
     if (href === '/moderator/orders') {
       return currentPath === '/moderator/orders' || 
              currentPath.startsWith('/moderator/orders/');
-    }
-    
-    if (href === '/moderator/barcodes') {
-      return currentPath === '/moderator/barcodes' || 
-             currentPath.startsWith('/moderator/barcodes/');
     } 
-    
-    if (href === '/moderator/barcode-scanner') {
-      return currentPath === '/moderator/barcode-scanner' || 
-             currentPath.startsWith('/moderator/barcode-scanner/');
+    if (href === '/moderator/tags') {
+      return currentPath === '/moderator/tags' || 
+             currentPath.startsWith('/moderator/tags/');
     }
+    
+    // if (href === '/moderator/barcodes') {
+    //   return currentPath === '/moderator/barcodes' || 
+    //          currentPath.startsWith('/moderator/barcodes/');
+    // } 
+    
+    // if (href === '/moderator/barcode-scanner') {
+    //   return currentPath === '/moderator/barcode-scanner' || 
+    //          currentPath.startsWith('/moderator/barcode-scanner/');
+    // }
 
-    if (href === '/moderator/coupon') {
-      const matches = ['/moderator/coupon', '/moderator/coupon'].some(route => currentPath === route);
-      if (matches) return true;
-      return false;
-    } 
+    // if (href === '/moderator/coupon') {
+    //   const matches = ['/moderator/coupon', '/moderator/coupon'].some(route => currentPath === route);
+    //   if (matches) return true;
+    //   return false;
+    // } 
     
     if (href === '/moderator/delivery-settings') {
       return currentPath === '/moderator/delivery-settings' || 
@@ -185,8 +190,10 @@ export default function ModeratorLayout({ children }) {
   const navigation = [
     { name: 'Dashboard', href: '/moderator/dashboard', icon: LayoutDashboard },
     { name: 'Create Categories', href: '/moderator/create-categories', icon: FolderPlus },
+        { name: 'Manage Tags', href: '/moderator/tags', icon: Tag },
     { name: 'Create Products', href: '/moderator/create-products', icon: PackagePlus },
     { name: 'All Products', href: '/moderator/all-products', icon: ShoppingBag },
+
     { name: 'All Orders', href: '/moderator/orders', icon: MessageSquare },
     // { name: 'All Barcodes', href: '/moderator/barcodes', icon: QrCode },
     // { name: 'Barcodes Scan', href: '/moderator/barcode-scanner', icon: ScanBarcode },

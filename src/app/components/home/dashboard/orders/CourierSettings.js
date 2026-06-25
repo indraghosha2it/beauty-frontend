@@ -35,7 +35,7 @@
 //   const fetchCouriers = async () => {
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch('https://gadget-backend.vercel.app/api/admin/couriers', {
+//       const response = await fetch('http://localhost:5000/api/admin/couriers', {
 //         headers: { 'Authorization': `Bearer ${token}` }
 //       });
 //       const data = await response.json();
@@ -60,7 +60,7 @@
 //   const handleSave = async (courierId) => {
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/admin/couriers/${courierId}/integration`, {
+//       const response = await fetch(`http://localhost:5000/api/admin/couriers/${courierId}/integration`, {
 //         method: 'PUT',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -91,7 +91,7 @@
 //     setTesting(prev => ({ ...prev, [courier.slug]: true }));
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/admin/couriers/${courier._id}/test-connection`, {
+//       const response = await fetch(`http://localhost:5000/api/admin/couriers/${courier._id}/test-connection`, {
 //         method: 'POST',
 //         headers: {
 //           'Authorization': `Bearer ${token}`

@@ -247,7 +247,7 @@
 //         headers['x-session-id'] = sessionId;
 //       }
       
-//       const response = await fetch('https://gadget-backend.vercel.app/api/cart', {
+//       const response = await fetch('http://localhost:5000/api/cart', {
 //         method: 'POST',
 //         headers: headers,
 //         body: JSON.stringify({ productId: product._id, quantity: 1 })
@@ -541,7 +541,7 @@
       
 //       console.log('Checking cart status for product:', product._id);
       
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/cart/check/${product._id}`, { headers });
+//       const response = await fetch(`http://localhost:5000/api/cart/check/${product._id}`, { headers });
 //       const data = await response.json();
       
 //       console.log('Cart check response:', data);
@@ -687,7 +687,7 @@
 //       else if (cartSessionId) cartHeaders['x-session-id'] = cartSessionId;
       
 //       try {
-//         const cartResponse = await fetch('https://gadget-backend.vercel.app/api/cart/check-status', {
+//         const cartResponse = await fetch('http://localhost:5000/api/cart/check-status', {
 //           method: 'POST',
 //           headers: { ...cartHeaders, 'Content-Type': 'application/json' },
 //           body: JSON.stringify({ productIds })
@@ -729,7 +729,7 @@
 //   const fetchProductDetails = async () => {
 //     setLoading(true);
 //     try {
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/products/${productId}`);
+//       const response = await fetch(`http://localhost:5000/api/products/${productId}`);
 //       const data = await response.json();
 //       if (data.success) {
 //         setProduct(data.data.product);
@@ -761,7 +761,7 @@
 //       if (token) headers['Authorization'] = `Bearer ${token}`;
 //       else if (sessionId) headers['x-session-id'] = sessionId;
 
-//       const response = await fetch('https://gadget-backend.vercel.app/api/cart', {
+//       const response = await fetch('http://localhost:5000/api/cart', {
 //         method: 'POST',
 //         headers,
 //         body: JSON.stringify({ productId: product._id, quantity: finalQuantity })
@@ -801,7 +801,7 @@
 //       if (token) headers['Authorization'] = `Bearer ${token}`;
 //       else if (sessionId) headers['x-session-id'] = sessionId;
 
-//       const checkResponse = await fetch(`https://gadget-backend.vercel.app/api/cart/check/${product._id}`, { headers });
+//       const checkResponse = await fetch(`http://localhost:5000/api/cart/check/${product._id}`, { headers });
 //       const checkData = await checkResponse.json();
       
 //       let alreadyInCart = false;
@@ -810,7 +810,7 @@
 //       }
       
 //       if (!alreadyInCart) {
-//         const response = await fetch('https://gadget-backend.vercel.app/api/cart', {
+//         const response = await fetch('http://localhost:5000/api/cart', {
 //           method: 'POST',
 //           headers,
 //           body: JSON.stringify({ productId: product._id, quantity: quantity || 1 })
@@ -1893,7 +1893,7 @@ const RelatedProductCard = ({ product, router, isInCart: propIsInCart, onViewInC
         headers['x-session-id'] = sessionId;
       }
       
-      const response = await fetch('https://gadget-backend.vercel.app/api/cart', {
+      const response = await fetch('http://localhost:5000/api/cart', {
         method: 'POST',
         headers: headers,
         body: JSON.stringify({ productId: product._id, quantity: 1 })
@@ -2187,7 +2187,7 @@ export default function ProductDetailsClient() {
       
       console.log('Checking cart status for product:', product._id);
       
-      const response = await fetch(`https://gadget-backend.vercel.app/api/cart/check/${product._id}`, { headers });
+      const response = await fetch(`http://localhost:5000/api/cart/check/${product._id}`, { headers });
       const data = await response.json();
       
       console.log('Cart check response:', data);
@@ -2333,7 +2333,7 @@ export default function ProductDetailsClient() {
       else if (cartSessionId) cartHeaders['x-session-id'] = cartSessionId;
       
       try {
-        const cartResponse = await fetch('https://gadget-backend.vercel.app/api/cart/check-status', {
+        const cartResponse = await fetch('http://localhost:5000/api/cart/check-status', {
           method: 'POST',
           headers: { ...cartHeaders, 'Content-Type': 'application/json' },
           body: JSON.stringify({ productIds })
@@ -2375,7 +2375,7 @@ export default function ProductDetailsClient() {
   const fetchProductDetails = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`https://gadget-backend.vercel.app/api/products/${productId}`);
+      const response = await fetch(`http://localhost:5000/api/products/${productId}`);
       const data = await response.json();
       if (data.success) {
         setProduct(data.data.product);
@@ -2407,7 +2407,7 @@ export default function ProductDetailsClient() {
       if (token) headers['Authorization'] = `Bearer ${token}`;
       else if (sessionId) headers['x-session-id'] = sessionId;
 
-      const response = await fetch('https://gadget-backend.vercel.app/api/cart', {
+      const response = await fetch('http://localhost:5000/api/cart', {
         method: 'POST',
         headers,
         body: JSON.stringify({ productId: product._id, quantity: finalQuantity })
@@ -2447,7 +2447,7 @@ export default function ProductDetailsClient() {
       if (token) headers['Authorization'] = `Bearer ${token}`;
       else if (sessionId) headers['x-session-id'] = sessionId;
 
-      const checkResponse = await fetch(`https://gadget-backend.vercel.app/api/cart/check/${product._id}`, { headers });
+      const checkResponse = await fetch(`http://localhost:5000/api/cart/check/${product._id}`, { headers });
       const checkData = await checkResponse.json();
       
       let alreadyInCart = false;
@@ -2456,7 +2456,7 @@ export default function ProductDetailsClient() {
       }
       
       if (!alreadyInCart) {
-        const response = await fetch('https://gadget-backend.vercel.app/api/cart', {
+        const response = await fetch('http://localhost:5000/api/cart', {
           method: 'POST',
           headers,
           body: JSON.stringify({ productId: product._id, quantity: quantity || 1 })

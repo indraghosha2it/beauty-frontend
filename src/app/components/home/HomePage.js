@@ -11,6 +11,7 @@ import Categories from './Categories.js'
 import Navbar from '../layout/Navbar.js'
 import Footer from '../layout/Footer.js'
 import BigSaleSection from './BigSaleSection.js'
+import WhyChooseUs from './WhyChooseUs.js'
 
 
 
@@ -25,8 +26,10 @@ export default function HomePage() {
      <Navbar />
       <HeroBanner />
        <Categories />
-         <FeaturedProducts />
          <BigSaleSection />
+         <FeaturedProducts />
+         <WhyChooseUs />
+       
      
             
              <Footer />

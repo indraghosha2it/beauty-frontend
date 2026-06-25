@@ -589,7 +589,7 @@
 //   const fetchCategories = async () => {
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch('https://gadget-backend.vercel.app/api/categories', {
+//       const response = await fetch('http://localhost:5000/api/categories', {
 //         headers: { 'Authorization': `Bearer ${token}` }
 //       });
 //       const data = await response.json();
@@ -604,7 +604,7 @@
 //   const fetchSubcategories = async (categoryId) => {
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/categories/${categoryId}/subcategories`, {
+//       const response = await fetch(`http://localhost:5000/api/categories/${categoryId}/subcategories`, {
 //         headers: { 'Authorization': `Bearer ${token}` }
 //       });
 //       const data = await response.json();
@@ -622,7 +622,7 @@
 //   const fetchChildSubcategories = async (categoryId, subcategoryId) => {
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/categories/${categoryId}/subcategories/${subcategoryId}/children`, {
+//       const response = await fetch(`http://localhost:5000/api/categories/${categoryId}/subcategories/${subcategoryId}/children`, {
 //         headers: { 'Authorization': `Bearer ${token}` }
 //       });
 //       const data = await response.json();
@@ -689,7 +689,7 @@
 //       }
 //       queryParams.append('sort', sortParam);
 
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/products?${queryParams.toString()}`, {
+//       const response = await fetch(`http://localhost:5000/api/products?${queryParams.toString()}`, {
 //         headers: { 'Authorization': `Bearer ${token}` }
 //       });
 //       const data = await response.json();
@@ -762,7 +762,7 @@
 //   const handleToggleStatus = async (productId, currentStatus) => {
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/products/${productId}/toggle`, {
+//       const response = await fetch(`http://localhost:5000/api/products/${productId}/toggle`, {
 //         method: 'PUT',
 //         headers: { 
 //           'Authorization': `Bearer ${token}`,
@@ -1013,17 +1013,24 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 
-// Tag styles based on tag name
-const getTagStyle = (tag) => {
-  const styles = {
-    'Best Seller': 'bg-gradient-to-r from-amber-500 to-orange-600 text-white',
-    'Trending': 'bg-gradient-to-r from-rose-500 to-red-600 text-white',
-    'New Release': 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white',
-    'Limited Offer': 'bg-gradient-to-r from-purple-500 to-pink-600 text-white',
-    'Flash Sale': 'bg-gradient-to-r from-red-500 to-orange-600 text-white',
-    'Clearance': 'bg-gradient-to-r from-blue-500 to-cyan-600 text-white'
-  };
-  return styles[tag] || 'bg-gradient-to-r from-gray-500 to-gray-600 text-white';
+// Helper function to get tag name safely
+const getTagName = (tag) => {
+  if (!tag) return '';
+  if (typeof tag === 'string') return tag;
+  if (typeof tag === 'object' && tag.name) return tag.name;
+  return String(tag);
+};
+
+// Helper function to get tag image
+const getTagImage = (tag) => {
+  if (!tag) return null;
+  if (typeof tag === 'object' && tag.image && tag.image.url) {
+    return tag.image.url;
+  }
+  if (typeof tag === 'object' && tag.image && typeof tag.image === 'string') {
+    return tag.image;
+  }
+  return null;
 };
 
 // Unit options display
@@ -1289,6 +1296,224 @@ const FilterBar = ({
 );
 
 // Product Card Component for Moderator (only View and Edit actions)
+// const ProductCard = ({ product, onEdit, onView }) => {
+//   const [activeImageIndex, setActiveImageIndex] = useState(0);
+//   const productImages = product.images || [];
+//   const hasMultipleImages = productImages.length > 1;
+//   const discountPercent = calculateDiscount(product.regularPrice, product.discountPrice);
+//   const currentPrice = product.discountPrice && product.discountPrice < product.regularPrice ? product.discountPrice : product.regularPrice;
+//   const primaryTag = product.tags?.[0];
+//   const tagStyle = primaryTag ? getTagStyle(primaryTag) : '';
+//   const colors = product.colors || [];
+
+//   return (
+//     <div className={`bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border ${
+//       product.isActive ? 'border-gray-200' : 'border-red-200 bg-red-50/30'
+//     } overflow-hidden`}>
+//       <div className="p-4">
+//         {/* Main Row: Image and Details */}
+//         <div className="flex gap-4">
+//           {/* Image Section */}
+//           <div 
+//             className="relative w-24 h-24 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0 cursor-pointer"
+//             onMouseEnter={() => hasMultipleImages && setActiveImageIndex((activeImageIndex + 1) % productImages.length)}
+//             onClick={() => onView(product._id)}
+//           >
+//             <img
+//               src={productImages[activeImageIndex]?.url || productImages[0]?.url || 'https://via.placeholder.com/100?text=Product'}
+//               alt={product.productName}
+//               className="w-full h-full object-contain p-2 transition-all duration-500"
+//               onError={(e) => {
+//                 e.target.onerror = null;
+//                 e.target.src = 'https://via.placeholder.com/100?text=Product';
+//               }}
+//             />
+//             {hasMultipleImages && (
+//               <div className="absolute bottom-0 right-0 bg-black/50 text-white text-[8px] px-1 rounded-tl">
+//                 {activeImageIndex + 1}/{productImages.length}
+//               </div>
+//             )}
+            
+//             {/* Discount Badge */}
+//             {discountPercent > 0 && (
+//               <div className="absolute top-0 left-0 bg-gradient-to-r from-red-500 to-pink-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-br shadow-lg flex items-center gap-0.5">
+//                 <Zap className="w-2 h-2" />
+//                 {discountPercent}%
+//               </div>
+//             )}
+//           </div>
+
+//           {/* Product Details - Takes remaining space */}
+//           <div className="flex-1 min-w-0">
+//             {/* Name and Status */}
+//             <div className="flex flex-wrap items-center gap-2 mb-1.5">
+//               <h3 className="text-sm font-semibold text-gray-900 truncate hover:text-blue-600 transition-colors max-w-[250px]" title={product.productName}>
+//                 {product.productName}
+//               </h3>
+              
+//               <span className={`flex-shrink-0 text-[10px] px-2 py-0.5 rounded-full font-medium ${
+//                 product.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+//               }`}>
+//                 {product.isActive ? 'Active' : 'Inactive'}
+//               </span>
+
+//               {product.isFeatured && (
+//                 <span className="flex-shrink-0 text-[10px] px-2 py-0.5 bg-yellow-100 text-yellow-700 rounded-full flex items-center gap-0.5 font-medium">
+//                   <Star className="w-2.5 h-2.5 fill-yellow-500" />
+//                   Featured
+//                 </span>
+//               )}
+
+//               {product.showOnBanner && (
+//                 <span className="flex-shrink-0 text-[10px] px-2 py-0.5 bg-purple-100 text-purple-700 rounded-full flex items-center gap-0.5 font-medium">
+//                   <Eye className="w-2.5 h-2.5" />
+//                   On Banner
+//                 </span>
+//               )}
+//             </div>
+
+//             {/* Tags and Details Row */}
+//             <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
+//               {/* Tag */}
+//               {primaryTag && (
+//                 <span className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[9px] font-semibold ${tagStyle}`}>
+//                   <Sparkles className="w-2 h-2" />
+//                   {primaryTag}
+//                 </span>
+//               )}
+              
+//               {/* Brand */}
+//               {product.brand && (
+//                 <div className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[9px] font-medium bg-gray-100 text-gray-700">
+//                   <Building2 className="w-2.5 h-2.5" />
+//                   {product.brand}
+//                 </div>
+//               )}
+              
+//               {/* Category */}
+//               {product.category?.name && (
+//                 <div className="flex items-center gap-0.5 text-gray-500 text-[9px]">
+//                   <FolderTree className="w-2.5 h-2.5" />
+//                   <span className="truncate max-w-[100px]">{product.category.name}</span>
+//                 </div>
+//               )}
+              
+//               {/* Unit */}
+//               {product.unit && (
+//                 <div className="flex items-center gap-0.5 text-gray-500 text-[9px]">
+//                   <Scale className="w-2.5 h-2.5" />
+//                   <span>{getUnitLabel(product.unit)}</span>
+//                 </div>
+//               )}
+//             </div>
+
+//             {/* Price */}
+//             <div className="flex items-baseline gap-2 mb-1.5">
+//               <span className="text-lg font-bold text-blue-600">
+//                 ৳{formatPrice(currentPrice)}
+//               </span>
+//               {discountPercent > 0 && (
+//                 <>
+//                   <span className="text-xs text-gray-400 line-through">
+//                     ৳{formatPrice(product.regularPrice)}
+//                   </span>
+//                   <span className="text-[10px] font-semibold text-red-500 bg-red-100 px-1.5 py-0.5 rounded-full">
+//                     Save {discountPercent}%
+//                   </span>
+//                 </>
+//               )}
+//             </div>
+
+//             {/* Colors */}
+//             {colors.length > 0 && (
+//               <div className="flex items-center gap-1 mb-1.5">
+//                 <Palette className="w-3 h-3 text-gray-400" />
+//                 <div className="flex items-center gap-1">
+//                   {colors.slice(0, 4).map((color, idx) => (
+//                     <div
+//                       key={idx}
+//                       className="w-4 h-4 rounded-full border border-gray-300"
+//                       style={{ backgroundColor: color }}
+//                       title={color}
+//                     />
+//                   ))}
+//                   {colors.length > 4 && (
+//                     <span className="text-[9px] text-gray-500">+{colors.length - 4}</span>
+//                   )}
+//                 </div>
+//               </div>
+//             )}
+
+//             {/* Bottom Row: Stock Info + Action Buttons */}
+//             <div className="flex flex-wrap items-center justify-between gap-2">
+//               {/* Left side - Stock and Meta Info */}
+//               <div className="flex flex-wrap items-center gap-2">
+//                 {/* Stock Status */}
+//                 {product.stockQuantity > 0 ? (
+//                   <span className="inline-flex items-center gap-1 text-green-600 bg-green-50 px-2 py-0.5 rounded-full text-[9px]">
+//                     <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+//                     In Stock ({product.stockQuantity})
+//                   </span>
+//                 ) : (
+//                   <span className="inline-flex items-center gap-1 text-red-500 bg-red-50 px-2 py-0.5 rounded-full text-[9px]">
+//                     <div className="w-1.5 h-1.5 bg-red-500 rounded-full"></div>
+//                     Out of Stock
+//                   </span>
+//                 )}
+                
+//                 {/* Rating */}
+//                 {product.rating > 0 && (
+//                   <div className="flex items-center gap-0.5">
+//                     <div className="flex items-center">
+//                       {[1, 2, 3, 4, 5].map((star) => (
+//                         <Star
+//                           key={star}
+//                           className={`w-2.5 h-2.5 ${
+//                             star <= Math.floor(product.rating)
+//                               ? 'fill-yellow-400 text-yellow-400'
+//                               : star - 0.5 <= product.rating
+//                               ? 'fill-yellow-400 text-yellow-400 opacity-50'
+//                               : 'text-gray-300'
+//                           }`}
+//                         />
+//                       ))}
+//                     </div>
+//                     <span className="text-[8px] text-gray-500">({product.rating})</span>
+//                   </div>
+//                 )}
+                
+//                 {/* SKU */}
+//                 {product.skuCode && (
+//                   <span className="text-gray-400 text-[9px]">SKU: {product.skuCode}</span>
+//                 )}
+//               </div>
+
+//               {/* Right side - Action Buttons (Only View and Edit for Moderator) */}
+//               <div className="flex items-center gap-1.5">
+//                 <button
+//                   onClick={() => onView(product._id)}
+//                   className="p-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+//                   title="View"
+//                 >
+//                   <Eye className="w-3.5 h-3.5" />
+//                 </button>
+//                 <button
+//                   onClick={() => onEdit(product._id)}
+//                   className="p-1.5 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors"
+//                   title="Edit"
+//                 >
+//                   <Edit className="w-3.5 h-3.5" />
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// Product Card Component for Moderator (only View and Edit actions)
 const ProductCard = ({ product, onEdit, onView }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const productImages = product.images || [];
@@ -1296,7 +1521,8 @@ const ProductCard = ({ product, onEdit, onView }) => {
   const discountPercent = calculateDiscount(product.regularPrice, product.discountPrice);
   const currentPrice = product.discountPrice && product.discountPrice < product.regularPrice ? product.discountPrice : product.regularPrice;
   const primaryTag = product.tags?.[0];
-  const tagStyle = primaryTag ? getTagStyle(primaryTag) : '';
+  const primaryTagName = getTagName(primaryTag);
+  const tagImage = getTagImage(primaryTag);
   const colors = product.colors || [];
 
   return (
@@ -1367,11 +1593,19 @@ const ProductCard = ({ product, onEdit, onView }) => {
 
             {/* Tags and Details Row */}
             <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
-              {/* Tag */}
-              {primaryTag && (
-                <span className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[9px] font-semibold ${tagStyle}`}>
-                  <Sparkles className="w-2 h-2" />
-                  {primaryTag}
+              {/* Tag - Dynamic from backend with image */}
+              {primaryTagName && (
+                <span className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[9px] font-semibold bg-gradient-to-r from-[#EE4275] to-[#FF6B9D] text-white`}>
+                  {tagImage ? (
+                    <img 
+                      src={tagImage} 
+                      alt={primaryTagName}
+                      className="w-2 h-2 rounded-full object-cover"
+                    />
+                  ) : (
+                    <Sparkles className="w-2 h-2" />
+                  )}
+                  {primaryTagName}
                 </span>
               )}
               
@@ -1602,7 +1836,7 @@ export default function ModeratorAllProducts() {
   const fetchBrands = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('https://gadget-backend.vercel.app/api/brands', {
+      const response = await fetch('http://localhost:5000/api/brands', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -1617,7 +1851,7 @@ export default function ModeratorAllProducts() {
   const fetchCategories = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('https://gadget-backend.vercel.app/api/categories', {
+      const response = await fetch('http://localhost:5000/api/categories', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -1632,7 +1866,7 @@ export default function ModeratorAllProducts() {
   const fetchSubcategories = async (categoryId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://gadget-backend.vercel.app/api/categories/${categoryId}/subcategories`, {
+      const response = await fetch(`http://localhost:5000/api/categories/${categoryId}/subcategories`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -1650,7 +1884,7 @@ export default function ModeratorAllProducts() {
   const fetchChildSubcategories = async (categoryId, subcategoryId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://gadget-backend.vercel.app/api/categories/${categoryId}/subcategories/${subcategoryId}/children`, {
+      const response = await fetch(`http://localhost:5000/api/categories/${categoryId}/subcategories/${subcategoryId}/children`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -1711,7 +1945,7 @@ export default function ModeratorAllProducts() {
       }
       queryParams.append('sort', sortParam);
 
-      const response = await fetch(`https://gadget-backend.vercel.app/api/products/admin/all?${queryParams.toString()}`, {
+      const response = await fetch(`http://localhost:5000/api/products/admin/all?${queryParams.toString()}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();

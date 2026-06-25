@@ -1,292 +1,562 @@
+// 'use client';
+
+// import { motion } from 'framer-motion';
+// import { 
+//   Shield, Truck, Leaf, Award, Sparkles, 
+//   Heart, Star, Clock, Gift, Flower2,
+//   Droplets, Sun, Moon, ThumbsUp, CheckCircle2, Crown,
+//   Users
+// } from 'lucide-react';
+// import { useState } from 'react';
+
+// // State Card Component - Left Side (Icon Left, Text Right)
+// const StateCardLeft = ({ icon: Icon, title, description, delay }) => {
+//   return (
+//     <motion.div
+//       initial={{ opacity: 0, x: -30 }}
+//       whileInView={{ opacity: 1, x: 0 }}
+//       viewport={{ once: true }}
+//       transition={{ duration: 0.5, delay }}
+//       className="group relative bg-white rounded-2xl p-3 md:p-4 shadow-sm hover:shadow-[0_8px_30px_rgba(238,66,117,0.12)] transition-all duration-300 border border-[#FFD2DB]/30 hover:border-[#EE4275]/40 cursor-default"
+//     >
+//       <div className="flex items-start gap-3 md:gap-4">
+//         {/* Icon Container */}
+//         <div className="flex-shrink-0 w-9 h-9 md:w-11 md:h-11 rounded-xl bg-gradient-to-br from-[#EE4275]/10 to-[#FFD2DB]/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+//           <Icon className="w-4 h-4 md:w-4.5 md:h-4.5 text-[#EE4275]" />
+//         </div>
+        
+//         {/* Text Content */}
+//         <div className="flex-1 min-w-0">
+//           <h4 className="text-xs md:text-sm font-semibold text-gray-900 mb-0.5 text-left" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
+//             {title}
+//           </h4>
+//           <p className="text-[10px] md:text-xs text-gray-500 leading-relaxed text-left">
+//             {description}
+//           </p>
+//         </div>
+//       </div>
+//     </motion.div>
+//   );
+// };
+
+// // State Card Component - Right Side (Icon Left, Text Right - Same as Left)
+// const StateCardRight = ({ icon: Icon, title, description, delay }) => {
+//   return (
+//     <motion.div
+//       initial={{ opacity: 0, x: 30 }}
+//       whileInView={{ opacity: 1, x: 0 }}
+//       viewport={{ once: true }}
+//       transition={{ duration: 0.5, delay }}
+//       className="group relative bg-white rounded-2xl p-3 md:p-4 shadow-sm hover:shadow-[0_8px_30px_rgba(238,66,117,0.12)] transition-all duration-300 border border-[#FFD2DB]/30 hover:border-[#EE4275]/40 cursor-default"
+//     >
+//       <div className="flex items-start gap-3 md:gap-4">
+//         {/* Icon Container */}
+//         <div className="flex-shrink-0 w-9 h-9 md:w-11 md:h-11 rounded-xl bg-gradient-to-br from-[#EE4275]/10 to-[#FFD2DB]/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+//           <Icon className="w-4 h-4 md:w-4.5 md:h-4.5 text-[#EE4275]" />
+//         </div>
+        
+//         {/* Text Content - Left Aligned */}
+//         <div className="flex-1 min-w-0">
+//           <h4 className="text-xs md:text-sm font-semibold text-gray-900 mb-0.5 text-left" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
+//             {title}
+//           </h4>
+//           <p className="text-[10px] md:text-xs text-gray-500 leading-relaxed text-left">
+//             {description}
+//           </p>
+//         </div>
+//       </div>
+//     </motion.div>
+//   );
+// };
+
+// // Main Why Choose Us Component
+// export default function WhyChooseUs() {
+//   const [imageError, setImageError] = useState(false);
+
+//   // Left Side Cards Data
+//   const leftCards = [
+//     {
+//       icon: Shield,
+//       title: "100% Authentic",
+//       description: "Premium quality products sourced directly from trusted brands"
+//     },
+//     {
+//       icon: Truck,
+//       title: "Fast Delivery",
+//       description: "Free shipping on orders above ৳500 with express delivery options"
+//     },
+//     {
+//       icon: Leaf,
+//       title: "Cruelty-Free",
+//       description: "We only stock products that are ethically sourced and tested"
+//     },
+//     {
+//       icon: Award,
+//       title: "Curated Selection",
+//       description: "Handpicked beauty products by our expert team of professionals"
+//     }
+//   ];
+
+//   // Right Side Cards Data
+//   const rightCards = [
+//     {
+//       icon: Star,
+//       title: "Trusted Reviews",
+//       description: "Real customer reviews to help you make the right choice"
+//     },
+//     {
+//       icon: Heart,
+//       title: "Love Your Skin",
+//       description: "Formulated with natural ingredients for sensitive skin.Enriched with soothing botanicals"
+//     },
+//     {
+//       icon: Clock,
+//       title: "24/7 Support",
+//       description: "Dedicated customer care team ready to assist you anytime"
+//     },
+//     {
+//       icon: Gift,
+//       title: "Loyalty Rewards",
+//       description: "Earn points and unlock exclusive deals with every purchase"
+//     }
+//   ];
+
+//   return (
+//     <section className="py-12 md:py-16 lg:py-20 bg-gradient-to-b from-white via-[#FFF5F6]/30 to-white overflow-hidden relative">
+//       {/* Background Decorative Elements */}
+//       <div className="absolute inset-0 pointer-events-none overflow-hidden">
+//         <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#EE4275]/5 rounded-full blur-3xl"></div>
+//         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-[#FFD2DB]/30 rounded-full blur-3xl"></div>
+//         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#EE4275]/[0.02] rounded-full blur-3xl"></div>
+        
+//         {/* Decorative floating elements */}
+//         <div className="absolute top-20 left-[10%] opacity-20 hidden lg:block">
+//           <Flower2 className="w-6 h-6 text-[#EE4275]" />
+//         </div>
+//         <div className="absolute bottom-20 right-[10%] opacity-20 hidden lg:block">
+//           <Droplets className="w-6 h-6 text-[#EE4275]" />
+//         </div>
+//         <div className="absolute top-1/2 left-[3%] opacity-10 hidden lg:block">
+//           <Sun className="w-8 h-8 text-[#EE4275]" />
+//         </div>
+//         <div className="absolute top-1/2 right-[3%] opacity-10 hidden lg:block">
+//           <Moon className="w-8 h-8 text-[#EE4275]" />
+//         </div>
+//       </div>
+
+//       <div className="container mx-auto px-4 max-w-7xl relative z-10">
+//         {/* Section Header - Centered */}
+//         <motion.div
+//           initial={{ opacity: 0, y: 20 }}
+//           whileInView={{ opacity: 1, y: 0 }}
+//           viewport={{ once: true }}
+//           className="text-center mb-8 md:mb-12"
+//         >
+//           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#EE4275]/10 rounded-full mb-3">
+//             <Sparkles className="w-3.5 h-3.5 text-[#EE4275]" />
+//             <span className="text-xs font-medium text-[#EE4275] tracking-wider uppercase">
+//               Why Choose Us
+//             </span>
+//             <Sparkles className="w-3.5 h-3.5 text-[#EE4275]" />
+//           </div>
+          
+//           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
+//             Why <span className="text-[#EE4275]">Choose</span> Us
+//           </h2>
+          
+//           <p className="text-gray-500 text-sm md:text-base max-w-2xl mx-auto mt-2">
+//             Discover why thousands of beauty enthusiasts trust us for their skincare and makeup needs
+//           </p>
+//         </motion.div>
+
+//         {/* 3-Column Layout - Fixed Grid */}
+//         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 items-start">
+          
+//           {/* LEFT COLUMN - 4 State Cards Stacked */}
+//           <div className="space-y-3 md:space-y-4 order-2 lg:order-1">
+//             {leftCards.map((card, index) => (
+//               <StateCardLeft
+//                 key={index}
+//                 icon={card.icon}
+//                 title={card.title}
+//                 description={card.description}
+//                 delay={0.1 + index * 0.08}
+//               />
+//             ))}
+//           </div>
+
+//           {/* CENTER COLUMN - Image - No Outer Border, Full Rounded Top & Bottom */}
+//        <motion.div
+//   initial={{ opacity: 0, scale: 0.95 }}
+//   whileInView={{ opacity: 1, scale: 1 }}
+//   viewport={{ once: true }}
+//   transition={{ duration: 0.6, delay: 0.2 }}
+//   className="order-1 lg:order-2 flex justify-center items-start"
+// >
+//   <div className="relative w-full max-w-sm">
+//     {/* Image Container - Full rounded top & bottom */}
+//     <div className="relative rounded-t-full overflow-hidden shadow-xl shadow-[#EE4275]/10">
+//       {/* Min-height with aspect ratio */}
+//       <div className="relative w-full aspect-[4/5] min-h-[300px] md:min-h-[350px] overflow-hidden bg-gradient-to-br from-[#FFF5F6] to-[#FFD2DB]/20">
+        
+//         {/* Image */}
+//         <img
+//           src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=400&fit=crop&crop=center&auto=format"
+//           alt="Beauty products"
+//           className="w-full h-full object-cover"
+//           loading="lazy"
+//           onError={(e) => {
+//             e.target.onerror = null;
+//             e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=400&fit=crop&crop=center&auto=format';
+//           }}
+//         />
+        
+//         {/* Floating badges... */}
+//       </div>
+//     </div>
+//   </div>
+// </motion.div>
+
+//           {/* RIGHT COLUMN - 4 State Cards Stacked - Left Aligned Text */}
+//           <div className="space-y-3 md:space-y-4 order-3">
+//             {rightCards.map((card, index) => (
+//               <StateCardRight
+//                 key={index}
+//                 icon={card.icon}
+//                 title={card.title}
+//                 description={card.description}
+//                 delay={0.1 + index * 0.08}
+//               />
+//             ))}
+//           </div>
+//         </div>
+
+//         {/* Bottom Trust Badges */}
+//         <motion.div
+//           initial={{ opacity: 0, y: 20 }}
+//           whileInView={{ opacity: 1, y: 0 }}
+//           viewport={{ once: true }}
+//           transition={{ duration: 0.5, delay: 0.6 }}
+//           className="mt-10 md:mt-14 pt-6 md:pt-8 border-t border-[#FFD2DB]/40 flex flex-wrap justify-center gap-4 md:gap-8"
+//         >
+//           <div className="flex items-center gap-2">
+//             <ThumbsUp className="w-4 h-4 text-[#EE4275]" />
+//             <span className="text-xs md:text-sm font-medium text-gray-600">Trusted by 10k+ Customers</span>
+//           </div>
+//           <div className="flex items-center gap-2">
+//             <CheckCircle2 className="w-4 h-4 text-[#EE4275]" />
+//             <span className="text-xs md:text-sm font-medium text-gray-600">100% Satisfaction Guaranteed</span>
+//           </div>
+//           <div className="flex items-center gap-2">
+//             <Crown className="w-4 h-4 text-[#EE4275]" />
+//             <span className="text-xs md:text-sm font-medium text-gray-600">Premium Quality Products</span>
+//           </div>
+//         </motion.div>
+//       </div>
+//     </section>
+//   );
+// }
+
+
+
 'use client';
 
-import { motion, useInView } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { 
-  Leaf, 
-  Globe, 
-  Factory, 
-  Package, 
-  Clock, 
-  ShieldCheck,
-  Zap,
-  Truck,
-  Medal
+  Shield, Truck, Leaf, Award, Sparkles, 
+  Heart, Star, Clock, Gift, Flower2,
+  Droplets, Sun, Moon, ThumbsUp, CheckCircle2, Crown,
+  Users
 } from 'lucide-react';
+import { useState } from 'react';
 
+// State Card Component - Left Side (Icon Left, Text Right)
+const StateCardLeft = ({ icon: Icon, title, description, delay }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -30 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay }}
+      className="group relative bg-white rounded-2xl p-3 md:p-4 shadow-sm hover:shadow-[0_8px_30px_rgba(238,66,117,0.12)] transition-all duration-300 border border-[#FFD2DB]/30 hover:border-[#EE4275]/40 cursor-default"
+    >
+      <div className="flex items-start gap-3 md:gap-4">
+        {/* Icon Container */}
+        <div className="flex-shrink-0 w-9 h-9 md:w-11 md:h-11 rounded-xl bg-gradient-to-br from-[#EE4275]/10 to-[#FFD2DB]/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+          <Icon className="w-4 h-4 md:w-4.5 md:h-4.5 text-[#EE4275]" />
+        </div>
+        
+        {/* Text Content */}
+        <div className="flex-1 min-w-0">
+          <h4 className="text-xs md:text-sm font-semibold text-gray-900 mb-0.5 text-left" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
+            {title}
+          </h4>
+          <p className="text-[10px] md:text-xs text-gray-500 leading-relaxed text-left">
+            {description}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+// State Card Component - Right Side (Icon Left, Text Right - Same as Left)
+const StateCardRight = ({ icon: Icon, title, description, delay }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 30 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay }}
+      className="group relative bg-white rounded-2xl p-3 md:p-4 shadow-sm hover:shadow-[0_8px_30px_rgba(238,66,117,0.12)] transition-all duration-300 border border-[#FFD2DB]/30 hover:border-[#EE4275]/40 cursor-default"
+    >
+      <div className="flex items-start gap-3 md:gap-4">
+        {/* Icon Container */}
+        <div className="flex-shrink-0 w-9 h-9 md:w-11 md:h-11 rounded-xl bg-gradient-to-br from-[#EE4275]/10 to-[#FFD2DB]/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+          <Icon className="w-4 h-4 md:w-4.5 md:h-4.5 text-[#EE4275]" />
+        </div>
+        
+        {/* Text Content - Left Aligned */}
+        <div className="flex-1 min-w-0">
+          <h4 className="text-xs md:text-sm font-semibold text-gray-900 mb-0.5 text-left" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
+            {title}
+          </h4>
+          <p className="text-[10px] md:text-xs text-gray-500 leading-relaxed text-left">
+            {description}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+// Main Why Choose Us Component
 export default function WhyChooseUs() {
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
-  const [animatedStats, setAnimatedStats] = useState({
-    eco: 0,
-    countries: 0,
-    delivery: 0
-  });
+  const [imageError, setImageError] = useState(false);
 
-  // Features for grid - only 3 in a row to keep compact
-  const features = [
+  // Left Side Cards Data
+  const leftCards = [
+    {
+      icon: Shield,
+      title: "100% Authentic",
+      description: "Premium quality products sourced directly from trusted brands"
+    },
+    {
+      icon: Truck,
+      title: "Fast Delivery",
+      description: "Free shipping on orders above ৳500 with express delivery options"
+    },
     {
       icon: Leaf,
-      title: "100% Eco-Friendly Materials",
-      description: "Premium jute products that are 100% biodegradable and sustainable.",
-      stat: "100%",
-      statLabel: "Biodegradable",
-      color: "#4A7C59"
+      title: "Cruelty-Free",
+      description: "We only stock products that are ethically sourced and tested"
     },
     {
-      icon: Globe,
-      title: "Export to 30+ Countries",
-      description: "Trusted by importers across USA, Europe, Middle East, and Asia.",
-      stat: "30+",
-      statLabel: "Countries",
-      color: "#C6A43B"
+      icon: Award,
+      title: "Curated Selection",
+      description: "Handpicked beauty products by our expert team of professionals"
+    }
+  ];
+
+  // Right Side Cards Data
+  const rightCards = [
+    {
+      icon: Star,
+      title: "Trusted Reviews",
+      description: "Real customer reviews to help you make the right choice"
     },
     {
-      icon: Factory,
-      title: "Direct Manufacturer Network",
-      description: "Factory-direct pricing with complete quality control from source to shipping.",
-      stat: "500+",
-      statLabel: "Happy Clients",
-      color: "#6B4F3A"
-    },
-    {
-      icon: Package,
-      title: "Bulk Order Capacity",
-      description: "Handle orders from 500 to 500,000+ units with flexible MOQ.",
-      stat: "500K+",
-      statLabel: "Monthly Capacity",
-      color: "#4A7C59"
+      icon: Heart,
+      title: "Love Your Skin",
+      description: "Formulated with natural ingredients for sensitive skin.Enriched with soothing botanicals"
     },
     {
       icon: Clock,
-      title: "On-Time Delivery",
-      description: "98% on-time delivery rate with real-time tracking worldwide.",
-      stat: "98%",
-      statLabel: "On-Time Rate",
-      color: "#C6A43B"
+      title: "24/7 Support",
+      description: "Dedicated customer care team ready to assist you anytime"
     },
     {
-      icon: ShieldCheck,
-      title: "Premium Quality Certified",
-      description: "ISO, SGS, and Fair Trade certified products meeting global standards.",
-      stat: "100%",
-      statLabel: "Quality Assured",
-      color: "#6B4F3A"
+      icon: Gift,
+      title: "Loyalty Rewards",
+      description: "Earn points and unlock exclusive deals with every purchase"
     }
   ];
 
-  // Stats row - compact
-  const stats = [
-    { icon: Leaf, value: 100, suffix: "%", label: "Eco-Friendly", color: "#4A7C59" },
-    { icon: Globe, value: 30, suffix: "+", label: "Export Countries", color: "#C6A43B" },
-    { icon: Clock, value: 98, suffix: "%", label: "On-Time Delivery", color: "#4A7C59" },
-    { icon: Package, value: 500, suffix: "T+", label: "Monthly Capacity", color: "#C6A43B" },
-  ];
-
-  // Animated counter effect
-  useEffect(() => {
-    if (isInView) {
-      const duration = 1500;
-      const interval = 20;
-      const steps = duration / interval;
-      
-      let currentStep = 0;
-      const timer = setInterval(() => {
-        currentStep++;
-        const progress = currentStep / steps;
-        
-        setAnimatedStats({
-          eco: Math.min(Math.floor(100 * progress), 100),
-          countries: Math.min(Math.floor(30 * progress), 30),
-          delivery: Math.min(Math.floor(98 * progress), 98)
-        });
-        
-        if (currentStep >= steps) {
-          clearInterval(timer);
-        }
-      }, interval);
-      
-      return () => clearInterval(timer);
-    }
-  }, [isInView]);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-        delayChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.4, ease: "easeOut" }
-    }
-  };
+  // Combine all cards for mobile grid
+  const allCards = [...leftCards, ...rightCards];
 
   return (
-    <section ref={sectionRef} className="py-12 md:py-16 bg-gradient-to-b from-white to-[#FAF7F2]">
-      <div className="container mx-auto px-4 max-w-7xl">
-        {/* Section Header - Compact */}
+    <section className="py-10 md:py-14 lg:py-16 bg-gradient-to-b from-white via-[#FFF5F6]/30 to-white overflow-hidden relative">
+      {/* Background Decorative Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#EE4275]/5 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-[#FFD2DB]/30 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#EE4275]/[0.02] rounded-full blur-3xl"></div>
+        
+        {/* Decorative floating elements */}
+        <div className="absolute top-20 left-[10%] opacity-20 hidden lg:block">
+          <Flower2 className="w-6 h-6 text-[#EE4275]" />
+        </div>
+        <div className="absolute bottom-20 right-[10%] opacity-20 hidden lg:block">
+          <Droplets className="w-6 h-6 text-[#EE4275]" />
+        </div>
+        <div className="absolute top-1/2 left-[3%] opacity-10 hidden lg:block">
+          <Sun className="w-8 h-8 text-[#EE4275]" />
+        </div>
+        <div className="absolute top-1/2 right-[3%] opacity-10 hidden lg:block">
+          <Moon className="w-8 h-8 text-[#EE4275]" />
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 max-w-7xl relative z-10">
+        {/* Section Header - Centered */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-8 md:mb-10"
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-6 md:mb-10"
         >
-          <div className="inline-flex items-center gap-2 bg-[#4A7C59]/10 rounded-full px-3 py-1 mb-3">
-            <Zap className="w-3.5 h-3.5 text-[#C6A43B]" />
-            <span className="text-[10px] font-semibold text-[#4A7C59] tracking-wider uppercase">Why Choose Us</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#EE4275]/10 rounded-full mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-[#EE4275]" />
+            <span className="text-xs font-medium text-[#EE4275] tracking-wider uppercase">
+              Why Choose Us
+            </span>
+            <Sparkles className="w-3.5 h-3.5 text-[#EE4275]" />
           </div>
           
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-[#2C2420] mb-2 font-serif">
-            Why Global Importers{' '}
-            <span className="font-semibold bg-gradient-to-r from-[#4A7C59] to-[#C6A43B] bg-clip-text text-transparent">
-              Trust Jute Craftify
-            </span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
+            Why <span className="text-[#EE4275]">Choose</span> Us
           </h2>
           
-          <p className="text-gray-500 max-w-2xl mx-auto text-sm font-sans">
-            Your end-to-end sustainable jute supply partner for bulk orders and global export
+          <p className="text-gray-500 text-sm md:text-base max-w-2xl mx-auto mt-2">
+            Discover why thousands of beauty enthusiasts trust us for their skincare and makeup needs
           </p>
         </motion.div>
 
-        {/* Stats Row - Compact Banner */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10"
-        >
-          {stats.map((stat, index) => {
-            const Icon = stat.icon;
-            let displayValue = stat.value;
-            if (stat.label === "Eco-Friendly") displayValue = animatedStats.eco;
-            if (stat.label === "Export Countries") displayValue = animatedStats.countries;
-            if (stat.label === "On-Time Delivery") displayValue = animatedStats.delivery;
-            
-            return (
-              <motion.div
-                key={index}
-                variants={statVariants}
-                whileHover={{ y: -2 }}
-                className="bg-white rounded-xl p-3 text-center border border-[#F5E6D3] shadow-sm hover:shadow-md transition-all"
-              >
-                <div 
-                  className="w-8 h-8 rounded-lg flex items-center justify-center mx-auto mb-2"
-                  style={{ backgroundColor: `${stat.color}15` }}
-                >
-                  <Icon className="w-4 h-4" style={{ color: stat.color }} />
+        {/* MOBILE VIEW - 2 Columns Grid (No Image) */}
+        <div className="lg:hidden grid grid-cols-2 gap-3 md:gap-4">
+          {allCards.map((card, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
+              className="group relative bg-white rounded-2xl p-3 md:p-4 shadow-sm hover:shadow-[0_8px_30px_rgba(238,66,117,0.12)] transition-all duration-300 border border-[#FFD2DB]/30 hover:border-[#EE4275]/40 cursor-default"
+            >
+              <div className="flex flex-col items-center text-center">
+                {/* Icon Container */}
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-[#EE4275]/10 to-[#FFD2DB]/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 mb-2">
+                  <card.icon className="w-4.5 h-4.5 md:w-5 md:h-5 text-[#EE4275]" />
                 </div>
-                <div className="text-xl md:text-2xl font-bold text-[#2C2420] font-serif">
-                  {displayValue}{stat.suffix}
-                </div>
-                <div className="text-[10px] text-gray-500 font-sans mt-0.5">{stat.label}</div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+                
+                {/* Text Content */}
+                <h4 className="text-xs md:text-sm font-semibold text-gray-900 mb-0.5 text-center" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
+                  {card.title}
+                </h4>
+                <p className="text-[10px] md:text-xs text-gray-500 leading-relaxed text-center">
+                  {card.description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
 
-        {/* Features Grid - 3x2 Layout */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-        >
-          {features.map((feature, index) => {
-            const Icon = feature.icon;
-            return (
-              <motion.div
+        {/* DESKTOP VIEW - 3 Column Layout */}
+        <div className="hidden lg:grid lg:grid-cols-3 gap-6 md:gap-8 items-start">
+          
+          {/* LEFT COLUMN - 4 State Cards Stacked */}
+          <div className="space-y-3 md:space-y-4">
+            {leftCards.map((card, index) => (
+              <StateCardLeft
                 key={index}
-                variants={itemVariants}
-                whileHover={{ y: -4 }}
-                className="group bg-white rounded-xl p-4 border border-[#F5E6D3] hover:border-[#4A7C59]/30 hover:shadow-lg transition-all duration-300"
-              >
-                <div className="flex items-start gap-3">
-                  {/* Icon */}
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
-                    style={{ backgroundColor: `${feature.color}15` }}
-                  >
-                    <Icon className="w-5 h-5" style={{ color: feature.color }} />
-                  </motion.div>
+                icon={card.icon}
+                title={card.title}
+                description={card.description}
+                delay={0.1 + index * 0.08}
+              />
+            ))}
+          </div>
+
+          {/* CENTER COLUMN - Image - Reduced Height */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex justify-center items-start"
+          >
+            <div className="relative w-full max-w-xs">
+              {/* Image Container - Full rounded top & bottom */}
+              <div className="relative rounded-t-full overflow-hidden shadow-xl shadow-[#EE4275]/10 border-2 border-pink-600">
+                {/* Reduced height */}
+               <div className="relative w-full aspect-[3/4] min-h-[300px] md:min-h-[350px] overflow-hidden bg-gradient-to-br from-[#FFF5F6] to-[#FFD2DB]/20">
                   
-                  {/* Content */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-semibold text-[#2C2420] mb-1 font-serif">
-                      {feature.title}
-                    </h3>
-                    <p className="text-xs text-gray-500 leading-relaxed font-sans">
-                      {feature.description}
-                    </p>
-                    <div className="flex items-center gap-1.5 mt-2">
-                      <span className="text-xs font-bold" style={{ color: feature.color }}>
-                        {feature.stat}
-                      </span>
-                      <span className="text-[10px] text-gray-400">•</span>
-                      <span className="text-[10px] text-gray-400">{feature.statLabel}</span>
-                    </div>
+                  {/* Image */}
+                  <img
+                    src="/images/choose.jpg"
+                    alt="Beauty products"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = '/images/choose.jpg';
+                    }}
+                  />
+                  
+                  {/* Pink Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#EE4275]/10 via-transparent to-transparent"></div>
+                  
+                  {/* Decorative elements on image */}
+                  <div className="absolute top-3 right-3 bg-white/80 backdrop-blur-sm rounded-full p-1.5 shadow-md border border-[#FFD2DB]/30">
+                    <Sparkles className="w-3.5 h-3.5 text-[#EE4275]" />
+                  </div>
+                  <div className="absolute bottom-3 left-3 bg-white/80 backdrop-blur-sm rounded-full px-3 py-1 shadow-md border border-[#FFD2DB]/30">
+                    <span className="text-[10px] font-medium text-[#EE4275]" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
+                      Beauty & Glow
+                    </span>
                   </div>
                 </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+              </div>
+            </div>
+          </motion.div>
 
-        {/* Trust Badges - Compact Footer */}
+          {/* RIGHT COLUMN - 4 State Cards Stacked - Left Aligned Text */}
+          <div className="space-y-3 md:space-y-4">
+            {rightCards.map((card, index) => (
+              <StateCardRight
+                key={index}
+                icon={card.icon}
+                title={card.title}
+                description={card.description}
+                delay={0.1 + index * 0.08}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom Trust Badges */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.4, duration: 0.4 }}
-          className="mt-8 pt-6 border-t border-[#F5E6D3]"
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-[#FFD2DB]/40 flex flex-wrap justify-center gap-3 md:gap-6"
         >
-          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
-            <div className="flex items-center gap-2">
-              <Medal className="w-4 h-4 text-[#4A7C59]" />
-              <span className="text-xs text-gray-600 font-sans">ISO Certified</span>
-            </div>
-            
-            <div className="w-px h-4 bg-[#E8D5C0]" />
-            
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#C6A43B]" />
-              <span className="text-xs text-gray-600 font-sans">SGS Tested</span>
-            </div>
-            
-            <div className="w-px h-4 bg-[#E8D5C0]" />
-            
-            <div className="flex items-center gap-2">
-              <Truck className="w-4 h-4 text-[#6B4F3A]" />
-              <span className="text-xs text-gray-600 font-sans">Global Shipping</span>
-            </div>
-            
-            <div className="w-px h-4 bg-[#E8D5C0]" />
-            
-            <div className="flex items-center gap-2">
-              <Leaf className="w-4 h-4 text-[#4A7C59]" />
-              <span className="text-xs text-gray-600 font-sans">Fair Trade</span>
-            </div>
+          <div className="flex items-center gap-2">
+            <ThumbsUp className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#EE4275]" />
+            <span className="text-[10px] md:text-sm font-medium text-gray-600">Trusted by 10k+ Customers</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#EE4275]" />
+            <span className="text-[10px] md:text-sm font-medium text-gray-600">100% Satisfaction Guaranteed</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Crown className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#EE4275]" />
+            <span className="text-[10px] md:text-sm font-medium text-gray-600">Premium Quality Products</span>
           </div>
         </motion.div>
       </div>
     </section>
   );
 }
-
-// Individual stat item animation
-const statVariants = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.3, type: "spring", stiffness: 150 }
-  }
-};

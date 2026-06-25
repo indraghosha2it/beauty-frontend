@@ -871,7 +871,7 @@ export default function ModeratorCreateBlog() {
           }))
       };
 
-      const response = await fetch('https://gadget-backend.vercel.app/api/blogs', {
+      const response = await fetch('http://localhost:5000/api/blogs', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

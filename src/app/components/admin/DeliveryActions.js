@@ -11,7 +11,7 @@ export const DeliveryActions = ({ order, onUpdate }) => {
     setIsProcessing(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('https://gadget-backend.vercel.app/api/delivery/create', {
+      const response = await fetch('http://localhost:5000/api/delivery/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ export const DeliveryActions = ({ order, onUpdate }) => {
     setIsProcessing(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://gadget-backend.vercel.app/api/delivery/track/${order._id}`, {
+      const response = await fetch(`http://localhost:5000/api/delivery/track/${order._id}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -71,7 +71,7 @@ export const DeliveryActions = ({ order, onUpdate }) => {
     setIsProcessing(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://gadget-backend.vercel.app/api/delivery/cancel/${order._id}`, {
+      const response = await fetch(`http://localhost:5000/api/delivery/cancel/${order._id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

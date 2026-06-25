@@ -32,7 +32,7 @@
 // import Footer from '../components/layout/Footer';
 
 
-// const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://gadget-backend.vercel.app';
+// const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 // // Status configuration with gadget theme
 // const STATUS_CONFIG = {

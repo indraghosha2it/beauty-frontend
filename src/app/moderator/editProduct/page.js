@@ -108,7 +108,7 @@
 
 //     setIsValidating(true);
 //     try {
-//       let url = `https://gadget-backend.vercel.app/api/barcodes/validate/${barcodeValue}`;
+//       let url = `http://localhost:5000/api/barcodes/validate/${barcodeValue}`;
 //       if (productId) {
 //         url += `?productId=${productId}`;
 //       }
@@ -704,7 +704,7 @@
 //   const fetchCategories = async () => {
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch('https://gadget-backend.vercel.app/api/categories', {
+//       const response = await fetch('http://localhost:5000/api/categories', {
 //         headers: { 'Authorization': `Bearer ${token}` }
 //       });
 //       const data = await response.json();
@@ -720,7 +720,7 @@
 //   const fetchSubcategories = async (categoryId) => {
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/categories/${categoryId}/subcategories`, {
+//       const response = await fetch(`http://localhost:5000/api/categories/${categoryId}/subcategories`, {
 //         headers: { 'Authorization': `Bearer ${token}` }
 //       });
 //       const data = await response.json();
@@ -738,7 +738,7 @@
 //   const fetchChildSubcategories = async (categoryId, subcategoryId) => {
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/categories/${categoryId}/subcategories/${subcategoryId}/children`, {
+//       const response = await fetch(`http://localhost:5000/api/categories/${categoryId}/subcategories/${subcategoryId}/children`, {
 //         headers: { 'Authorization': `Bearer ${token}` }
 //       });
 //       const data = await response.json();
@@ -760,7 +760,7 @@
 //     try {
 //       const token = localStorage.getItem('token');
       
-//       const response = await fetch('https://gadget-backend.vercel.app/api/barcodes/generate-single', {
+//       const response = await fetch('http://localhost:5000/api/barcodes/generate-single', {
 //         method: 'POST',
 //         headers: {
 //           'Authorization': `Bearer ${token}`,
@@ -802,7 +802,7 @@
 //     setIsValidatingSku(true);
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/products/validate-sku/${skuValue}?excludeId=${productId}`, {
+//       const response = await fetch(`http://localhost:5000/api/products/validate-sku/${skuValue}?excludeId=${productId}`, {
 //         headers: { 'Authorization': `Bearer ${token}` }
 //       });
 //       const data = await response.json();
@@ -848,7 +848,7 @@
 //     setIsLoading(true);
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/products/${productId}`, {
+//       const response = await fetch(`http://localhost:5000/api/products/${productId}`, {
 //         headers: { 'Authorization': `Bearer ${token}` }
 //       });
       
@@ -1559,7 +1559,7 @@
 //         imagesToDelete: imagesToDelete
 //       };
 
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/products/${productId}`, {
+//       const response = await fetch(`http://localhost:5000/api/products/${productId}`, {
 //         method: 'PUT',
 //         headers: {
 //           'Authorization': `Bearer ${token}`,
@@ -2878,7 +2878,7 @@ const AddBrandModal = ({ isOpen, onClose, onBrandAdded }) => {
     setIsSubmitting(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('https://gadget-backend.vercel.app/api/brands', {
+      const response = await fetch('http://localhost:5000/api/brands', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -3055,6 +3055,9 @@ export default function ModeratorEditProductPage() {
   const [isValidatingSku, setIsValidatingSku] = useState(false);
   const [isSkuUnique, setIsSkuUnique] = useState(null);
   const skuValidateTimeoutRef = useRef(null);
+  // Add with other states
+const [productTags, setProductTags] = useState([]);
+const [isLoadingTags, setIsLoadingTags] = useState(false);
 
   // Refs to track if editor content has been set
   const shortDescContentSet = useRef(false);
@@ -3168,6 +3171,7 @@ export default function ModeratorEditProductPage() {
     setIsMounted(true);
     fetchBrands();
     fetchCategories();
+    fetchTags(); 
   }, []);
 
   useEffect(() => {
@@ -3210,7 +3214,7 @@ export default function ModeratorEditProductPage() {
   const fetchBrands = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('https://gadget-backend.vercel.app/api/brands', { headers: { 'Authorization': `Bearer ${token}` } });
+      const response = await fetch('http://localhost:5000/api/brands', { headers: { 'Authorization': `Bearer ${token}` } });
       const data = await response.json();
       if (data.success) setBrands(data.data);
     } catch (error) { console.error('Error fetching brands:', error); }
@@ -3219,7 +3223,7 @@ export default function ModeratorEditProductPage() {
   const fetchCategories = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('https://gadget-backend.vercel.app/api/categories', { headers: { 'Authorization': `Bearer ${token}` } });
+      const response = await fetch('http://localhost:5000/api/categories', { headers: { 'Authorization': `Bearer ${token}` } });
       const data = await response.json();
       if (data.success) setCategories(data.data);
     } catch (error) { toast.error('Failed to fetch categories'); }
@@ -3228,7 +3232,7 @@ export default function ModeratorEditProductPage() {
   const fetchSubcategories = async (categoryId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://gadget-backend.vercel.app/api/categories/${categoryId}/subcategories`, { headers: { 'Authorization': `Bearer ${token}` } });
+      const response = await fetch(`http://localhost:5000/api/categories/${categoryId}/subcategories`, { headers: { 'Authorization': `Bearer ${token}` } });
       const data = await response.json();
       if (data.success) setSubcategories(data.data.subcategories);
       else setSubcategories([]);
@@ -3238,12 +3242,34 @@ export default function ModeratorEditProductPage() {
   const fetchChildSubcategories = async (categoryId, subcategoryId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://gadget-backend.vercel.app/api/categories/${categoryId}/subcategories/${subcategoryId}/children`, { headers: { 'Authorization': `Bearer ${token}` } });
+      const response = await fetch(`http://localhost:5000/api/categories/${categoryId}/subcategories/${subcategoryId}/children`, { headers: { 'Authorization': `Bearer ${token}` } });
       const data = await response.json();
       if (data.success) setChildSubcategories(data.data.children);
       else setChildSubcategories([]);
     } catch (error) { setChildSubcategories([]); }
   };
+
+  // Fetch tags from backend
+const fetchTags = async () => {
+  setIsLoadingTags(true);
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch('http://localhost:5000/api/tags?isActive=true', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    const data = await response.json();
+    if (data.success) {
+      setProductTags(data.data);
+    }
+  } catch (error) {
+    console.error('Error fetching tags:', error);
+    toast.error('Failed to fetch tags');
+  } finally {
+    setIsLoadingTags(false);
+  }
+};
 
   const validateSku = async (skuValue) => {
     if (!skuValue || skuValue.length < 3) {
@@ -3257,7 +3283,7 @@ export default function ModeratorEditProductPage() {
     setIsValidatingSku(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://gadget-backend.vercel.app/api/products/validate-sku/${skuValue}?excludeId=${productId}`, {
+      const response = await fetch(`http://localhost:5000/api/products/validate-sku/${skuValue}?excludeId=${productId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -3274,7 +3300,7 @@ export default function ModeratorEditProductPage() {
     setIsGeneratingSku(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('https://gadget-backend.vercel.app/api/products/generate-sku', {
+      const response = await fetch('http://localhost:5000/api/products/generate-sku', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
       });
@@ -3296,7 +3322,7 @@ export default function ModeratorEditProductPage() {
     setIsLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://gadget-backend.vercel.app/api/products/${productId}`, { 
+      const response = await fetch(`http://localhost:5000/api/products/${productId}`, { 
         headers: { 'Authorization': `Bearer ${token}` } 
       });
       const data = await response.json();
@@ -3626,9 +3652,9 @@ export default function ModeratorEditProductPage() {
     if (value !== 'other') setFormData(prev => ({ ...prev, customUnit: '' }));
   };
 
-  const handleTagSelect = (tagValue) => {
-    setFormData(prev => ({ ...prev, tags: [tagValue] }));
-  };
+const handleTagSelect = (tagId) => {
+  setFormData(prev => ({ ...prev, tags: [tagId] }));
+};
 
   const addAdditionalInfo = () => {
     setFormData(prev => ({ ...prev, additionalInfo: [...prev.additionalInfo, { fieldName: '', fieldValue: '' }] }));
@@ -3690,6 +3716,10 @@ export default function ModeratorEditProductPage() {
     
     if (productImages.some(img => img.isNew && img.url !== null)) return true;
     if (imagesToDelete.length > 0) return true;
+
+    const currentTags = formData.tags.sort();
+  const originalTags = (originalProduct.tags || []).sort();
+  if (JSON.stringify(currentTags) !== JSON.stringify(originalTags)) return true;
     
     return false;
   };
@@ -3769,7 +3799,7 @@ export default function ModeratorEditProductPage() {
         imagesToDelete: imagesToDelete
       };
 
-      const response = await fetch(`https://gadget-backend.vercel.app/api/products/${productId}`, {
+      const response = await fetch(`http://localhost:5000/api/products/${productId}`, {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -4205,22 +4235,54 @@ export default function ModeratorEditProductPage() {
                       <div><span className="text-sm font-medium text-gray-700">Mark as Featured Product</span><p className="text-xs text-gray-500">Featured products will appear in special sections</p></div>
                     </label>
 
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Product Tag <span className="text-red-500">* (Select exactly one)</span></label>
-                      {errors.tags && <p className="text-xs text-red-600 mb-2">{errors.tags}</p>}
-                      <div className="grid grid-cols-2 gap-2">
-                        {PRODUCT_TAGS.map(tag => (
-                          <button key={tag.value} type="button" onClick={() => handleTagSelect(tag.value)} className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-all text-sm ${formData.tags.includes(tag.value) ? 'border-blue-600 bg-blue-50 text-blue-700' : 'border-gray-200 hover:border-gray-300 text-gray-600'}`}>
-                            {tag.icon} <span>{tag.label}</span>
-                          </button>
-                        ))}
-                      </div>
-                      {formData.tags.length > 0 && (
-                        <div className="mt-3 p-2 bg-green-50 rounded-lg border border-green-200">
-                          <p className="text-xs text-green-700 flex items-center gap-1"><CheckCircle className="w-3 h-3" /> Selected tag: {formData.tags[0]}</p>
-                        </div>
-                      )}
-                    </div>
+                 {/* Product Tag Selection - Dynamic from backend */}
+<div>
+  <label className="block text-sm font-medium text-gray-700 mb-2">
+    Product Tag <span className="text-red-500">* (Select exactly one)</span>
+  </label>
+  {errors.tags && <p className="text-xs text-red-600 mb-2">{errors.tags}</p>}
+  
+  {isLoadingTags ? (
+    <div className="flex justify-center py-4">
+      <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
+    </div>
+  ) : productTags.length === 0 ? (
+    <div className="text-center py-4 bg-gray-50 rounded-lg border border-gray-200">
+      <p className="text-sm text-gray-500">No tags available. Please contact admin to create tags.</p>
+    </div>
+  ) : (
+    <div className="grid grid-cols-2 gap-2">
+      {productTags.map(tag => (
+        <button 
+          key={tag._id} 
+          type="button" 
+          onClick={() => handleTagSelect(tag._id)} 
+          className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-all text-sm ${
+            formData.tags.includes(tag._id) 
+              ? 'border-blue-600 bg-blue-50 text-blue-700' 
+              : 'border-gray-200 hover:border-gray-300 text-gray-600'
+          }`}
+        >
+          <img 
+            src={tag.image.url} 
+            alt={tag.name}
+            className="w-5 h-5 rounded-full object-cover"
+          />
+          <span>{tag.name}</span>
+        </button>
+      ))}
+    </div>
+  )}
+  
+  {formData.tags.length > 0 && productTags.length > 0 && (
+    <div className="mt-3 p-2 bg-green-50 rounded-lg border border-green-200">
+      <p className="text-xs text-green-700 flex items-center gap-1">
+        <CheckCircle className="w-3 h-3" /> 
+        Selected tag: {productTags.find(t => t._id === formData.tags[0])?.name || 'Unknown'}
+      </p>
+    </div>
+  )}
+</div>
                   </div>
                 </div>
 

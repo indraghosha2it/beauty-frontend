@@ -102,7 +102,7 @@
 //         search: searchTerm
 //       });
 
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/admin/users?${params}`, {
+//       const response = await fetch(`http://localhost:5000/api/admin/users?${params}`, {
 //         headers: {
 //           'Authorization': `Bearer ${token}`
 //         }
@@ -128,7 +128,7 @@
 //     try {
 //       const token = localStorage.getItem('token');
       
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/admin/users/${deleteModal.userId}`, {
+//       const response = await fetch(`http://localhost:5000/api/admin/users/${deleteModal.userId}`, {
 //         method: 'DELETE',
 //         headers: {
 //           'Authorization': `Bearer ${token}`
@@ -179,7 +179,7 @@
 //     try {
 //       const token = localStorage.getItem('token');
       
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/admin/users/${editModal.user._id}`, {
+//       const response = await fetch(`http://localhost:5000/api/admin/users/${editModal.user._id}`, {
 //         method: 'PUT',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -862,7 +862,7 @@ export default function ManageUsers() {
         search: searchTerm
       });
 
-      const response = await fetch(`https://gadget-backend.vercel.app/api/admin/users?${params}`, {
+      const response = await fetch(`http://localhost:5000/api/admin/users?${params}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -888,7 +888,7 @@ export default function ManageUsers() {
     try {
       const token = localStorage.getItem('token');
       
-      const response = await fetch(`https://gadget-backend.vercel.app/api/admin/users/${deleteModal.userId}`, {
+      const response = await fetch(`http://localhost:5000/api/admin/users/${deleteModal.userId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -939,7 +939,7 @@ export default function ManageUsers() {
     try {
       const token = localStorage.getItem('token');
       
-      const response = await fetch(`https://gadget-backend.vercel.app/api/admin/users/${editModal.user._id}`, {
+      const response = await fetch(`http://localhost:5000/api/admin/users/${editModal.user._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -92,7 +92,7 @@
 //     setLoading(true);
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/orders/${order._id}`, {
+//       const response = await fetch(`http://localhost:5000/api/orders/${order._id}`, {
 //         method: 'PUT',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -235,7 +235,7 @@
 //     setLoading(true);
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/orders/${order._id}`, {
+//       const response = await fetch(`http://localhost:5000/api/orders/${order._id}`, {
 //         method: 'DELETE',
 //         headers: { 'Authorization': `Bearer ${token}` }
 //       });
@@ -333,7 +333,7 @@
 //     setLoading(true);
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/orders/${order._id}/status`, {
+//       const response = await fetch(`http://localhost:5000/api/orders/${order._id}/status`, {
 //         method: 'PUT',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -352,7 +352,7 @@
 //         toast.success(`Order status updated to ${selectedStatus}`);
         
 //         if (selectedStatus === 'delivered' && order.paymentStatus !== 'paid') {
-//           await fetch(`https://gadget-backend.vercel.app/api/orders/${order._id}/payment`, {
+//           await fetch(`http://localhost:5000/api/orders/${order._id}/payment`, {
 //             method: 'PUT',
 //             headers: {
 //               'Content-Type': 'application/json',
@@ -518,7 +518,7 @@
 //     setLoading(true);
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/orders/${order._id}/payment`, {
+//       const response = await fetch(`http://localhost:5000/api/orders/${order._id}/payment`, {
 //         method: 'PUT',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -942,7 +942,7 @@
 //       if (paymentFilter) queryParams.append('paymentStatus', paymentFilter);
 //       if (orderTypeFilter) queryParams.append('paymentMethod', orderTypeFilter);
 
-//       const response = await fetch(`https://gadget-backend.vercel.app/api/orders/admin/all?${queryParams}`, {
+//       const response = await fetch(`http://localhost:5000/api/orders/admin/all?${queryParams}`, {
 //         headers: { 'Authorization': `Bearer ${token}` }
 //       });
 
@@ -995,7 +995,7 @@
 //   const fetchStats = useCallback(async () => {
 //     try {
 //       const token = localStorage.getItem('token');
-//       const response = await fetch('https://gadget-backend.vercel.app/api/orders/admin/all', {
+//       const response = await fetch('http://localhost:5000/api/orders/admin/all', {
 //         headers: { 'Authorization': `Bearer ${token}` }
 //       });
 //       const data = await response.json();
@@ -1726,7 +1726,7 @@ const EditOrderModal = ({ isOpen, onClose, order, onUpdate }) => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://gadget-backend.vercel.app/api/orders/${order._id}`, {
+      const response = await fetch(`http://localhost:5000/api/orders/${order._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -1908,7 +1908,7 @@ const DeleteConfirmModal = ({ isOpen, onClose, order, onDelete }) => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://gadget-backend.vercel.app/api/orders/${order._id}`, {
+      const response = await fetch(`http://localhost:5000/api/orders/${order._id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -2006,7 +2006,7 @@ const StatusUpdateModal = ({ isOpen, onClose, order, onUpdate }) => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://gadget-backend.vercel.app/api/orders/${order._id}/status`, {
+      const response = await fetch(`http://localhost:5000/api/orders/${order._id}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -2025,7 +2025,7 @@ const StatusUpdateModal = ({ isOpen, onClose, order, onUpdate }) => {
         toast.success(`Order status updated to ${selectedStatus}`);
         
         if (selectedStatus === 'delivered' && order.paymentStatus !== 'paid') {
-          await fetch(`https://gadget-backend.vercel.app/api/orders/${order._id}/payment`, {
+          await fetch(`http://localhost:5000/api/orders/${order._id}/payment`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -2191,7 +2191,7 @@ const PaymentStatusModal = ({ isOpen, onClose, order, onUpdate }) => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://gadget-backend.vercel.app/api/orders/${order._id}/payment`, {
+      const response = await fetch(`http://localhost:5000/api/orders/${order._id}/payment`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -2615,7 +2615,7 @@ export default function ModeratorOrdersPage() {
       if (paymentFilter) queryParams.append('paymentStatus', paymentFilter);
       if (orderTypeFilter) queryParams.append('paymentMethod', orderTypeFilter);
 
-      const response = await fetch(`https://gadget-backend.vercel.app/api/orders/admin/all?${queryParams}`, {
+      const response = await fetch(`http://localhost:5000/api/orders/admin/all?${queryParams}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -2668,7 +2668,7 @@ export default function ModeratorOrdersPage() {
   const fetchStats = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('https://gadget-backend.vercel.app/api/orders/admin/all', {
+      const response = await fetch('http://localhost:5000/api/orders/admin/all', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();

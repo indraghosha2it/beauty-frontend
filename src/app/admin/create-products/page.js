@@ -56,14 +56,14 @@ const UNIT_OPTIONS = [
 ];
 
 // Tag options for product (must select exactly one)
-const PRODUCT_TAGS = [
-  { value: 'Best Seller', label: 'Best Seller', icon: <Star className="w-3.5 h-3.5" /> },
-  { value: 'Trending', label: 'Trending', icon: <TrendingUp className="w-3.5 h-3.5" /> },
-  { value: 'New Release', label: 'New Release', icon: <Zap className="w-3.5 h-3.5" /> },
-  { value: 'Limited Offer', label: 'Limited Offer', icon: <Clock className="w-3.5 h-3.5" /> },
-  { value: 'Flash Sale', label: 'Flash Sale', icon: <Flame className="w-3.5 h-3.5" /> },
-  { value: 'Clearance', label: 'Clearance', icon: <Gift className="w-3.5 h-3.5" /> }
-];
+// const PRODUCT_TAGS = [
+//   { value: 'Best Seller', label: 'Best Seller', icon: <Star className="w-3.5 h-3.5" /> },
+//   { value: 'Trending', label: 'Trending', icon: <TrendingUp className="w-3.5 h-3.5" /> },
+//   { value: 'New Release', label: 'New Release', icon: <Zap className="w-3.5 h-3.5" /> },
+//   { value: 'Limited Offer', label: 'Limited Offer', icon: <Clock className="w-3.5 h-3.5" /> },
+//   { value: 'Flash Sale', label: 'Flash Sale', icon: <Flame className="w-3.5 h-3.5" /> },
+//   { value: 'Clearance', label: 'Clearance', icon: <Gift className="w-3.5 h-3.5" /> }
+// ];
 
 // Color presets
 const COLOR_PRESETS = [
@@ -143,7 +143,7 @@ const AddBrandModal = ({ isOpen, onClose, onBrandAdded }) => {
     setIsSubmitting(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('https://gadget-backend.vercel.app/api/brands', {
+      const response = await fetch('http://localhost:5000/api/brands', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -439,6 +439,8 @@ export default function CreateProductPage() {
   const [dragOverIndex, setDragOverIndex] = useState(null);
   const autoSaveTimerRef = useRef(null);
   const isRestoringRef = useRef(false);
+const [productTags, setProductTags] = useState([]);
+const [isLoadingTags, setIsLoadingTags] = useState(false);
 
   const [formData, setFormData] = useState({
     productName: '',
@@ -751,7 +753,7 @@ export default function CreateProductPage() {
     setIsGeneratingSku(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('https://gadget-backend.vercel.app/api/products/generate-sku', {
+      const response = await fetch('http://localhost:5000/api/products/generate-sku', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
       });
@@ -767,7 +769,7 @@ export default function CreateProductPage() {
   const fetchBrands = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('https://gadget-backend.vercel.app/api/brands', { headers: { 'Authorization': `Bearer ${token}` } });
+      const response = await fetch('http://localhost:5000/api/brands', { headers: { 'Authorization': `Bearer ${token}` } });
       const data = await response.json();
       if (data.success) setBrands(data.data);
     } catch (error) { console.error('Error fetching brands:', error); }
@@ -782,13 +784,14 @@ export default function CreateProductPage() {
     generateSkuFromBackend();
     fetchBrands();
     fetchCategories();
+     fetchTags();
     setIsMounted(true);
   }, []);
 
   const fetchCategories = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('https://gadget-backend.vercel.app/api/categories', { headers: { 'Authorization': `Bearer ${token}` } });
+      const response = await fetch('http://localhost:5000/api/categories', { headers: { 'Authorization': `Bearer ${token}` } });
       const data = await response.json();
       if (data.success) setCategories(data.data);
     } catch (error) { toast.error('Failed to fetch categories'); }
@@ -797,7 +800,7 @@ export default function CreateProductPage() {
   const fetchSubcategories = async (categoryId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://gadget-backend.vercel.app/api/categories/${categoryId}/subcategories`, { headers: { 'Authorization': `Bearer ${token}` } });
+      const response = await fetch(`http://localhost:5000/api/categories/${categoryId}/subcategories`, { headers: { 'Authorization': `Bearer ${token}` } });
       const data = await response.json();
       if (data.success) setSubcategories(data.data.subcategories);
       else setSubcategories([]);
@@ -807,12 +810,33 @@ export default function CreateProductPage() {
   const fetchChildSubcategories = async (categoryId, subcategoryId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://gadget-backend.vercel.app/api/categories/${categoryId}/subcategories/${subcategoryId}/children`, { headers: { 'Authorization': `Bearer ${token}` } });
+      const response = await fetch(`http://localhost:5000/api/categories/${categoryId}/subcategories/${subcategoryId}/children`, { headers: { 'Authorization': `Bearer ${token}` } });
       const data = await response.json();
       if (data.success) setChildSubcategories(data.data.children);
       else setChildSubcategories([]);
     } catch (error) { setChildSubcategories([]); }
   };
+  // Fetch tags from backend
+const fetchTags = async () => {
+  setIsLoadingTags(true);
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch('http://localhost:5000/api/tags?isActive=true', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    const data = await response.json();
+    if (data.success) {
+      setProductTags(data.data);
+    }
+  } catch (error) {
+    console.error('Error fetching tags:', error);
+    toast.error('Failed to fetch tags');
+  } finally {
+    setIsLoadingTags(false);
+  }
+};
 
   useEffect(() => {
     if (formData.category) fetchSubcategories(formData.category);
@@ -1038,10 +1062,10 @@ export default function CreateProductPage() {
     saveToLocalStorage();
   };
 
-  const handleTagSelect = (tagValue) => {
-    setFormData(prev => ({ ...prev, tags: [tagValue] }));
-    saveToLocalStorage();
-  };
+const handleTagSelect = (tagId) => {
+  setFormData(prev => ({ ...prev, tags: [tagId] }));
+  saveToLocalStorage();
+};
 
   const addAdditionalInfo = () => {
     setFormData(prev => ({ ...prev, additionalInfo: [...prev.additionalInfo, { fieldName: '', fieldValue: '' }] }));
@@ -1189,7 +1213,7 @@ const validateForm = () => {
   //       images: imageUrls
   //     };
 
-  //     const response = await fetch('https://gadget-backend.vercel.app/api/products', {
+  //     const response = await fetch('http://localhost:5000/api/products', {
   //       method: 'POST',
   //       headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
   //       body: JSON.stringify(payload)
@@ -1261,7 +1285,7 @@ const handleSubmit = async (e) => {
 
     console.log('Submitting payload:', payload);
 
-    const response = await fetch('https://gadget-backend.vercel.app/api/products', {
+    const response = await fetch('http://localhost:5000/api/products', {
       method: 'POST',
       headers: { 
         'Authorization': `Bearer ${token}`, 
@@ -1722,36 +1746,61 @@ const handleSubmit = async (e) => {
    
 
     {/* Product Tag Selection */}
-    <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2">
-        Product Tag <span className="text-red-500">* (Select exactly one)</span>
-      </label>
-      {errors.tags && <p className="text-xs text-red-600 mb-2">{errors.tags}</p>}
-      <div className="grid grid-cols-2 gap-2">
-        {PRODUCT_TAGS.map(tag => (
-          <button 
-            key={tag.value} 
-            type="button" 
-            onClick={() => handleTagSelect(tag.value)} 
-            className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-all text-sm ${
-              formData.tags.includes(tag.value) 
-                ? 'border-blue-600 bg-blue-50 text-blue-700' 
-                : 'border-gray-200 hover:border-gray-300 text-gray-600'
-            }`}
-          >
-            {tag.icon} <span>{tag.label}</span>
-          </button>
-        ))}
-      </div>
-      {formData.tags.length > 0 && (
-        <div className="mt-3 p-2 bg-green-50 rounded-lg border border-green-200">
-          <p className="text-xs text-green-700 flex items-center gap-1">
-            <CheckCircle className="w-3 h-3" /> 
-            Selected tag: {formData.tags[0]}
-          </p>
-        </div>
-      )}
+  {/* Product Tag Selection - Dynamic from backend */}
+<div>
+  <label className="block text-sm font-medium text-gray-700 mb-2">
+    Product Tag <span className="text-red-500">* (Select exactly one)</span>
+  </label>
+  {errors.tags && <p className="text-xs text-red-600 mb-2">{errors.tags}</p>}
+  
+  {isLoadingTags ? (
+    <div className="flex justify-center py-4">
+      <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
     </div>
+  ) : productTags.length === 0 ? (
+    <div className="text-center py-4 bg-gray-50 rounded-lg border border-gray-200">
+      <p className="text-sm text-gray-500">No tags available. Please create tags first.</p>
+      <button
+        type="button"
+        onClick={() => router.push('/admin/tags')}
+        className="mt-2 text-sm text-blue-600 hover:text-blue-700 font-medium"
+      >
+        Create Tags →
+      </button>
+    </div>
+  ) : (
+    <div className="grid grid-cols-2 gap-2">
+      {productTags.map(tag => (
+        <button 
+          key={tag._id} 
+          type="button" 
+          onClick={() => handleTagSelect(tag._id)} 
+          className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-all text-sm ${
+            formData.tags.includes(tag._id) 
+              ? 'border-blue-600 bg-blue-50 text-blue-700' 
+              : 'border-gray-200 hover:border-gray-300 text-gray-600'
+          }`}
+        >
+          <img 
+            src={tag.image.url} 
+            alt={tag.name}
+            className="w-5 h-5 rounded-full object-cover"
+          />
+          <span className='text-sm'>{tag.name}</span>
+        </button>
+      ))}
+    </div>
+  )}
+  
+  {formData.tags.length > 0 && productTags.length > 0 && (
+    <div className="mt-3 p-2 bg-green-50 rounded-lg border border-green-200">
+      <p className="text-xs text-green-700 flex items-center gap-1">
+        <CheckCircle className="w-3 h-3" /> 
+        Selected tag: {productTags.find(t => t._id === formData.tags[0])?.name || 'Unknown'}
+      </p>
+    </div>
+  )}
+</div>
   </div>
 </div>
 
