@@ -1166,12 +1166,33 @@ export const generateInvoicePDF = async (order) => {
       doc.text(initials, logoX + logoSize/2, logoY + logoSize/2 + 1, { align: 'center' });
     }
 
-    const companyX = logoX + logoSize + 8;
+    // const companyX = logoX + logoSize + 8;
     
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(COLORS.text);
-    doc.text('BeautyBucket', companyX, logoY + 4);
+    // doc.setFontSize(12);
+    // doc.setFont('helvetica', 'bold');
+    // doc.setTextColor(COLORS.text);
+    // doc.text('BeautyBucket', companyX, logoY + 4);
+
+    const companyX = logoX + logoSize + 8;
+
+// Split "BeautyBucket" into two parts with different colors
+const beautyText = 'Beauty';
+const bucketText = 'Bucket';
+const textX = companyX;
+const textY = logoY + 4;
+
+// Draw "Beauty" in pink
+doc.setFontSize(12);
+doc.setFont('helvetica', 'bold');
+doc.setTextColor(238, 66, 117); // Pink color (#EE4275)
+doc.text(beautyText, textX, textY);
+
+// Calculate width of "Beauty" to position "Bucket" next to it
+const beautyWidth = doc.getTextWidth(beautyText);
+
+// Draw "Bucket" in default text color
+doc.setTextColor(COLORS.text); // Your default dark color
+doc.text(bucketText, textX + beautyWidth, textY);
 
     doc.setFontSize(7);
     doc.setFont('helvetica', 'normal');
@@ -1181,13 +1202,13 @@ export const generateInvoicePDF = async (order) => {
     doc.text('Contact: ', companyX, logoY + 9);
     const contactLabelWidth = doc.getTextWidth('Contact: ');
     doc.setFont('helvetica', 'normal');
-    doc.text('+8801305-785685', companyX + contactLabelWidth, logoY + 9);
+    doc.text('+8801XXXXXXXXX', companyX + contactLabelWidth, logoY + 9);
 
     doc.setFontSize(6.5);
-    doc.text('info@beautybucket.com | +8801305-785685', companyX, logoY + 13);
+    doc.text('info@beautybucket.com', companyX, logoY + 13);
 
     doc.setFontSize(6);
-    const companyAddressLines = doc.splitTextToSize('House #123, Road #45, Gulshan, Dhaka', 70);
+    const companyAddressLines = doc.splitTextToSize('House #470, Avenue 6, Road 6, Mirpur DOHS, Dhaka', 70);
     doc.text(companyAddressLines, companyX, logoY + 17);
 
     const rightAlignX = pageWidth - margin - 5;
@@ -1246,7 +1267,7 @@ export const generateInvoicePDF = async (order) => {
       order.customerInfo.zone ? `Upazila/Thana: ${order.customerInfo.zone}` : null,
       order.customerInfo.city ? `District/City: ${order.customerInfo.city}` : null,
       order.customerInfo.division ? `Division: ${order.customerInfo.division}` : null,
-      order.customerInfo.zipCode ? `Zip Code: ${order.customerInfo.zipCode}` : null
+
     ].filter(Boolean);
     rightColHeight = Math.max(rightColHeight, 10 + (deliveryAddressLines.length * 4.5));
     
@@ -1351,14 +1372,7 @@ export const generateInvoicePDF = async (order) => {
       rightY += 4.5;
     }
     
-    // Zip Code
-    if (order.customerInfo.zipCode) {
-      doc.setFont('helvetica', 'bold');
-      doc.text('Zip Code:', addressColX + 5, rightY);
-      doc.setFont('helvetica', 'normal');
-      doc.text(order.customerInfo.zipCode, addressColX + 40, rightY);
-    }
-    
+   
     yPos += colHeight + 10;
 
     // ==================== ITEMS TABLE ====================
@@ -1574,7 +1588,7 @@ export const generateInvoicePDF = async (order) => {
     doc.setTextColor(139, 122, 140);
     
     doc.text('Thank you for shopping with BeautyBucket! ✨', pageWidth / 2, footerY, { align: 'center' });
-    doc.text('For any queries, contact us at support@BeautyBucket.com', pageWidth / 2, footerY + 4, { align: 'center' });
+    doc.text('For any queries, contact us at support@beautybucket.com', pageWidth / 2, footerY + 4, { align: 'center' });
 
 
     // ==================== SAVE PDF ====================
