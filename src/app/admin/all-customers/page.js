@@ -1,5 +1,4 @@
 
-
 // 'use client';
 
 // import { useState, useEffect } from 'react';
@@ -29,7 +28,8 @@
 //   Lock,
 //   Bell,
 //   BellOff,
-//   Smartphone
+//   Smartphone,
+//   Briefcase
 // } from 'lucide-react';
 
 // export default function AllCustomers() {
@@ -58,7 +58,7 @@
 
 //   const customersPerPage = 10;
 
-//   // Form data for creating customer - MATCHES REGISTER PAGE
+//   // Form data for creating customer
 //   const [createForm, setCreateForm] = useState({
 //     contactPerson: '',
 //     email: '',
@@ -128,15 +128,11 @@
 //           setCountries(uniqueCountries);
 //         }
 //       } else {
-//         toast.error('Failed to fetch customers', {
-//           description: data.error || 'Something went wrong'
-//         });
+//         toast.error('Failed to fetch customers');
 //       }
 //     } catch (error) {
 //       console.error('Error fetching customers:', error);
-//       toast.error('Connection Error', {
-//         description: 'Unable to connect to server'
-//       });
+//       toast.error('Connection Error');
 //     } finally {
 //       setLoading(false);
 //     }
@@ -165,15 +161,11 @@
 //         });
 //         fetchCustomers();
 //       } else {
-//         toast.error('Action Failed', {
-//           description: data.error || 'Something went wrong'
-//         });
+//         toast.error('Action Failed');
 //       }
 //     } catch (error) {
 //       console.error('Error toggling subscription:', error);
-//       toast.error('Connection Error', {
-//         description: 'Unable to connect to server'
-//       });
+//       toast.error('Connection Error');
 //     } finally {
 //       setUpdatingSubscription(null);
 //     }
@@ -200,15 +192,11 @@
 //         fetchCustomers();
 //         setDeleteModal({ isOpen: false, customerId: null, customerName: '' });
 //       } else {
-//         toast.error('Delete Failed', {
-//           description: data.error || 'Something went wrong'
-//         });
+//         toast.error('Delete Failed');
 //       }
 //     } catch (error) {
 //       console.error('Error deleting customer:', error);
-//       toast.error('Connection Error', {
-//         description: 'Unable to connect to server'
-//       });
+//       toast.error('Connection Error');
 //     }
 //   };
 
@@ -289,16 +277,12 @@
 //         setEditModal({ isOpen: false, customer: null });
 //         fetchCustomers();
 //       } else {
-//         toast.error('Update Failed', {
-//           description: data.error || 'Something went wrong. Please try again.'
-//         });
+//         toast.error('Update Failed');
 //       }
 //     } catch (error) {
 //       console.error('Error updating customer:', error);
 //       toast.dismiss(loadingToast);
-//       toast.error('Connection Error', {
-//         description: 'Unable to connect to server.'
-//       });
+//       toast.error('Connection Error');
 //     } finally {
 //       setIsEditing(false);
 //     }
@@ -315,9 +299,7 @@
 //     e.preventDefault();
     
 //     if (passwordForm.newPassword !== passwordForm.confirmPassword) {
-//       toast.error('Password Mismatch', {
-//         description: 'The passwords you entered do not match.'
-//       });
+//       toast.error('Password Mismatch');
 //       return;
 //     }
 
@@ -358,16 +340,12 @@
 //         setPasswordModal({ isOpen: false, customerId: null, customerEmail: '' });
 //         setPasswordForm({ newPassword: '', confirmPassword: '' });
 //       } else {
-//         toast.error('Password Reset Failed', {
-//           description: data.error || 'Something went wrong.'
-//         });
+//         toast.error('Password Reset Failed');
 //       }
 //     } catch (error) {
 //       console.error('Error resetting password:', error);
 //       toast.dismiss(loadingToast);
-//       toast.error('Connection Error', {
-//         description: 'Unable to connect to server.'
-//       });
+//       toast.error('Connection Error');
 //     } finally {
 //       setIsResettingPassword(false);
 //     }
@@ -387,9 +365,7 @@
 //     e.preventDefault();
     
 //     if (createForm.password !== createForm.confirmPassword) {
-//       toast.error('Password Mismatch', {
-//         description: 'The passwords you entered do not match.'
-//       });
+//       toast.error('Password Mismatch');
 //       return;
 //     }
 
@@ -461,16 +437,12 @@
 //         setCreateModal({ isOpen: false });
 //         fetchCustomers();
 //       } else {
-//         toast.error('Creation Failed', {
-//           description: data.error || 'Something went wrong.'
-//         });
+//         toast.error('Creation Failed');
 //       }
 //     } catch (error) {
 //       console.error('Error creating customer:', error);
 //       toast.dismiss(loadingToast);
-//       toast.error('Connection Error', {
-//         description: 'Unable to connect to server.'
-//       });
+//       toast.error('Connection Error');
 //     } finally {
 //       setIsCreating(false);
 //     }
@@ -488,67 +460,57 @@
 //   };
 
 //   return (
-//     <div className="min-h-screen bg-gradient-to-br from-[#FFF9F0] to-[#D4EDEE] p-6">
-//       <div className="container mx-auto px-4 max-w-7xl pt-6 pb-8">
+//     <div className="min-h-screen bg-gray-50 py-8">
+//       <div className="container mx-auto px-4 max-w-7xl">
 //         {/* Header */}
 //         <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 //           <div>
-//             <h1 className="text-2xl font-bold text-[#2D3A5C] flex items-center gap-2" style={{ fontFamily: "'Fredoka One', 'Comic Neue', cursive" }}>
-//               <Users className="w-6 h-6 text-[#4A8A90]" />
+//             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 flex items-center gap-2">
+//               <Users className="w-7 h-7 text-blue-600" />
 //               All Customers
 //             </h1>
-//             <p className="text-sm text-gray-600 mt-1">
+//             <p className="text-sm text-gray-500 mt-1">
 //               View and manage all customer accounts
 //             </p>
 //           </div>
           
-//           <div className="flex items-center gap-2">
+//           <div className="flex items-center gap-3">
 //             <button
 //               onClick={() => setCreateModal({ isOpen: true })}
-//               className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#4A8A90] to-[#FFB6C1] text-white rounded-lg hover:shadow-lg transition-all shadow-md"
+//               className="flex items-center gap-2 px-4 py-2.5 bg-black text-white rounded-lg hover:bg-gray-800 transition-all shadow-sm"
 //             >
 //               <UserPlus className="w-4 h-4" />
 //               Add Customer
 //             </button>
-//             <span className="text-sm bg-white px-3 py-1 rounded-full shadow-sm border border-gray-200">
-//               Total: <span className="font-semibold text-[#4A8A90]">{customers.length}</span>
+//             <span className="text-sm bg-white px-3 py-1.5 rounded-lg shadow-sm border border-gray-200">
+//               Total: <span className="font-semibold text-blue-600">{customers.length}</span>
 //             </span>
 //           </div>
 //         </div>
 
 //         {/* Filters and Search */}
-//         <div className="mb-6 grid grid-cols-1 md:grid-cols-4 gap-3">
-//           <div className="md:col-span-2 relative">
+//         <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-3">
+//           <div className="md:col-span-1 relative">
 //             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
 //             <input
 //               type="text"
 //               placeholder="Search by name, email, phone..."
 //               value={searchTerm}
 //               onChange={(e) => setSearchTerm(e.target.value)}
-//               className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90]"
+//               className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
 //             />
 //           </div>
           
 //           <select
 //             value={selectedCountry}
 //             onChange={(e) => setSelectedCountry(e.target.value)}
-//             className="px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90] bg-white text-sm"
+//             className="px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white text-sm"
 //           >
 //             <option value="all">All Countries</option>
 //             {countries.map(country => (
 //               <option key={country} value={country}>{country}</option>
 //             ))}
 //           </select>
-
-//           {/* <select
-//             value={selectedSubscription}
-//             onChange={(e) => setSelectedSubscription(e.target.value)}
-//             className="px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90] bg-white text-sm"
-//           >
-//             <option value="all">All Subscriptions</option>
-//             <option value="subscribed">Subscribed</option>
-//             <option value="unsubscribed">Not Subscribed</option>
-//           </select> */}
 //         </div>
 
 //         {/* Customers Table */}
@@ -567,9 +529,6 @@
 //                     Location
 //                   </th>
 //                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-//                     Newsletter
-//                   </th>
-//                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
 //                     Joined
 //                   </th>
 //                   <th className="px-4 py-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -577,19 +536,19 @@
 //                   </th>
 //                 </tr>
 //               </thead>
-//               <tbody className="divide-y divide-gray-200">
+//               <tbody className="divide-y divide-gray-100">
 //                 {loading ? (
 //                   <tr>
-//                     <td colSpan="6" className="px-4 py-12 text-center">
+//                     <td colSpan="5" className="px-4 py-12 text-center">
 //                       <div className="flex justify-center items-center gap-2">
-//                         <RefreshCw className="w-5 h-5 animate-spin text-[#4A8A90]" />
+//                         <RefreshCw className="w-5 h-5 animate-spin text-blue-600" />
 //                         <span className="text-gray-500">Loading customers...</span>
 //                       </div>
 //                     </td>
 //                   </tr>
 //                 ) : customers.length === 0 ? (
 //                   <tr>
-//                     <td colSpan="6" className="px-4 py-12 text-center">
+//                     <td colSpan="5" className="px-4 py-12 text-center">
 //                       <div className="text-gray-500">
 //                         <Users className="w-12 h-12 mx-auto mb-3 text-gray-300" />
 //                         <p className="text-lg font-medium">No customers found</p>
@@ -601,15 +560,15 @@
 //                   customers.map((customer) => (
 //                     <tr key={customer._id} className="hover:bg-gray-50 transition-colors">
 //                       <td className="px-4 py-3">
-//                         <div className="flex items-center gap-2">
-//                           <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#4A8A90] to-[#FFB6C1] flex items-center justify-center text-white font-semibold text-sm">
+//                         <div className="flex items-center gap-3">
+//                           <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-blue-400 flex items-center justify-center text-white font-semibold text-sm">
 //                             {customer.contactPerson?.charAt(0) || '?'}
 //                           </div>
 //                           <div>
 //                             <div className="font-medium text-gray-900 text-sm">
 //                               {customer.contactPerson}
 //                             </div>
-//                             <div className="text-xs text-gray-500">
+//                             <div className="text-xs text-gray-400">
 //                               ID: {customer._id.slice(-6)}
 //                             </div>
 //                           </div>
@@ -618,16 +577,16 @@
 //                       <td className="px-4 py-3">
 //                         <div className="space-y-1">
 //                           <div className="flex items-center gap-1.5 text-xs text-gray-600">
-//                             <Mail className="w-3 h-3" />
+//                             <Mail className="w-3.5 h-3.5 text-gray-400" />
 //                             <span className="truncate max-w-[150px]">{customer.email}</span>
 //                           </div>
 //                           <div className="flex items-center gap-1.5 text-xs text-gray-600">
-//                             <Phone className="w-3 h-3" />
+//                             <Phone className="w-3.5 h-3.5 text-gray-400" />
 //                             <span>{customer.phone}</span>
 //                           </div>
 //                           {customer.whatsapp && (
 //                             <div className="flex items-center gap-1.5 text-xs text-green-600">
-//                               <Smartphone className="w-3 h-3" />
+//                               <Smartphone className="w-3.5 h-3.5" />
 //                               <span>WhatsApp</span>
 //                             </div>
 //                           )}
@@ -636,38 +595,18 @@
 //                       <td className="px-4 py-3">
 //                         <div className="space-y-1">
 //                           <div className="flex items-center gap-1.5 text-xs text-gray-600">
-//                             <Globe className="w-3 h-3" />
+//                             <Globe className="w-3.5 h-3.5 text-gray-400" />
 //                             <span>{customer.country}</span>
 //                           </div>
 //                           <div className="flex items-center gap-1.5 text-xs text-gray-600">
-//                             <MapPin className="w-3 h-3" />
+//                             <MapPin className="w-3.5 h-3.5 text-gray-400" />
 //                             <span>{customer.city}</span>
 //                           </div>
 //                         </div>
 //                       </td>
 //                       <td className="px-4 py-3">
-//                         <div className="flex items-center gap-2">
-//                           {customer.isSubscribedToNewsletter ? (
-//                             <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
-//                               <Bell className="w-3 h-3" />
-//                               Subscribed
-//                             </span>
-//                           ) : (
-//                             <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600 border border-gray-200">
-//                               <BellOff className="w-3 h-3" />
-//                               Not Subscribed
-//                             </span>
-//                           )}
-//                         </div>
-//                         {customer.newsletterSubscriptionDate && (
-//                           <p className="text-[10px] text-gray-400 mt-1">
-//                             Since {formatDate(customer.newsletterSubscriptionDate)}
-//                           </p>
-//                         )}
-//                       </td>
-//                       <td className="px-4 py-3">
 //                         <div className="flex items-center gap-1.5 text-xs text-gray-600">
-//                           <Calendar className="w-3 h-3" />
+//                           <Calendar className="w-3.5 h-3.5 text-gray-400" />
 //                           <span>{formatDate(customer.createdAt)}</span>
 //                         </div>
 //                       </td>
@@ -675,21 +614,21 @@
 //                         <div className="flex items-center justify-end gap-1">
 //                           <button
 //                             onClick={() => setViewModal({ isOpen: true, customer })}
-//                             className="p-1.5 text-gray-600 hover:text-[#4A8A90] hover:bg-[#D4EDEE] rounded-lg transition-colors"
+//                             className="p-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
 //                             title="View details"
 //                           >
 //                             <Eye className="w-4 h-4" />
 //                           </button>
 //                           <button
 //                             onClick={() => handleEditClick(customer)}
-//                             className="p-1.5 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+//                             className="p-1.5 text-gray-500 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
 //                             title="Edit customer"
 //                           >
 //                             <Edit2 className="w-4 h-4" />
 //                           </button>
 //                           <button
 //                             onClick={() => handlePasswordResetClick(customer)}
-//                             className="p-1.5 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
+//                             className="p-1.5 text-gray-500 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
 //                             title="Reset password"
 //                           >
 //                             <Lock className="w-4 h-4" />
@@ -700,7 +639,7 @@
 //                               customerId: customer._id, 
 //                               customerName: customer.contactPerson 
 //                             })}
-//                             className="p-1.5 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+//                             className="p-1.5 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
 //                             title="Delete customer"
 //                           >
 //                             <Trash2 className="w-4 h-4" />
@@ -724,17 +663,17 @@
 //                 <button
 //                   onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
 //                   disabled={currentPage === 1}
-//                   className="p-1.5 border border-gray-200 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white transition-colors bg-white"
+//                   className="p-1.5 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white transition-colors bg-white"
 //                 >
 //                   <ChevronLeft className="w-4 h-4" />
 //                 </button>
-//                 <span className="px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-medium">
+//                 <span className="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-xs font-medium">
 //                   {currentPage}
 //                 </span>
 //                 <button
 //                   onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
 //                   disabled={currentPage === totalPages}
-//                   className="p-1.5 border border-gray-200 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white transition-colors bg-white"
+//                   className="p-1.5 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white transition-colors bg-white"
 //                 >
 //                   <ChevronRight className="w-4 h-4" />
 //                 </button>
@@ -745,16 +684,16 @@
 
 //         {/* Delete Confirmation Modal */}
 //         {deleteModal.isOpen && (
-//           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+//           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
 //             <motion.div
 //               initial={{ opacity: 0, scale: 0.95 }}
 //               animate={{ opacity: 1, scale: 1 }}
 //               exit={{ opacity: 0, scale: 0.95 }}
 //               className="bg-white rounded-xl max-w-md w-full shadow-xl overflow-hidden"
 //             >
-//               <div className="px-4 py-3 bg-red-50 border-b border-red-100 flex items-center justify-between">
+//               <div className="px-5 py-3 bg-red-50 border-b border-red-100 flex items-center justify-between">
 //                 <div className="flex items-center gap-2">
-//                   <div className="w-7 h-7 rounded-full bg-red-100 flex items-center justify-center">
+//                   <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
 //                     <AlertTriangle className="w-4 h-4 text-red-600" />
 //                   </div>
 //                   <h3 className="text-sm font-semibold text-gray-900">Delete Customer</h3>
@@ -767,29 +706,29 @@
 //                 </button>
 //               </div>
 
-//               <div className="p-4">
+//               <div className="p-5">
 //                 <p className="text-sm text-gray-600 mb-3">
 //                   Are you sure you want to delete <span className="font-semibold">{deleteModal.customerName}</span>? 
 //                   This will permanently remove all customer data.
 //                 </p>
 
-//                 <div className="mb-4 p-2 bg-amber-50 rounded-lg border border-amber-200">
+//                 <div className="mb-4 p-3 bg-amber-50 rounded-lg border border-amber-200">
 //                   <p className="text-xs text-amber-800 flex items-start gap-1.5">
 //                     <AlertTriangle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
 //                     <span>This action cannot be undone. All customer history will be lost.</span>
 //                   </p>
 //                 </div>
 
-//                 <div className="flex items-center gap-2">
+//                 <div className="flex items-center gap-3">
 //                   <button
 //                     onClick={() => setDeleteModal({ isOpen: false, customerId: null, customerName: '' })}
-//                     className="flex-1 px-3 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 text-sm font-medium"
+//                     className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm font-medium"
 //                   >
 //                     Cancel
 //                   </button>
 //                   <button
 //                     onClick={handleDelete}
-//                     className="flex-1 px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-medium flex items-center justify-center gap-1.5"
+//                     className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-medium flex items-center justify-center gap-1.5"
 //                   >
 //                     <UserX className="w-3.5 h-3.5" />
 //                     Delete
@@ -802,23 +741,23 @@
 
 //         {/* View Customer Details Modal */}
 //         {viewModal.isOpen && viewModal.customer && (
-//           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+//           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
 //             <motion.div
 //               initial={{ opacity: 0, scale: 0.95 }}
 //               animate={{ opacity: 1, scale: 1 }}
 //               exit={{ opacity: 0, scale: 0.95 }}
 //               className="bg-white rounded-xl max-w-2xl w-full shadow-xl overflow-hidden"
 //             >
-//               <div className="px-5 py-3 bg-gradient-to-r from-[#4A8A90] to-[#FFB6C1] flex items-center justify-between">
+//               <div className="px-5 py-3 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
 //                 <div className="flex items-center gap-2">
-//                   <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-//                     <Eye className="w-4 h-4 text-white" />
+//                   <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+//                     <Eye className="w-4 h-4 text-blue-600" />
 //                   </div>
-//                   <h3 className="text-base font-semibold text-white">Customer Details</h3>
+//                   <h3 className="text-base font-semibold text-gray-900">Customer Details</h3>
 //                 </div>
 //                 <button
 //                   onClick={() => setViewModal({ isOpen: false, customer: null })}
-//                   className="text-white/80 hover:text-white"
+//                   className="text-gray-400 hover:text-gray-600"
 //                 >
 //                   <X className="w-4 h-4" />
 //                 </button>
@@ -894,36 +833,6 @@
 //                     </div>
 //                   </div>
 
-//                   {/* <div className="col-span-2">
-//                     <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Newsletter Subscription</h4>
-//                     <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
-//                       <div className="grid grid-cols-2 gap-3">
-//                         <div>
-//                           <p className="text-xs text-gray-500">Status</p>
-//                           <p className="text-sm">
-//                             {viewModal.customer.isSubscribedToNewsletter ? (
-//                               <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
-//                                 <Bell className="w-3 h-3" />
-//                                 Subscribed
-//                               </span>
-//                             ) : (
-//                               <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600 border border-gray-200">
-//                                 <BellOff className="w-3 h-3" />
-//                                 Not Subscribed
-//                               </span>
-//                             )}
-//                           </p>
-//                         </div>
-//                         {viewModal.customer.newsletterSubscriptionDate && (
-//                           <div>
-//                             <p className="text-xs text-gray-500">Subscribed Since</p>
-//                             <p className="text-sm text-gray-900">{formatDate(viewModal.customer.newsletterSubscriptionDate)}</p>
-//                           </div>
-//                         )}
-//                       </div>
-//                     </div>
-//                   </div> */}
-
 //                   <div className="col-span-2">
 //                     <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Account Information</h4>
 //                     <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
@@ -953,7 +862,7 @@
 //                     setViewModal({ isOpen: false, customer: null });
 //                     handleEditClick(viewModal.customer);
 //                   }}
-//                   className="px-4 py-2 bg-gradient-to-r from-[#4A8A90] to-[#FFB6C1] text-white rounded-lg hover:shadow-md text-sm font-medium flex items-center gap-2"
+//                   className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 text-sm font-medium flex items-center gap-2 shadow-sm"
 //                 >
 //                   <Edit2 className="w-4 h-4" />
 //                   Edit Customer
@@ -971,23 +880,23 @@
 
 //         {/* Edit Customer Modal */}
 //         {editModal.isOpen && editModal.customer && (
-//           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+//           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
 //             <motion.div
 //               initial={{ opacity: 0, scale: 0.95 }}
 //               animate={{ opacity: 1, scale: 1 }}
 //               exit={{ opacity: 0, scale: 0.95 }}
 //               className="bg-white rounded-xl max-w-3xl w-full shadow-xl overflow-hidden max-h-[90vh] flex flex-col"
 //             >
-//               <div className="px-5 py-3 bg-gradient-to-r from-[#4A8A90] to-[#FFB6C1] flex items-center justify-between flex-shrink-0">
+//               <div className="px-5 py-3 bg-gray-50 border-b border-gray-200 flex items-center justify-between flex-shrink-0">
 //                 <div className="flex items-center gap-2">
-//                   <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-//                     <Edit2 className="w-4 h-4 text-white" />
+//                   <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+//                     <Edit2 className="w-4 h-4 text-blue-600" />
 //                   </div>
-//                   <h3 className="text-base font-semibold text-white">Edit Customer</h3>
+//                   <h3 className="text-base font-semibold text-gray-900">Edit Customer</h3>
 //                 </div>
 //                 <button
 //                   onClick={() => setEditModal({ isOpen: false, customer: null })}
-//                   className="text-white/80 hover:text-white"
+//                   className="text-gray-400 hover:text-gray-600"
 //                 >
 //                   <X className="w-4 h-4" />
 //                 </button>
@@ -998,7 +907,7 @@
 //                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 //                     <div className="col-span-2 md:col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         👤 Contact Person <span className="text-red-500">*</span>
+//                         Contact Person <span className="text-red-500">*</span>
 //                       </label>
 //                       <input
 //                         type="text"
@@ -1006,26 +915,26 @@
 //                         value={editForm.contactPerson}
 //                         onChange={handleEditChange}
 //                         required
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90]"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
 //                       />
 //                     </div>
 
 //                     <div className="col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         📧 Email Address
+//                         Email Address
 //                       </label>
 //                       <input
 //                         type="email"
 //                         value={editModal.customer.email}
 //                         disabled
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
 //                       />
 //                       <p className="text-xs text-gray-400 mt-1">Email cannot be changed</p>
 //                     </div>
 
 //                     <div className="col-span-2 md:col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         📞 Phone Number <span className="text-red-500">*</span>
+//                         Phone Number <span className="text-red-500">*</span>
 //                       </label>
 //                       <input
 //                         type="tel"
@@ -1033,26 +942,26 @@
 //                         value={editForm.phone}
 //                         onChange={handleEditChange}
 //                         required
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90]"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
 //                       />
 //                     </div>
 
 //                     <div className="col-span-2 md:col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         💬 WhatsApp Number
+//                         WhatsApp Number <span className="text-red-500">*</span>
 //                       </label>
 //                       <input
 //                         type="tel"
 //                         name="whatsapp"
 //                         value={editForm.whatsapp}
 //                         onChange={handleEditChange}
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90]"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
 //                       />
 //                     </div>
 
 //                     <div className="col-span-2 md:col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         🌍 Country <span className="text-red-500">*</span>
+//                         Country <span className="text-red-500">*</span>
 //                       </label>
 //                       <input
 //                         type="text"
@@ -1060,13 +969,13 @@
 //                         value={editForm.country}
 //                         onChange={handleEditChange}
 //                         required
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90]"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
 //                       />
 //                     </div>
 
 //                     <div className="col-span-2 md:col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         🏙️ City <span className="text-red-500">*</span>
+//                         City <span className="text-red-500">*</span>
 //                       </label>
 //                       <input
 //                         type="text"
@@ -1074,13 +983,13 @@
 //                         value={editForm.city}
 //                         onChange={handleEditChange}
 //                         required
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90]"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
 //                       />
 //                     </div>
 
 //                     <div className="col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         📍 Street Address <span className="text-red-500">*</span>
+//                         Street Address <span className="text-red-500">*</span>
 //                       </label>
 //                       <input
 //                         type="text"
@@ -1088,13 +997,13 @@
 //                         value={editForm.address}
 //                         onChange={handleEditChange}
 //                         required
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90]"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
 //                       />
 //                     </div>
 
 //                     <div className="col-span-2 md:col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         📮 ZIP Code <span className="text-red-500">*</span>
+//                         ZIP Code <span className="text-red-500">*</span>
 //                       </label>
 //                       <input
 //                         type="text"
@@ -1102,7 +1011,7 @@
 //                         value={editForm.zipCode}
 //                         onChange={handleEditChange}
 //                         required
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90]"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
 //                       />
 //                     </div>
 
@@ -1113,41 +1022,25 @@
 //                           name="isActive"
 //                           checked={editForm.isActive}
 //                           onChange={handleEditChange}
-//                           className="w-4 h-4 rounded border-gray-300 text-[#4A8A90] focus:ring-[#4A8A90]"
+//                           className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
 //                         />
 //                         <span className="text-sm text-gray-700">Account Active</span>
 //                       </label>
 //                     </div>
-
-//                     {/* <div className="col-span-2">
-//                       <label className="flex items-center gap-2 cursor-pointer">
-//                         <input
-//                           type="checkbox"
-//                           name="isSubscribedToNewsletter"
-//                           checked={editForm.isSubscribedToNewsletter}
-//                           onChange={handleEditChange}
-//                           className="w-4 h-4 rounded border-gray-300 text-[#4A8A90] focus:ring-[#4A8A90]"
-//                         />
-//                         <span className="text-sm text-gray-700">Subscribe to Newsletter</span>
-//                       </label>
-//                       <p className="text-xs text-gray-400 mt-1 ml-6">
-//                         Subscribers will receive updates about new products and special offers
-//                       </p>
-//                     </div> */}
 //                   </div>
 
 //                   <div className="flex items-center justify-end gap-2 mt-6 pt-4 border-t border-gray-200">
 //                     <button
 //                       type="button"
 //                       onClick={() => setEditModal({ isOpen: false, customer: null })}
-//                       className="px-4 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+//                       className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
 //                     >
 //                       Cancel
 //                     </button>
 //                     <button
 //                       type="submit"
 //                       disabled={isEditing}
-//                       className="px-4 py-2 bg-gradient-to-r from-[#4A8A90] to-[#FFB6C1] text-white rounded-lg text-sm font-medium hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+//                       className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-sm"
 //                     >
 //                       {isEditing ? (
 //                         <>
@@ -1168,25 +1061,25 @@
 //           </div>
 //         )}
 
-//         {/* Create Customer Modal - Matches Register Page Fields */}
+//         {/* Create Customer Modal */}
 //         {createModal.isOpen && (
-//           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+//           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
 //             <motion.div
 //               initial={{ opacity: 0, scale: 0.95 }}
 //               animate={{ opacity: 1, scale: 1 }}
 //               exit={{ opacity: 0, scale: 0.95 }}
 //               className="bg-white rounded-xl max-w-3xl w-full shadow-xl overflow-hidden max-h-[90vh] flex flex-col"
 //             >
-//               <div className="px-5 py-3 bg-gradient-to-r from-[#4A8A90] to-[#FFB6C1] flex items-center justify-between flex-shrink-0">
+//               <div className="px-5 py-3 bg-gray-50 border-b border-gray-200 flex items-center justify-between flex-shrink-0">
 //                 <div className="flex items-center gap-2">
-//                   <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-//                     <UserPlus className="w-4 h-4 text-white" />
+//                   <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+//                     <UserPlus className="w-4 h-4 text-blue-600" />
 //                   </div>
-//                   <h3 className="text-base font-semibold text-white">Create New Customer</h3>
+//                   <h3 className="text-base font-semibold text-gray-900">Create New Customer</h3>
 //                 </div>
 //                 <button
 //                   onClick={() => setCreateModal({ isOpen: false })}
-//                   className="text-white/80 hover:text-white"
+//                   className="text-gray-400 hover:text-gray-600"
 //                 >
 //                   <X className="w-4 h-4" />
 //                 </button>
@@ -1197,7 +1090,7 @@
 //                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 //                     <div className="col-span-2 md:col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         👤 Contact Person <span className="text-red-500">*</span>
+//                         Contact Person <span className="text-red-500">*</span>
 //                       </label>
 //                       <input
 //                         type="text"
@@ -1205,14 +1098,14 @@
 //                         value={createForm.contactPerson}
 //                         onChange={handleCreateChange}
 //                         required
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90]"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
 //                         placeholder="Your full name"
 //                       />
 //                     </div>
 
 //                     <div className="col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         📧 Email Address <span className="text-red-500">*</span>
+//                         Email Address <span className="text-red-500">*</span>
 //                       </label>
 //                       <input
 //                         type="email"
@@ -1220,14 +1113,14 @@
 //                         value={createForm.email}
 //                         onChange={handleCreateChange}
 //                         required
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90]"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
 //                         placeholder="your@email.com"
 //                       />
 //                     </div>
 
 //                     <div className="col-span-2 md:col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         📞 Phone Number <span className="text-red-500">*</span>
+//                         Phone Number <span className="text-red-500">*</span>
 //                       </label>
 //                       <input
 //                         type="tel"
@@ -1235,28 +1128,28 @@
 //                         value={createForm.phone}
 //                         onChange={handleCreateChange}
 //                         required
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90]"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
 //                         placeholder="+1 234 567 8900"
 //                       />
 //                     </div>
 
 //                     <div className="col-span-2 md:col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         💬 WhatsApp Number
+//                         WhatsApp Number
 //                       </label>
 //                       <input
 //                         type="tel"
 //                         name="whatsapp"
 //                         value={createForm.whatsapp}
 //                         onChange={handleCreateChange}
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90]"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
 //                         placeholder="+1 234 567 8900"
 //                       />
 //                     </div>
 
 //                     <div className="col-span-2 md:col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         🌍 Country <span className="text-red-500">*</span>
+//                         Country <span className="text-red-500">*</span>
 //                       </label>
 //                       <input
 //                         type="text"
@@ -1264,14 +1157,14 @@
 //                         value={createForm.country}
 //                         onChange={handleCreateChange}
 //                         required
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90]"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
 //                         placeholder="Bangladesh"
 //                       />
 //                     </div>
 
 //                     <div className="col-span-2 md:col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         🏙️ City <span className="text-red-500">*</span>
+//                         City <span className="text-red-500">*</span>
 //                       </label>
 //                       <input
 //                         type="text"
@@ -1279,14 +1172,14 @@
 //                         value={createForm.city}
 //                         onChange={handleCreateChange}
 //                         required
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90]"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
 //                         placeholder="Dhaka"
 //                       />
 //                     </div>
 
 //                     <div className="col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         📍 Street Address <span className="text-red-500">*</span>
+//                         Street Address <span className="text-red-500">*</span>
 //                       </label>
 //                       <input
 //                         type="text"
@@ -1294,14 +1187,14 @@
 //                         value={createForm.address}
 //                         onChange={handleCreateChange}
 //                         required
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90]"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
 //                         placeholder="Your street address"
 //                       />
 //                     </div>
 
 //                     <div className="col-span-2 md:col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         📮 ZIP Code <span className="text-red-500">*</span>
+//                         ZIP Code <span className="text-red-500">*</span>
 //                       </label>
 //                       <input
 //                         type="text"
@@ -1309,14 +1202,14 @@
 //                         value={createForm.zipCode}
 //                         onChange={handleCreateChange}
 //                         required
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90]"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
 //                         placeholder="10001"
 //                       />
 //                     </div>
 
 //                     <div className="col-span-2 md:col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         🔒 Password <span className="text-red-500">*</span>
+//                         Password <span className="text-red-500">*</span>
 //                       </label>
 //                       <div className="relative">
 //                         <input
@@ -1326,13 +1219,13 @@
 //                           onChange={handleCreateChange}
 //                           required
 //                           minLength="8"
-//                           className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90] pr-10"
+//                           className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10 transition-all bg-gray-50 hover:bg-white"
 //                           placeholder="Min. 8 characters"
 //                         />
 //                         <button
 //                           type="button"
 //                           onClick={() => setShowPassword(!showPassword)}
-//                           className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#4A8A90]"
+//                           className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-600"
 //                         >
 //                           {showPassword ? '👁️' : '👁️‍🗨️'}
 //                         </button>
@@ -1341,7 +1234,7 @@
 
 //                     <div className="col-span-2 md:col-span-1">
 //                       <label className="block text-xs font-medium text-gray-700 mb-1">
-//                         🔒 Confirm Password <span className="text-red-500">*</span>
+//                         Confirm Password <span className="text-red-500">*</span>
 //                       </label>
 //                       <div className="relative">
 //                         <input
@@ -1351,48 +1244,32 @@
 //                           onChange={handleCreateChange}
 //                           required
 //                           minLength="8"
-//                           className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90] pr-10"
+//                           className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10 transition-all bg-gray-50 hover:bg-white"
 //                           placeholder="Re-enter password"
 //                         />
 //                         <button
 //                           type="button"
 //                           onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-//                           className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#4A8A90]"
+//                           className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-600"
 //                         >
 //                           {showConfirmPassword ? '👁️' : '👁️‍🗨️'}
 //                         </button>
 //                       </div>
 //                     </div>
-
-//                     {/* <div className="col-span-2">
-//                       <label className="flex items-center gap-2 cursor-pointer">
-//                         <input
-//                           type="checkbox"
-//                           name="subscribeToNewsletter"
-//                           checked={createForm.subscribeToNewsletter}
-//                           onChange={handleCreateChange}
-//                           className="w-4 h-4 rounded border-gray-300 text-[#4A8A90] focus:ring-[#4A8A90]"
-//                         />
-//                         <span className="text-sm text-gray-700">Subscribe to Newsletter</span>
-//                       </label>
-//                       <p className="text-xs text-gray-400 mt-1 ml-6">
-//                         Customer will receive updates about new products and special offers
-//                       </p>
-//                     </div> */}
 //                   </div>
 
 //                   <div className="flex items-center justify-end gap-2 mt-6 pt-4 border-t border-gray-200">
 //                     <button
 //                       type="button"
 //                       onClick={() => setCreateModal({ isOpen: false })}
-//                       className="px-4 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+//                       className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
 //                     >
 //                       Cancel
 //                     </button>
 //                     <button
 //                       type="submit"
 //                       disabled={isCreating}
-//                       className="px-4 py-2 bg-gradient-to-r from-[#4A8A90] to-[#FFB6C1] text-white rounded-lg text-sm font-medium hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+//                       className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-sm"
 //                     >
 //                       {isCreating ? (
 //                         <>
@@ -1415,16 +1292,16 @@
 
 //         {/* Password Reset Modal */}
 //         {passwordModal.isOpen && (
-//           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+//           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
 //             <motion.div
 //               initial={{ opacity: 0, scale: 0.95 }}
 //               animate={{ opacity: 1, scale: 1 }}
 //               exit={{ opacity: 0, scale: 0.95 }}
 //               className="bg-white rounded-xl max-w-md w-full shadow-xl overflow-hidden"
 //             >
-//               <div className="px-4 py-3 bg-amber-50 border-b border-amber-100 flex items-center justify-between">
+//               <div className="px-5 py-3 bg-amber-50 border-b border-amber-100 flex items-center justify-between">
 //                 <div className="flex items-center gap-2">
-//                   <div className="w-7 h-7 rounded-full bg-amber-100 flex items-center justify-center">
+//                   <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center">
 //                     <Lock className="w-4 h-4 text-amber-600" />
 //                   </div>
 //                   <h3 className="text-sm font-semibold text-gray-900">Reset Password</h3>
@@ -1438,7 +1315,7 @@
 //               </div>
 
 //               <form onSubmit={handleResetPassword}>
-//                 <div className="p-4 space-y-4">
+//                 <div className="p-5 space-y-4">
 //                   <div>
 //                     <label className="block text-xs font-medium text-gray-700 mb-1">
 //                       New Password <span className="text-red-500">*</span>
@@ -1450,13 +1327,13 @@
 //                         onChange={(e) => setPasswordForm(prev => ({ ...prev, newPassword: e.target.value }))}
 //                         required
 //                         minLength="8"
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90] pr-10"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10 transition-all bg-gray-50 hover:bg-white"
 //                         placeholder="Min. 8 characters"
 //                       />
 //                       <button
 //                         type="button"
 //                         onClick={() => setShowNewPassword(!showNewPassword)}
-//                         className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#4A8A90]"
+//                         className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-600"
 //                       >
 //                         {showNewPassword ? '👁️' : '👁️‍🗨️'}
 //                       </button>
@@ -1474,20 +1351,20 @@
 //                         onChange={(e) => setPasswordForm(prev => ({ ...prev, confirmPassword: e.target.value }))}
 //                         required
 //                         minLength="8"
-//                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#4A8A90] focus:border-[#4A8A90] pr-10"
+//                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10 transition-all bg-gray-50 hover:bg-white"
 //                         placeholder="Re-enter password"
 //                       />
 //                       <button
 //                         type="button"
 //                         onClick={() => setShowConfirmNewPassword(!showConfirmNewPassword)}
-//                         className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#4A8A90]"
+//                         className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-600"
 //                       >
 //                         {showConfirmNewPassword ? '👁️' : '👁️‍🗨️'}
 //                       </button>
 //                     </div>
 //                   </div>
 
-//                   <div className="p-2 bg-blue-50 rounded-lg border border-blue-100">
+//                   <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
 //                     <p className="text-xs text-blue-800 flex items-start gap-1.5">
 //                       <CheckCircle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
 //                       <span>Customer will need to use this new password to login.</span>
@@ -1495,18 +1372,18 @@
 //                   </div>
 //                 </div>
 
-//                 <div className="px-4 py-3 border-t border-gray-200 flex items-center justify-end gap-2">
+//                 <div className="px-5 py-3 border-t border-gray-200 flex items-center justify-end gap-2">
 //                   <button
 //                     type="button"
 //                     onClick={() => setPasswordModal({ isOpen: false, customerId: null, customerEmail: '' })}
-//                     className="px-3 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+//                     className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
 //                   >
 //                     Cancel
 //                   </button>
 //                   <button
 //                     type="submit"
 //                     disabled={isResettingPassword}
-//                     className="px-3 py-2 bg-amber-600 text-white rounded-lg text-sm font-medium hover:bg-amber-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+//                     className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
 //                   >
 //                     {isResettingPassword ? (
 //                       <>
@@ -1562,7 +1439,10 @@ import {
   Bell,
   BellOff,
   Smartphone,
-  Briefcase
+  Briefcase,
+  Sparkles,
+  Heart,
+  Store
 } from 'lucide-react';
 
 export default function AllCustomers() {
@@ -1993,13 +1873,13 @@ export default function AllCustomers() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50/50 via-white to-rose-50/30 py-8">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Header */}
         <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 flex items-center gap-2">
-              <Users className="w-7 h-7 text-blue-600" />
+            <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent flex items-center gap-2">
+              <Users className="w-7 h-7 text-pink-500" />
               All Customers
             </h1>
             <p className="text-sm text-gray-500 mt-1">
@@ -2010,13 +1890,13 @@ export default function AllCustomers() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setCreateModal({ isOpen: true })}
-              className="flex items-center gap-2 px-4 py-2.5 bg-black text-white rounded-lg hover:bg-gray-800 transition-all shadow-sm"
+              className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-lg hover:shadow-lg hover:shadow-pink-200/50 transition-all duration-300 shadow-md"
             >
               <UserPlus className="w-4 h-4" />
               Add Customer
             </button>
-            <span className="text-sm bg-white px-3 py-1.5 rounded-lg shadow-sm border border-gray-200">
-              Total: <span className="font-semibold text-blue-600">{customers.length}</span>
+            <span className="text-sm bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-lg shadow-sm border border-pink-100">
+              Total: <span className="font-semibold text-pink-600">{customers.length}</span>
             </span>
           </div>
         </div>
@@ -2024,33 +1904,41 @@ export default function AllCustomers() {
         {/* Filters and Search */}
         <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-3">
           <div className="md:col-span-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-pink-400" />
             <input
               type="text"
               placeholder="Search by name, email, phone..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
+              className="w-full pl-10 pr-4 py-2.5 border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-pink-50/30 hover:bg-white"
             />
           </div>
           
           <select
             value={selectedCountry}
             onChange={(e) => setSelectedCountry(e.target.value)}
-            className="px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white text-sm"
+            className="px-3 py-2.5 border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-pink-50/30 hover:bg-white text-sm"
           >
             <option value="all">All Countries</option>
             {countries.map(country => (
               <option key={country} value={country}>{country}</option>
             ))}
           </select>
+
+          <button
+            onClick={fetchCustomers}
+            className="px-4 py-2.5 border border-pink-200 rounded-lg hover:bg-pink-50 transition-all flex items-center justify-center gap-2 bg-pink-50/30 hover:bg-white"
+          >
+            <RefreshCw className="w-4 h-4 text-pink-500" />
+            <span className="hidden sm:inline text-sm">Refresh</span>
+          </button>
         </div>
 
         {/* Customers Table */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-pink-100 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
+              <thead className="bg-gradient-to-r from-pink-50/50 to-rose-50/50 border-b border-pink-100">
                 <tr>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                     Customer
@@ -2069,12 +1957,12 @@ export default function AllCustomers() {
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-pink-50">
                 {loading ? (
                   <tr>
                     <td colSpan="5" className="px-4 py-12 text-center">
                       <div className="flex justify-center items-center gap-2">
-                        <RefreshCw className="w-5 h-5 animate-spin text-blue-600" />
+                        <RefreshCw className="w-5 h-5 animate-spin text-pink-500" />
                         <span className="text-gray-500">Loading customers...</span>
                       </div>
                     </td>
@@ -2083,7 +1971,7 @@ export default function AllCustomers() {
                   <tr>
                     <td colSpan="5" className="px-4 py-12 text-center">
                       <div className="text-gray-500">
-                        <Users className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+                        <Users className="w-12 h-12 mx-auto mb-3 text-pink-200" />
                         <p className="text-lg font-medium">No customers found</p>
                         <p className="text-sm mt-1">Try adjusting your search or filters</p>
                       </div>
@@ -2091,10 +1979,10 @@ export default function AllCustomers() {
                   </tr>
                 ) : (
                   customers.map((customer) => (
-                    <tr key={customer._id} className="hover:bg-gray-50 transition-colors">
+                    <tr key={customer._id} className="hover:bg-pink-50/50 transition-colors">
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-blue-400 flex items-center justify-center text-white font-semibold text-sm">
+                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center text-white font-semibold text-sm shadow-md">
                             {customer.contactPerson?.charAt(0) || '?'}
                           </div>
                           <div>
@@ -2110,11 +1998,11 @@ export default function AllCustomers() {
                       <td className="px-4 py-3">
                         <div className="space-y-1">
                           <div className="flex items-center gap-1.5 text-xs text-gray-600">
-                            <Mail className="w-3.5 h-3.5 text-gray-400" />
+                            <Mail className="w-3.5 h-3.5 text-pink-400" />
                             <span className="truncate max-w-[150px]">{customer.email}</span>
                           </div>
                           <div className="flex items-center gap-1.5 text-xs text-gray-600">
-                            <Phone className="w-3.5 h-3.5 text-gray-400" />
+                            <Phone className="w-3.5 h-3.5 text-pink-400" />
                             <span>{customer.phone}</span>
                           </div>
                           {customer.whatsapp && (
@@ -2128,18 +2016,18 @@ export default function AllCustomers() {
                       <td className="px-4 py-3">
                         <div className="space-y-1">
                           <div className="flex items-center gap-1.5 text-xs text-gray-600">
-                            <Globe className="w-3.5 h-3.5 text-gray-400" />
+                            <Globe className="w-3.5 h-3.5 text-pink-400" />
                             <span>{customer.country}</span>
                           </div>
                           <div className="flex items-center gap-1.5 text-xs text-gray-600">
-                            <MapPin className="w-3.5 h-3.5 text-gray-400" />
+                            <MapPin className="w-3.5 h-3.5 text-pink-400" />
                             <span>{customer.city}</span>
                           </div>
                         </div>
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-1.5 text-xs text-gray-600">
-                          <Calendar className="w-3.5 h-3.5 text-gray-400" />
+                          <Calendar className="w-3.5 h-3.5 text-pink-400" />
                           <span>{formatDate(customer.createdAt)}</span>
                         </div>
                       </td>
@@ -2147,7 +2035,7 @@ export default function AllCustomers() {
                         <div className="flex items-center justify-end gap-1">
                           <button
                             onClick={() => setViewModal({ isOpen: true, customer })}
-                            className="p-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                            className="p-1.5 text-gray-500 hover:text-pink-600 hover:bg-pink-50 rounded-lg transition-colors"
                             title="View details"
                           >
                             <Eye className="w-4 h-4" />
@@ -2172,7 +2060,7 @@ export default function AllCustomers() {
                               customerId: customer._id, 
                               customerName: customer.contactPerson 
                             })}
-                            className="p-1.5 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                            className="p-1.5 text-gray-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
                             title="Delete customer"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -2188,27 +2076,27 @@ export default function AllCustomers() {
 
           {/* Pagination */}
           {!loading && customers.length > 0 && (
-            <div className="px-4 py-3 border-t border-gray-200 flex items-center justify-between bg-gray-50">
+            <div className="px-4 py-3 border-t border-pink-100 flex items-center justify-between bg-gradient-to-r from-pink-50/30 to-rose-50/30">
               <p className="text-xs text-gray-600">
-                Showing page <span className="font-medium">{currentPage}</span> of <span className="font-medium">{totalPages}</span>
+                Showing page <span className="font-medium text-pink-600">{currentPage}</span> of <span className="font-medium text-pink-600">{totalPages}</span>
               </p>
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                   disabled={currentPage === 1}
-                  className="p-1.5 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white transition-colors bg-white"
+                  className="p-1.5 border border-pink-200 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-pink-50 transition-colors bg-white"
                 >
-                  <ChevronLeft className="w-4 h-4" />
+                  <ChevronLeft className="w-4 h-4 text-pink-500" />
                 </button>
-                <span className="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-xs font-medium">
+                <span className="px-3 py-1.5 bg-white border border-pink-200 rounded-lg text-xs font-medium text-pink-600">
                   {currentPage}
                 </span>
                 <button
                   onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                   disabled={currentPage === totalPages}
-                  className="p-1.5 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white transition-colors bg-white"
+                  className="p-1.5 border border-pink-200 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-pink-50 transition-colors bg-white"
                 >
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-4 h-4 text-pink-500" />
                 </button>
               </div>
             </div>
@@ -2222,12 +2110,12 @@ export default function AllCustomers() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-xl max-w-md w-full shadow-xl overflow-hidden"
+              className="bg-white rounded-xl max-w-md w-full shadow-xl overflow-hidden border border-rose-100"
             >
-              <div className="px-5 py-3 bg-red-50 border-b border-red-100 flex items-center justify-between">
+              <div className="px-5 py-3 bg-gradient-to-r from-rose-50/50 to-red-50/50 border-b border-rose-100 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
-                    <AlertTriangle className="w-4 h-4 text-red-600" />
+                  <div className="w-8 h-8 rounded-full bg-rose-100 flex items-center justify-center">
+                    <AlertTriangle className="w-4 h-4 text-rose-600" />
                   </div>
                   <h3 className="text-sm font-semibold text-gray-900">Delete Customer</h3>
                 </div>
@@ -2241,11 +2129,11 @@ export default function AllCustomers() {
 
               <div className="p-5">
                 <p className="text-sm text-gray-600 mb-3">
-                  Are you sure you want to delete <span className="font-semibold">{deleteModal.customerName}</span>? 
+                  Are you sure you want to delete <span className="font-semibold text-pink-600">{deleteModal.customerName}</span>? 
                   This will permanently remove all customer data.
                 </p>
 
-                <div className="mb-4 p-3 bg-amber-50 rounded-lg border border-amber-200">
+                <div className="mb-4 p-3 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-lg border border-amber-200">
                   <p className="text-xs text-amber-800 flex items-start gap-1.5">
                     <AlertTriangle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
                     <span>This action cannot be undone. All customer history will be lost.</span>
@@ -2255,13 +2143,13 @@ export default function AllCustomers() {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setDeleteModal({ isOpen: false, customerId: null, customerName: '' })}
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm font-medium"
+                    className="flex-1 px-4 py-2 border border-pink-200 rounded-lg hover:bg-pink-50 text-sm font-medium"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleDelete}
-                    className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-medium flex items-center justify-center gap-1.5"
+                    className="flex-1 px-4 py-2 bg-gradient-to-r from-rose-500 to-red-500 text-white rounded-lg hover:shadow-lg hover:shadow-rose-200/50 transition-all duration-300 text-sm font-medium flex items-center justify-center gap-1.5 shadow-md"
                   >
                     <UserX className="w-3.5 h-3.5" />
                     Delete
@@ -2279,12 +2167,12 @@ export default function AllCustomers() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-xl max-w-2xl w-full shadow-xl overflow-hidden"
+              className="bg-white rounded-xl max-w-2xl w-full shadow-xl overflow-hidden border border-pink-100"
             >
-              <div className="px-5 py-3 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
+              <div className="px-5 py-3 bg-gradient-to-r from-pink-50/50 to-rose-50/50 border-b border-pink-100 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
-                    <Eye className="w-4 h-4 text-blue-600" />
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-pink-100 to-rose-100 flex items-center justify-center">
+                    <Eye className="w-4 h-4 text-pink-600" />
                   </div>
                   <h3 className="text-base font-semibold text-gray-900">Customer Details</h3>
                 </div>
@@ -2299,8 +2187,8 @@ export default function AllCustomers() {
               <div className="p-5 max-h-[70vh] overflow-y-auto">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="col-span-2">
-                    <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Basic Information</h4>
-                    <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                    <h4 className="text-xs font-semibold text-pink-600 uppercase tracking-wider mb-2">Basic Information</h4>
+                    <div className="bg-gradient-to-r from-pink-50/50 to-rose-50/50 rounded-lg p-3 border border-pink-100">
                       <div className="grid grid-cols-2 gap-3">
                         <div>
                           <p className="text-xs text-gray-500">Contact Person</p>
@@ -2311,17 +2199,17 @@ export default function AllCustomers() {
                   </div>
 
                   <div className="col-span-2 md:col-span-1">
-                    <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Contact Information</h4>
-                    <div className="bg-gray-50 rounded-lg p-3 border border-gray-200 space-y-2">
+                    <h4 className="text-xs font-semibold text-pink-600 uppercase tracking-wider mb-2">Contact Information</h4>
+                    <div className="bg-gradient-to-r from-pink-50/50 to-rose-50/50 rounded-lg p-3 border border-pink-100 space-y-2">
                       <div className="flex items-center gap-2">
-                        <Mail className="w-4 h-4 text-gray-400" />
+                        <Mail className="w-4 h-4 text-pink-400" />
                         <div>
                           <p className="text-xs text-gray-500">Email</p>
                           <p className="text-sm text-gray-900">{viewModal.customer.email}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Phone className="w-4 h-4 text-gray-400" />
+                        <Phone className="w-4 h-4 text-pink-400" />
                         <div>
                           <p className="text-xs text-gray-500">Phone</p>
                           <p className="text-sm text-gray-900">{viewModal.customer.phone}</p>
@@ -2340,10 +2228,10 @@ export default function AllCustomers() {
                   </div>
 
                   <div className="col-span-2 md:col-span-1">
-                    <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Address</h4>
-                    <div className="bg-gray-50 rounded-lg p-3 border border-gray-200 space-y-2">
+                    <h4 className="text-xs font-semibold text-pink-600 uppercase tracking-wider mb-2">Address</h4>
+                    <div className="bg-gradient-to-r from-pink-50/50 to-rose-50/50 rounded-lg p-3 border border-pink-100 space-y-2">
                       <div className="flex items-start gap-2">
-                        <MapPin className="w-4 h-4 text-gray-400 mt-0.5" />
+                        <MapPin className="w-4 h-4 text-pink-400 mt-0.5" />
                         <div>
                           <p className="text-xs text-gray-500">Address</p>
                           <p className="text-sm text-gray-900">{viewModal.customer.address}</p>
@@ -2367,13 +2255,13 @@ export default function AllCustomers() {
                   </div>
 
                   <div className="col-span-2">
-                    <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Account Information</h4>
-                    <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                    <h4 className="text-xs font-semibold text-pink-600 uppercase tracking-wider mb-2">Account Information</h4>
+                    <div className="bg-gradient-to-r from-pink-50/50 to-rose-50/50 rounded-lg p-3 border border-pink-100">
                       <div className="grid grid-cols-2 gap-3">
                         <div>
                           <p className="text-xs text-gray-500">Joined Date</p>
                           <p className="text-sm text-gray-900 flex items-center gap-1">
-                            <Calendar className="w-3.5 h-3.5 text-gray-400" />
+                            <Calendar className="w-3.5 h-3.5 text-pink-400" />
                             {formatDate(viewModal.customer.createdAt)}
                           </p>
                         </div>
@@ -2389,20 +2277,20 @@ export default function AllCustomers() {
                 </div>
               </div>
 
-              <div className="px-5 py-3 border-t border-gray-200 flex justify-end gap-2">
+              <div className="px-5 py-3 border-t border-pink-100 flex justify-end gap-2">
                 <button
                   onClick={() => {
                     setViewModal({ isOpen: false, customer: null });
                     handleEditClick(viewModal.customer);
                   }}
-                  className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 text-sm font-medium flex items-center gap-2 shadow-sm"
+                  className="px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-lg hover:shadow-lg hover:shadow-pink-200/50 transition-all duration-300 text-sm font-medium flex items-center gap-2 shadow-md"
                 >
                   <Edit2 className="w-4 h-4" />
                   Edit Customer
                 </button>
                 <button
                   onClick={() => setViewModal({ isOpen: false, customer: null })}
-                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm font-medium"
+                  className="px-4 py-2 bg-pink-50 text-gray-700 rounded-lg hover:bg-pink-100 text-sm font-medium"
                 >
                   Close
                 </button>
@@ -2418,12 +2306,12 @@ export default function AllCustomers() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-xl max-w-3xl w-full shadow-xl overflow-hidden max-h-[90vh] flex flex-col"
+              className="bg-white rounded-xl max-w-3xl w-full shadow-xl overflow-hidden max-h-[90vh] flex flex-col border border-pink-100"
             >
-              <div className="px-5 py-3 bg-gray-50 border-b border-gray-200 flex items-center justify-between flex-shrink-0">
+              <div className="px-5 py-3 bg-gradient-to-r from-pink-50/50 to-rose-50/50 border-b border-pink-100 flex items-center justify-between flex-shrink-0">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
-                    <Edit2 className="w-4 h-4 text-blue-600" />
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-pink-100 to-rose-100 flex items-center justify-center">
+                    <Edit2 className="w-4 h-4 text-pink-600" />
                   </div>
                   <h3 className="text-base font-semibold text-gray-900">Edit Customer</h3>
                 </div>
@@ -2440,7 +2328,7 @@ export default function AllCustomers() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="col-span-2 md:col-span-1">
                       <label className="block text-xs font-medium text-gray-700 mb-1">
-                        Contact Person <span className="text-red-500">*</span>
+                        Contact Person <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -2448,7 +2336,7 @@ export default function AllCustomers() {
                         value={editForm.contactPerson}
                         onChange={handleEditChange}
                         required
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
+                        className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-pink-50/30 hover:bg-white"
                       />
                     </div>
 
@@ -2460,14 +2348,14 @@ export default function AllCustomers() {
                         type="email"
                         value={editModal.customer.email}
                         disabled
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
+                        className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg bg-pink-50/30 text-gray-500 cursor-not-allowed"
                       />
                       <p className="text-xs text-gray-400 mt-1">Email cannot be changed</p>
                     </div>
 
                     <div className="col-span-2 md:col-span-1">
                       <label className="block text-xs font-medium text-gray-700 mb-1">
-                        Phone Number <span className="text-red-500">*</span>
+                        Phone Number <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="tel"
@@ -2475,26 +2363,26 @@ export default function AllCustomers() {
                         value={editForm.phone}
                         onChange={handleEditChange}
                         required
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
+                        className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-pink-50/30 hover:bg-white"
                       />
                     </div>
 
                     <div className="col-span-2 md:col-span-1">
                       <label className="block text-xs font-medium text-gray-700 mb-1">
-                        WhatsApp Number <span className="text-red-500">*</span>
+                        WhatsApp Number <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="tel"
                         name="whatsapp"
                         value={editForm.whatsapp}
                         onChange={handleEditChange}
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
+                        className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-pink-50/30 hover:bg-white"
                       />
                     </div>
 
                     <div className="col-span-2 md:col-span-1">
                       <label className="block text-xs font-medium text-gray-700 mb-1">
-                        Country <span className="text-red-500">*</span>
+                        Country <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -2502,13 +2390,13 @@ export default function AllCustomers() {
                         value={editForm.country}
                         onChange={handleEditChange}
                         required
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
+                        className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-pink-50/30 hover:bg-white"
                       />
                     </div>
 
                     <div className="col-span-2 md:col-span-1">
                       <label className="block text-xs font-medium text-gray-700 mb-1">
-                        City <span className="text-red-500">*</span>
+                        City <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -2516,13 +2404,13 @@ export default function AllCustomers() {
                         value={editForm.city}
                         onChange={handleEditChange}
                         required
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
+                        className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-pink-50/30 hover:bg-white"
                       />
                     </div>
 
                     <div className="col-span-1">
                       <label className="block text-xs font-medium text-gray-700 mb-1">
-                        Street Address <span className="text-red-500">*</span>
+                        Street Address <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -2530,13 +2418,13 @@ export default function AllCustomers() {
                         value={editForm.address}
                         onChange={handleEditChange}
                         required
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
+                        className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-pink-50/30 hover:bg-white"
                       />
                     </div>
 
                     <div className="col-span-2 md:col-span-1">
                       <label className="block text-xs font-medium text-gray-700 mb-1">
-                        ZIP Code <span className="text-red-500">*</span>
+                        ZIP Code <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -2544,7 +2432,7 @@ export default function AllCustomers() {
                         value={editForm.zipCode}
                         onChange={handleEditChange}
                         required
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
+                        className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-pink-50/30 hover:bg-white"
                       />
                     </div>
 
@@ -2555,25 +2443,25 @@ export default function AllCustomers() {
                           name="isActive"
                           checked={editForm.isActive}
                           onChange={handleEditChange}
-                          className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          className="w-4 h-4 rounded border-pink-300 text-pink-600 focus:ring-pink-500"
                         />
                         <span className="text-sm text-gray-700">Account Active</span>
                       </label>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-end gap-2 mt-6 pt-4 border-t border-gray-200">
+                  <div className="flex items-center justify-end gap-2 mt-6 pt-4 border-t border-pink-100">
                     <button
                       type="button"
                       onClick={() => setEditModal({ isOpen: false, customer: null })}
-                      className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                      className="px-4 py-2 border border-pink-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-pink-50 transition-colors"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
                       disabled={isEditing}
-                      className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-sm"
+                      className="px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-lg hover:shadow-lg hover:shadow-pink-200/50 transition-all duration-300 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-md"
                     >
                       {isEditing ? (
                         <>
@@ -2601,12 +2489,12 @@ export default function AllCustomers() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-xl max-w-3xl w-full shadow-xl overflow-hidden max-h-[90vh] flex flex-col"
+              className="bg-white rounded-xl max-w-3xl w-full shadow-xl overflow-hidden max-h-[90vh] flex flex-col border border-pink-100"
             >
-              <div className="px-5 py-3 bg-gray-50 border-b border-gray-200 flex items-center justify-between flex-shrink-0">
+              <div className="px-5 py-3 bg-gradient-to-r from-pink-50/50 to-rose-50/50 border-b border-pink-100 flex items-center justify-between flex-shrink-0">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
-                    <UserPlus className="w-4 h-4 text-blue-600" />
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-pink-100 to-rose-100 flex items-center justify-center">
+                    <UserPlus className="w-4 h-4 text-pink-600" />
                   </div>
                   <h3 className="text-base font-semibold text-gray-900">Create New Customer</h3>
                 </div>
@@ -2623,7 +2511,7 @@ export default function AllCustomers() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="col-span-2 md:col-span-1">
                       <label className="block text-xs font-medium text-gray-700 mb-1">
-                        Contact Person <span className="text-red-500">*</span>
+                        Contact Person <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -2631,14 +2519,14 @@ export default function AllCustomers() {
                         value={createForm.contactPerson}
                         onChange={handleCreateChange}
                         required
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
+                        className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-pink-50/30 hover:bg-white"
                         placeholder="Your full name"
                       />
                     </div>
 
                     <div className="col-span-1">
                       <label className="block text-xs font-medium text-gray-700 mb-1">
-                        Email Address <span className="text-red-500">*</span>
+                        Email Address <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="email"
@@ -2646,14 +2534,14 @@ export default function AllCustomers() {
                         value={createForm.email}
                         onChange={handleCreateChange}
                         required
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
+                        className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-pink-50/30 hover:bg-white"
                         placeholder="your@email.com"
                       />
                     </div>
 
                     <div className="col-span-2 md:col-span-1">
                       <label className="block text-xs font-medium text-gray-700 mb-1">
-                        Phone Number <span className="text-red-500">*</span>
+                        Phone Number <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="tel"
@@ -2661,28 +2549,28 @@ export default function AllCustomers() {
                         value={createForm.phone}
                         onChange={handleCreateChange}
                         required
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
+                        className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-pink-50/30 hover:bg-white"
                         placeholder="+1 234 567 8900"
                       />
                     </div>
 
                     <div className="col-span-2 md:col-span-1">
                       <label className="block text-xs font-medium text-gray-700 mb-1">
-                        WhatsApp Number
+                        WhatsApp Number <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="tel"
                         name="whatsapp"
                         value={createForm.whatsapp}
                         onChange={handleCreateChange}
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
+                        className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-pink-50/30 hover:bg-white"
                         placeholder="+1 234 567 8900"
                       />
                     </div>
 
                     <div className="col-span-2 md:col-span-1">
                       <label className="block text-xs font-medium text-gray-700 mb-1">
-                        Country <span className="text-red-500">*</span>
+                        Country <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -2690,14 +2578,14 @@ export default function AllCustomers() {
                         value={createForm.country}
                         onChange={handleCreateChange}
                         required
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
+                        className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-pink-50/30 hover:bg-white"
                         placeholder="Bangladesh"
                       />
                     </div>
 
                     <div className="col-span-2 md:col-span-1">
                       <label className="block text-xs font-medium text-gray-700 mb-1">
-                        City <span className="text-red-500">*</span>
+                        City <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -2705,14 +2593,14 @@ export default function AllCustomers() {
                         value={createForm.city}
                         onChange={handleCreateChange}
                         required
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
+                        className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-pink-50/30 hover:bg-white"
                         placeholder="Dhaka"
                       />
                     </div>
 
                     <div className="col-span-1">
                       <label className="block text-xs font-medium text-gray-700 mb-1">
-                        Street Address <span className="text-red-500">*</span>
+                        Street Address <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -2720,14 +2608,14 @@ export default function AllCustomers() {
                         value={createForm.address}
                         onChange={handleCreateChange}
                         required
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
+                        className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-pink-50/30 hover:bg-white"
                         placeholder="Your street address"
                       />
                     </div>
 
                     <div className="col-span-2 md:col-span-1">
                       <label className="block text-xs font-medium text-gray-700 mb-1">
-                        ZIP Code <span className="text-red-500">*</span>
+                        ZIP Code <span className="text-rose-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -2735,14 +2623,14 @@ export default function AllCustomers() {
                         value={createForm.zipCode}
                         onChange={handleCreateChange}
                         required
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white"
+                        className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-pink-50/30 hover:bg-white"
                         placeholder="10001"
                       />
                     </div>
 
                     <div className="col-span-2 md:col-span-1">
                       <label className="block text-xs font-medium text-gray-700 mb-1">
-                        Password <span className="text-red-500">*</span>
+                        Password <span className="text-rose-500">*</span>
                       </label>
                       <div className="relative">
                         <input
@@ -2752,13 +2640,13 @@ export default function AllCustomers() {
                           onChange={handleCreateChange}
                           required
                           minLength="8"
-                          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10 transition-all bg-gray-50 hover:bg-white"
+                          className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent pr-10 transition-all bg-pink-50/30 hover:bg-white"
                           placeholder="Min. 8 characters"
                         />
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-600"
+                          className="absolute right-2 top-1/2 -translate-y-1/2 text-pink-400 hover:text-pink-600"
                         >
                           {showPassword ? '👁️' : '👁️‍🗨️'}
                         </button>
@@ -2767,7 +2655,7 @@ export default function AllCustomers() {
 
                     <div className="col-span-2 md:col-span-1">
                       <label className="block text-xs font-medium text-gray-700 mb-1">
-                        Confirm Password <span className="text-red-500">*</span>
+                        Confirm Password <span className="text-rose-500">*</span>
                       </label>
                       <div className="relative">
                         <input
@@ -2777,13 +2665,13 @@ export default function AllCustomers() {
                           onChange={handleCreateChange}
                           required
                           minLength="8"
-                          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10 transition-all bg-gray-50 hover:bg-white"
+                          className="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent pr-10 transition-all bg-pink-50/30 hover:bg-white"
                           placeholder="Re-enter password"
                         />
                         <button
                           type="button"
                           onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                          className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-600"
+                          className="absolute right-2 top-1/2 -translate-y-1/2 text-pink-400 hover:text-pink-600"
                         >
                           {showConfirmPassword ? '👁️' : '👁️‍🗨️'}
                         </button>
@@ -2791,18 +2679,18 @@ export default function AllCustomers() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-end gap-2 mt-6 pt-4 border-t border-gray-200">
+                  <div className="flex items-center justify-end gap-2 mt-6 pt-4 border-t border-pink-100">
                     <button
                       type="button"
                       onClick={() => setCreateModal({ isOpen: false })}
-                      className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                      className="px-4 py-2 border border-pink-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-pink-50 transition-colors"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
                       disabled={isCreating}
-                      className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-all text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-sm"
+                      className="px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-lg hover:shadow-lg hover:shadow-pink-200/50 transition-all duration-300 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-md"
                     >
                       {isCreating ? (
                         <>
@@ -2830,9 +2718,9 @@ export default function AllCustomers() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-xl max-w-md w-full shadow-xl overflow-hidden"
+              className="bg-white rounded-xl max-w-md w-full shadow-xl overflow-hidden border border-amber-100"
             >
-              <div className="px-5 py-3 bg-amber-50 border-b border-amber-100 flex items-center justify-between">
+              <div className="px-5 py-3 bg-gradient-to-r from-amber-50/50 to-yellow-50/50 border-b border-amber-100 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center">
                     <Lock className="w-4 h-4 text-amber-600" />
@@ -2851,7 +2739,7 @@ export default function AllCustomers() {
                 <div className="p-5 space-y-4">
                   <div>
                     <label className="block text-xs font-medium text-gray-700 mb-1">
-                      New Password <span className="text-red-500">*</span>
+                      New Password <span className="text-rose-500">*</span>
                     </label>
                     <div className="relative">
                       <input
@@ -2860,13 +2748,13 @@ export default function AllCustomers() {
                         onChange={(e) => setPasswordForm(prev => ({ ...prev, newPassword: e.target.value }))}
                         required
                         minLength="8"
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10 transition-all bg-gray-50 hover:bg-white"
+                        className="w-full px-3 py-2 text-sm border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent pr-10 transition-all bg-amber-50/30 hover:bg-white"
                         placeholder="Min. 8 characters"
                       />
                       <button
                         type="button"
                         onClick={() => setShowNewPassword(!showNewPassword)}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-600"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 text-amber-400 hover:text-amber-600"
                       >
                         {showNewPassword ? '👁️' : '👁️‍🗨️'}
                       </button>
@@ -2875,7 +2763,7 @@ export default function AllCustomers() {
 
                   <div>
                     <label className="block text-xs font-medium text-gray-700 mb-1">
-                      Confirm Password <span className="text-red-500">*</span>
+                      Confirm Password <span className="text-rose-500">*</span>
                     </label>
                     <div className="relative">
                       <input
@@ -2884,39 +2772,39 @@ export default function AllCustomers() {
                         onChange={(e) => setPasswordForm(prev => ({ ...prev, confirmPassword: e.target.value }))}
                         required
                         minLength="8"
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10 transition-all bg-gray-50 hover:bg-white"
+                        className="w-full px-3 py-2 text-sm border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent pr-10 transition-all bg-amber-50/30 hover:bg-white"
                         placeholder="Re-enter password"
                       />
                       <button
                         type="button"
                         onClick={() => setShowConfirmNewPassword(!showConfirmNewPassword)}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-blue-600"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 text-amber-400 hover:text-amber-600"
                       >
                         {showConfirmNewPassword ? '👁️' : '👁️‍🗨️'}
                       </button>
                     </div>
                   </div>
 
-                  <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
+                  <div className="p-3 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg border border-blue-100">
                     <p className="text-xs text-blue-800 flex items-start gap-1.5">
-                      <CheckCircle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
+                      <CheckCircle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-blue-500" />
                       <span>Customer will need to use this new password to login.</span>
                     </p>
                   </div>
                 </div>
 
-                <div className="px-5 py-3 border-t border-gray-200 flex items-center justify-end gap-2">
+                <div className="px-5 py-3 border-t border-amber-100 flex items-center justify-end gap-2">
                   <button
                     type="button"
                     onClick={() => setPasswordModal({ isOpen: false, customerId: null, customerEmail: '' })}
-                    className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                    className="px-4 py-2 border border-amber-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-amber-50 transition-colors"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={isResettingPassword}
-                    className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                    className="px-4 py-2 bg-gradient-to-r from-amber-500 to-yellow-500 text-white rounded-lg hover:shadow-lg hover:shadow-amber-200/50 transition-all duration-300 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-md"
                   >
                     {isResettingPassword ? (
                       <>

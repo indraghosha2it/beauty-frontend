@@ -1253,7 +1253,7 @@ export default function Navbar() {
               >
                 <ShoppingCart className="w-4.5 h-4.5 text-[#EE4275] group-hover:scale-105 transition-transform" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-[#EE4275] text-white text-[10px] font-bold rounded-full min-w-[16px] h-[16px] flex items-center justify-center px-1 shadow-sm" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
+                  <span className="absolute -top-1 -right-1 bg-[#EE4275] text-white text-[10px] font-bold rounded-full min-w-[16px] h-[16px] flex items-center justify-center px-1 shadow-sm" style={{ fontFamily: '"Playfair Display"' }}>
                     {cartCount > 9 ? '9+' : cartCount}
                   </span>
                 )}
@@ -1277,7 +1277,7 @@ export default function Navbar() {
                         {getInitials()}
                       </div>
                     )}
-                    <span className="hidden sm:inline text-gray-600 font-medium text-sm max-w-[100px] truncate" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>
+                    <span className="hidden sm:inline text-gray-600 font-medium text-sm max-w-[100px] truncate" style={{ fontFamily: '"Playfair Display"' }}>
                       {getDisplayName()}
                     </span>
                     <ChevronDown className={`w-3.5 h-3.5 text-[#EE4275] transition-transform duration-200 ${userMenuOpen ? 'rotate-180' : ''}`} />
@@ -1288,8 +1288,8 @@ export default function Navbar() {
                       <div className="fixed inset-0 z-40" onClick={() => setUserMenuOpen(false)} />
                       <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-[#EE4275]/10 overflow-hidden z-50 animate-fadeIn">
                         <div className="px-4 py-3 border-b border-[#F7C7D3]/30 bg-[#F7C7D3]/10">
-                          <p className="text-gray-700 font-semibold text-sm truncate" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>{getDisplayName()}</p>
-                          <p className="text-[#EE4275] text-xs truncate mt-0.5" style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>{user.email}</p>
+                          <p className="text-gray-700 font-semibold text-sm truncate" style={{ fontFamily: '"Playfair Display"' }}>{getDisplayName()}</p>
+                          <p className="text-[#EE4275] text-xs truncate mt-0.5" style={{ fontFamily: '"Playfair Display"' }}>{user.email}</p>
                         </div>
                         <div className="py-2">
                           <Link href={getDashboardLink()} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-[#F7C7D3]/20 transition-colors" onClick={() => setUserMenuOpen(false)} style={{ fontFamily: '"Playfair Display", "Georgia", serif' }}>

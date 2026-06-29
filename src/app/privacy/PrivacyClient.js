@@ -1,410 +1,441 @@
-// app/privacy/page.jsx
+// app/privacy/page.js
 'use client';
 
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import {
-  Shield,
-  Mail,
-  Phone,
-  MapPin,
-  Clock,
-  ArrowRight,
-  Sparkles,
-  Lock,
-  Eye,
-  FileText,
-  CheckCircle,
-  Users,
-  Globe,
-  Server,
-  Cookie,
-  AlertCircle
-} from 'lucide-react';
+import { useState } from 'react';
+import { 
+  FaShieldAlt, 
+  FaCheckCircle, 
+  FaArrowRight,
+  FaUserShield,
+  FaLock,
+  FaDatabase,
+  FaCookie,
+  FaEnvelope,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaGlobe,
+  FaUsers,
+  FaShoppingBag,
+  FaExclamationTriangle,
+  FaFileContract,
+  FaServer,
+  FaCog,
+  FaEye,
+  FaTrash,
+  FaExchangeAlt,
+  FaClock,
+  FaChild,
+  FaBuilding,
+  FaRegEnvelope
+} from 'react-icons/fa';
+import { GiSparkles } from 'react-icons/gi';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1
+    }
+  }
+};
+
 export default function PrivacyPage() {
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.4, ease: "easeOut" }
-    }
-  };
-
   const privacySections = [
     {
-      icon: <Users className="w-5 h-5 md:w-6 md:h-6" />,
+      id: 1,
       title: "Information We Collect",
-      items: [
-        "Name, email address, phone number, and shipping/billing address",
-        "Payment information (processed securely through our payment partners)",
-        "IP address, browser type, device information, and usage data",
-        "Cookies and similar tracking technologies"
+      icon: <FaDatabase className="w-5 h-5" />,
+      description: "We collect information to provide better services to our customers. The types of information we collect include:",
+      details: [
+        "Personal identification information (Name, email address, phone number, shipping address)",
+        "Payment information (processed securely through third-party payment gateways)",
+        "Order history and preferences",
+        "Device and browser information for analytics",
+        "Cookies and usage data for improved user experience"
       ]
     },
     {
-      icon: <Eye className="w-5 h-5 md:w-6 md:h-6" />,
+      id: 2,
       title: "How We Use Your Information",
-      items: [
-        "Process and fulfill your orders and deliveries",
-        "Communicate with you about orders, products, and promotions",
-        "Improve our website, products, and customer service",
-        "Prevent fraud and ensure the security of our platform",
-        "Comply with legal obligations and regulatory requirements"
+      icon: <FaCog className="w-5 h-5" />,
+      description: "The information we collect is used to provide, maintain, and improve our services.",
+      details: [
+        "Process and fulfill your orders accurately",
+        "Send order confirmations, updates, and shipping information",
+        "Personalize your shopping experience",
+        "Improve our website and product offerings",
+        "Respond to customer inquiries and provide support",
+        "Send promotional offers (only with your consent)"
       ]
     },
     {
-      icon: <Shield className="w-5 h-5 md:w-6 md:h-6" />,
-      title: "Data Sharing & Disclosure",
-      items: [
-        "We never sell or rent your personal data to third parties",
-        "Share data with trusted service providers (payment processors, delivery partners)",
-        "May disclose data when required by law or to protect our rights",
-        "Third-party services have their own privacy policies"
-      ]
-    },
-    {
-      icon: <Lock className="w-5 h-5 md:w-6 md:h-6" />,
-      title: "Data Security",
-      items: [
+      id: 3,
+      title: "Information Security",
+      icon: <FaLock className="w-5 h-5" />,
+      description: "We take data security seriously and implement industry-standard measures to protect your information.",
+      details: [
         "SSL encryption for all data transmission",
-        "Regular security audits and vulnerability assessments",
-        "Access controls and authentication measures",
-        "Secure data storage with industry-standard practices"
+        "Secure servers and firewalls",
+        "Regular security audits and updates",
+        "Access control and authentication protocols",
+        "Encrypted storage of sensitive information"
       ]
     },
     {
-      icon: <Cookie className="w-5 h-5 md:w-6 md:h-6" />,
+      id: 4,
+      title: "Data Sharing & Disclosure",
+      icon: <FaUsers className="w-5 h-5" />,
+      description: "We do not sell, trade, or rent your personal information to third parties. However, we may share your information:",
+      details: [
+        "With shipping and delivery partners to fulfill orders",
+        "With payment processors for secure transactions",
+        "When required by law or to protect legal rights",
+        "With your explicit consent",
+        "In aggregated, anonymized form for analytics"
+      ]
+    },
+    {
+      id: 5,
       title: "Cookies & Tracking",
-      items: [
-        "Essential cookies for site functionality",
+      icon: <FaCookie className="w-5 h-5" />,
+      description: "We use cookies and similar tracking technologies to enhance your browsing experience.",
+      details: [
+        "Essential cookies for website functionality",
         "Analytics cookies to understand user behavior",
-        "Preference cookies to remember your settings",
-        "You can manage cookie preferences in your browser settings"
+        "Preferences cookies for personalized experience",
+        "You can manage cookie preferences in your browser settings",
+        "Third-party cookies may be used for payment processing"
       ]
     },
     {
-      icon: <AlertCircle className="w-5 h-5 md:w-6 md:h-6" />,
+      id: 6,
       title: "Your Rights",
-      items: [
-        "Access, correct, or delete your personal data",
-        "Withdraw consent for marketing communications",
-        "Request data portability",
-        "Lodge a complaint with data protection authorities"
+      icon: <FaUserShield className="w-5 h-5" />,
+      description: "You have certain rights regarding your personal information, including:",
+      details: [
+        "Right to access your personal data",
+        "Right to correct inaccurate or incomplete data",
+        "Right to request deletion of your data",
+        "Right to opt-out of marketing communications",
+        "Right to withdraw consent at any time",
+        "Right to data portability"
+      ]
+    },
+    {
+      id: 7,
+      title: "Data Retention",
+      icon: <FaClock className="w-5 h-5" />,
+      description: "We retain your personal information only for as long as necessary to fulfill the purposes outlined in this policy.",
+      details: [
+        "Order data is kept for 7 years for legal and tax purposes",
+        "Account data is retained until account deletion",
+        "Analytics data is anonymized after 2 years",
+        "Marketing data is kept until you opt-out",
+        "You can request early deletion of your data at any time"
+      ]
+    },
+    {
+      id: 8,
+      title: "Third-Party Services",
+      icon: <FaGlobe className="w-5 h-5" />,
+      description: "We may use third-party services to enhance our platform. These services have their own privacy policies.",
+      details: [
+        "Payment gateways (bKash, Nagad, SSLCommerz, etc.)",
+        "Delivery and logistics partners",
+        "Analytics and tracking services",
+        "Communication and email services",
+        "We recommend reviewing their privacy policies"
+      ]
+    },
+    {
+      id: 9,
+      title: "Children's Privacy",
+      icon: <FaChild className="w-5 h-5" />,
+      description: "BeautyBucket is not intended for children under 13 years of age. We do not knowingly collect personal information from children.",
+      details: [
+        "We do not target or market to children under 13",
+        "If we discover data from a child under 13, we will delete it",
+        "Parents/guardians can contact us to remove their child's data",
+        "We encourage parents to monitor their children's online activity"
+      ]
+    },
+    {
+      id: 10,
+      title: "Policy Updates",
+      icon: <FaExchangeAlt className="w-5 h-5" />,
+      description: "We may update this Privacy Policy periodically. We will notify you of any significant changes.",
+      details: [
+        "Check the 'Last Updated' date for the latest version",
+        "Significant changes will be communicated via email",
+        "Continued use constitutes acceptance of updated policy",
+        "Archived versions are available upon request"
       ]
     }
   ];
 
-  const quickInfo = [
-    {
-      icon: <Mail className="w-4 h-4 md:w-5 md:h-5" />,
-      label: "Privacy Email",
-      value: "privacy@smartgadget.com",
-      link: "mailto:privacy@smartgadget.com"
-    },
-    {
-      icon: <Phone className="w-4 h-4 md:w-5 md:h-5" />,
-      label: "Privacy Hotline",
-      value: "+880 1871-733305",
-      link: "tel:+8801871733305"
-    },
-    {
-      icon: <Clock className="w-4 h-4 md:w-5 md:h-5" />,
-      label: "Response Time",
-      value: "Within 24 hours"
-    }
-  ];
+  const lastUpdated = "June 28, 2024";
 
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-white" ref={sectionRef}>
-        {/* ============================================
-        HERO SECTION - Matching About & Contact
-        ============================================ */}
-        <section className="relative min-h-[220px] sm:min-h-[280px] md:min-h-[300px] overflow-hidden">
-          <div 
-            className="absolute inset-0"
-            style={{
-              backgroundImage: 'url("https://i.ibb.co.com/SXv2zphh/top-view-vr-glasses-earphones-arrangement.jpg")',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          />
+      
+      <main className="min-h-screen bg-white overflow-hidden -mt-20">
+        
+        {/* Hero Section */}
+        <section className="relative overflow-hidden pt-8 pb-8 lg:pt-10 lg:pb-10">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0">
+            <div 
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: `url('/images/bg11.PNG')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            ></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1A0E14]/88 via-[#1A0E14]/78 to-[#1A0E14]/68"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#EE4275]/8 via-transparent to-[#FF6B9D]/8"></div>
+            <div className="absolute top-0 right-0 w-72 h-72 bg-[#EE4275]/10 rounded-full filter blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#FF6B9D]/10 rounded-full filter blur-3xl"></div>
+          </div>
           
-          <div className="absolute inset-0 bg-gradient-to-br from-black/85 via-black/75 to-black/80" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" />
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-transparent to-purple-600/10" />
-
-          <div className="absolute -top-20 -right-20 w-48 h-48 md:w-64 md:h-64 bg-blue-600/15 rounded-full blur-3xl" />
-          <div className="absolute -bottom-20 -left-20 w-48 h-48 md:w-64 md:h-64 bg-purple-600/15 rounded-full blur-3xl" />
-
-          <div className="container mx-auto px-4 max-w-7xl relative z-10 h-full flex items-center">
+          <div className="container mx-auto px-4 relative z-10">
             <motion.div
-              variants={containerVariants}
               initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              className="w-full max-w-4xl mx-auto text-center py-6 md:py-8"
+              animate="visible"
+              variants={fadeInUp}
+              className="text-center max-w-3xl mx-auto"
             >
-              <motion.div 
-                variants={itemVariants} 
-                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1 md:px-4 md:py-1.5 mb-3 md:mb-4 border border-white/10"
-              >
-                <Shield className="w-3 h-3 md:w-4 md:h-4 text-blue-400" />
-                <span className="text-[10px] md:text-xs lg:text-sm font-medium text-gray-300">Privacy Policy</span>
-              </motion.div>
-
-              <motion.h1 
-                variants={itemVariants}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-2 md:mb-3 leading-tight"
-              >
-                <span className="text-white">Your Privacy</span>
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-                  Matters to Us
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#EE4275]/20 backdrop-blur-sm rounded-full text-[#FF6B9D] text-sm font-medium mb-4 border border-[#EE4275]/20">
+                <GiSparkles className="w-4 h-4" />
+                <span className="font-['Playfair_Display']">Privacy</span>
+              </div>
+              <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white leading-tight mb-4 font-['Playfair_Display']">
+                Privacy
+                
+                <span className="bg-gradient-to-r from-[#EE4275] to-[#FF6B9D] bg-clip-text text-transparent">
+                  Policy
                 </span>
-              </motion.h1>
-
-              <motion.p 
-                variants={itemVariants}
-                className="text-gray-300 text-xs sm:text-sm md:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed px-2"
-              >
-                We are committed to protecting your personal data and being transparent 
-                about how we collect, use, and safeguard your information.
-              </motion.p>
-
-              <motion.div 
-                variants={itemVariants}
-                className="flex flex-wrap gap-2.5 sm:gap-3 md:gap-4 justify-center mt-4 md:mt-6"
-              >
-                <a href="#privacy-policy">
-                  <button className="group bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-5 sm:py-2.5 md:px-6 md:py-3 py-1.5 rounded-full font-semibold transition-all flex items-center justify-center gap-1.5 sm:gap-2 shadow-lg shadow-blue-600/30 text-[10px] sm:text-sm md:text-base whitespace-nowrap">
-                    Read Policy
-                    <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </a>
-                <Link href="/contact">
-                  <button className="bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/20 text-white px-3 sm:px-5 sm:py-2.5 md:px-6 md:py-3 py-1.5 rounded-full font-semibold transition-all text-[10px] sm:text-sm md:text-base whitespace-nowrap">
-                    Contact Us
-                  </button>
-                </Link>
-              </motion.div>
+              </h1>
+              <p className="text-base text-white/70 leading-relaxed max-w-2xl mx-auto font-['Inter']">
+                Your privacy is important to us. Learn how we collect, use, and protect your personal information.
+              </p>
+           
             </motion.div>
           </div>
         </section>
 
-    
-
-        {/* ============================================
-        PRIVACY POLICY CONTENT
-        ============================================ */}
-        <section id="privacy-policy" className="py-10 md:py-14 lg:py-20 bg-gray-50">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
-              className="text-center mb-8 md:mb-12"
-            >
-              <div className="inline-flex items-center gap-2 bg-blue-100 rounded-full px-3 py-1 md:px-4 md:py-1.5 mb-2 md:mb-4">
-                <FileText className="w-3.5 h-3.5 md:w-4 md:h-4 text-blue-600" />
-                <span className="text-[10px] md:text-sm font-medium text-blue-700">Privacy Policy</span>
-              </div>
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
-                How We Protect Your Data
-              </h2>
-              <p className="text-gray-500 text-xs sm:text-sm md:text-base mt-1.5 md:mt-2 max-w-2xl mx-auto px-4">
-                Last updated: June 18, 2026 — We value your trust and are committed to protecting your privacy.
-              </p>
-            </motion.div>
-
-            <div className="grid lg:grid-cols-2 gap-4 md:gap-6">
-              {privacySections.map((section, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.4, delay: idx * 0.08 }}
-                  className="group bg-white rounded-xl md:rounded-2xl p-5 md:p-6 lg:p-8 border border-gray-200 hover:border-blue-200 hover:shadow-lg transition-all duration-300"
+        {/* Quick Navigation */}
+        <section className="py-6 bg-[#FFF5F6]/30 border-b border-[#FFD2DB]/20">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-wrap items-center justify-center gap-2">
+             
+              {privacySections.map((section, index) => (
+                <a
+                  key={index}
+                  href={`#section-${section.id}`}
+                  className="text-xs px-3 py-1 bg-white border border-[#EE4275]/30 rounded-full text-[#EE4275] hover:bg-[#EE4275] hover:text-white transition-all font-['Inter']"
                 >
-                  <div className="flex items-start gap-3 md:gap-4">
-                    <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-blue-100 transition-all duration-300">
-                      <div className="text-blue-600 group-hover:scale-110 transition-transform">
+                  {section.title}
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Privacy Content */}
+        <section className="py-12 lg:py-20 bg-white">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+              className="max-w-4xl mx-auto"
+            >
+              <motion.div variants={fadeInUp}>
+                <p className="text-[#8B7A8C] mb-8 font-['Inter'] text-sm lg:text-base">
+                  At BeautyBucket, we are committed to protecting your privacy and ensuring the security of your personal 
+                  information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information 
+                  when you visit our website and use our services. Please read this policy carefully.
+                </p>
+              </motion.div>
+
+              {privacySections.map((section, index) => (
+                <motion.div
+                  key={section.id}
+                  variants={fadeInUp}
+                  id={`section-${section.id}`}
+                  className="mb-8 lg:mb-10 scroll-mt-24"
+                >
+                  <div 
+                    className="group bg-[#FFF5F6]/30 rounded-2xl p-6 lg:p-8 border border-[#FFD2DB]/20 hover:border-[#EE4275]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#EE4275]/5"
+                  >
+                    {/* Header with Icon */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#EE4275]/10 to-[#FF6B9D]/10 flex items-center justify-center text-[#EE4275] flex-shrink-0">
                         {section.icon}
                       </div>
+                      <div>
+                        <h2 className="text-lg lg:text-xl font-bold text-[#2D1B2E] font-['Playfair_Display']">
+                          {section.title}
+                        </h2>
+                        <span className="text-xs text-[#8B7A8C] font-['Inter']">Section {String(section.id).padStart(2, '0')}</span>
+                      </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-base md:text-lg lg:text-xl font-bold text-gray-900 mb-2 md:mb-3">
-                        {section.title}
-                      </h3>
-                      <ul className="space-y-1.5 md:space-y-2">
-                        {section.items.map((item, itemIdx) => (
-                          <li key={itemIdx} className="flex items-start gap-2 text-xs sm:text-sm md:text-base text-gray-600">
-                            <CheckCircle className="w-3.5 h-3.5 md:w-4 md:h-4 text-blue-500 flex-shrink-0 mt-0.5" />
-                            <span className="leading-relaxed">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+
+                    {/* Description */}
+                    <p className="text-sm lg:text-base text-[#8B7A8C] leading-relaxed mb-4 font-['Inter']">
+                      {section.description}
+                    </p>
+
+                    {/* Details List */}
+                    <ul className="space-y-2">
+                      {section.details.map((detail, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-sm lg:text-base text-[#2D1B2E] font-['Inter']">
+                          <FaCheckCircle className="w-4 h-4 text-[#EE4275] mt-0.5 flex-shrink-0" />
+                          <span>{detail}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </motion.div>
               ))}
-            </div>
 
-            {/* Additional Information */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="mt-8 md:mt-12 bg-white rounded-xl md:rounded-2xl p-6 md:p-8 lg:p-10 border border-gray-200 shadow-sm"
-            >
-              <div className="flex items-start gap-3 md:gap-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-purple-50 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Globe className="w-5 h-5 md:w-6 md:h-6 text-purple-600" />
-                </div>
-                <div>
-                  <h3 className="text-base md:text-lg lg:text-xl font-bold text-gray-900 mb-2">
-                    International Data Transfers
-                  </h3>
-                  <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed">
-                    Smart Gadget operates primarily in Bangladesh. However, we may use service providers 
-                    located in other countries. When we transfer your data internationally, we ensure that 
-                    appropriate safeguards are in place to protect your information in accordance with 
-                    applicable data protection laws.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Children's Privacy */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.35 }}
-              className="mt-4 md:mt-6 bg-white rounded-xl md:rounded-2xl p-6 md:p-8 lg:p-10 border border-gray-200 shadow-sm"
-            >
-              <div className="flex items-start gap-3 md:gap-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-green-50 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Users className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
-                </div>
-                <div>
-                  <h3 className="text-base md:text-lg lg:text-xl font-bold text-gray-900 mb-2">
-                    Children's Privacy
-                  </h3>
-                  <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed">
-                    Our services are not directed at children under 13 years of age. We do not knowingly 
-                    collect personal information from children. If you are a parent or guardian and believe 
-                    that your child has provided us with personal data, please contact us immediately. 
-                    We will take steps to remove such information from our systems.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Policy Updates */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="mt-4 md:mt-6 bg-blue-50 rounded-xl md:rounded-2xl p-6 md:p-8 lg:p-10 border border-blue-200"
-            >
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div className="flex items-start gap-3 md:gap-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Clock className="w-5 h-5 md:w-6 md:h-6 text-blue-600" />
+              {/* Important Notice */}
+              <motion.div variants={fadeInUp} className="bg-gradient-to-r from-[#EE4275]/10 to-[#FF6B9D]/10 rounded-2xl p-6 lg:p-8 border border-[#FFD2DB]/20 mt-8">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[#EE4275]/20 flex items-center justify-center flex-shrink-0">
+                    <FaShieldAlt className="w-5 h-5 text-[#EE4275]" />
                   </div>
                   <div>
-                    <h3 className="text-base md:text-lg lg:text-xl font-bold text-gray-900">
-                      Updates to This Policy
-                    </h3>
-                    <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed">
-                      We may update this Privacy Policy periodically. The latest version will always be 
-                      posted on this page with the effective date. We encourage you to review this policy 
-                      regularly.
+                    <h3 className="text-lg font-bold text-[#2D1B2E] font-['Playfair_Display'] mb-2">Your Privacy Matters</h3>
+                    <p className="text-sm text-[#8B7A8C] leading-relaxed font-['Inter']">
+                      We are committed to protecting your privacy and ensuring the security of your personal information. 
+                      If you have any questions about our privacy practices, please don't hesitate to contact us.
                     </p>
+                    <div className="flex flex-wrap gap-3 mt-4">
+                      <Link 
+                        href="/contact" 
+                        className="inline-flex items-center gap-2 text-[#EE4275] hover:text-[#EE4275]/70 font-medium text-sm font-['Inter']"
+                      >
+                        Contact Us
+                        <FaArrowRight className="w-3 h-3" />
+                      </Link>
+                      <Link 
+                        href="/terms" 
+                        className="inline-flex items-center gap-2 text-[#EE4275] hover:text-[#EE4275]/70 font-medium text-sm font-['Inter']"
+                      >
+                        Terms & Conditions
+                        <FaArrowRight className="w-3 h-3" />
+                      </Link>
+                    </div>
                   </div>
                 </div>
-                <Link href="/contact">
-                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 md:px-6 md:py-2.5 rounded-full font-semibold text-xs sm:text-sm md:text-base transition-all shadow-lg shadow-blue-600/30 whitespace-nowrap flex items-center gap-2">
-                    Questions? Contact Us
-                    <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4" />
-                  </button>
-                </Link>
-              </div>
+              </motion.div>
+
+              {/* Contact Information */}
+              <motion.div variants={fadeInUp} className="bg-white rounded-2xl p-6 lg:p-8 border border-[#FFD2DB]/20 mt-8">
+                <h3 className="text-lg font-bold text-[#2D1B2E] font-['Playfair_Display'] mb-4">Contact Information</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-xl bg-[#EE4275]/10 flex items-center justify-center text-[#EE4275]">
+                      <FaEnvelope className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-[#8B7A8C] font-['Inter']">Email</p>
+                      <p className="text-sm font-medium text-[#2D1B2E] font-['Inter']">support@beautybucket.com</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-xl bg-[#EE4275]/10 flex items-center justify-center text-[#EE4275]">
+                      <FaPhone className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-[#8B7A8C] font-['Inter']">Phone</p>
+                      <p className="text-sm font-medium text-[#2D1B2E] font-['Inter']">+880 1XXXXXXXXX</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-xl bg-[#EE4275]/10 flex items-center justify-center text-[#EE4275]">
+                      <FaMapMarkerAlt className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-[#8B7A8C] font-['Inter']">Address</p>
+                      <p className="text-sm font-medium text-[#2D1B2E] font-['Inter']">House #470, Avenue #6, Road #6, Mirpur DOHS, Dhaka</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-xl bg-[#EE4275]/10 flex items-center justify-center text-[#EE4275]">
+                      <FaClock className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-[#8B7A8C] font-['Inter']">Working Hours</p>
+                      <p className="text-sm font-medium text-[#2D1B2E] font-['Inter']">24/7 Online Support</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
           </div>
         </section>
 
-        {/* ============================================
-        CTA BANNER - Matching About & Contact
-        ============================================ */}
-        <section className="relative py-10 md:py-14 lg:py-20 overflow-hidden">
-          <div 
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url("https://i.ibb.co.com/0RHQ0thP/jh.png")`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat'
-            }}
-          />
-          <div className="absolute -top-20 -right-20 w-48 h-48 md:w-64 h-64 bg-blue-600/20 rounded-full blur-3xl" />
-          <div className="absolute -bottom-20 -left-20 w-48 h-48 md:w-64 h-64 bg-purple-600/20 rounded-full blur-3xl" />
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
-
-          <div className="container mx-auto px-4 max-w-7xl text-center relative z-10">
+        {/* CTA Section */}
+        <section className="relative py-16 lg:py-20 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#EE4275] to-[#FF6B9D]"></div>
+          <div className="absolute inset-0 bg-[url('/images/pattern.png')] opacity-5"></div>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full filter blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full filter blur-3xl"></div>
+          
+          <div className="container mx-auto px-4 relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="text-center max-w-2xl mx-auto"
             >
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1 md:px-4 md:py-1.5 mb-3 md:mb-4 border border-white/10">
-                <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4 text-blue-400" />
-                <span className="text-[10px] md:text-xs font-medium text-gray-300">Trust & Transparency</span>
+              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <GiSparkles className="w-8 h-8 text-white" />
               </div>
-              
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-2 md:mb-4 leading-tight">
-                Your Privacy is Our Priority
+              <h2 className="text-2xl lg:text-4xl font-bold text-white mb-4 font-['Playfair_Display']">
+                Have Questions About Privacy?
               </h2>
-              
-              <p className="text-gray-200 text-xs sm:text-sm md:text-base mb-5 md:mb-8 max-w-2xl mx-auto px-4">
-                Have questions about how we handle your data? Our team is here to help.
+              <p className="text-white/80 text-base lg:text-lg mb-8 font-['Inter']">
+                Our team is here to address your privacy concerns and ensure your data is protected.
               </p>
-              
-              <div className="flex flex-wrap gap-3 md:gap-4 justify-center">
+              <div className="flex flex-wrap gap-4 justify-center">
                 <Link href="/contact">
-                  <button className="group bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 sm:px-6 sm:py-2.5 md:px-8 md:py-3 rounded-full font-semibold inline-flex items-center gap-2 shadow-lg shadow-blue-600/30 transition-all text-xs sm:text-sm md:text-base">
-                    Contact Privacy Team
-                    <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4 group-hover:translate-x-1 transition-transform" />
+                  <button className="inline-flex items-center gap-2 px-6 lg:px-8 py-3 bg-white text-[#EE4275] rounded-xl hover:shadow-lg hover:shadow-black/25 transition-all font-medium hover:-translate-y-0.5 font-['Inter']">
+                    Contact Support
+                    <FaArrowRight className="w-4 h-4" />
                   </button>
                 </Link>
                 <Link href="/products">
-                  <button className="bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/20 text-white px-5 py-2 sm:px-6 sm:py-2.5 md:px-8 md:py-3 rounded-full font-semibold inline-flex items-center gap-2 transition-all text-xs sm:text-sm md:text-base">
-                    Browse Products
+                  <button className="inline-flex items-center gap-2 px-6 lg:px-8 py-3 border border-white/30 text-white rounded-xl hover:bg-white/10 transition-all font-medium hover:-translate-y-0.5 font-['Inter']">
+                    Start Shopping
+                    <FaShoppingBag className="w-4 h-4" />
                   </button>
                 </Link>
               </div>
             </motion.div>
           </div>
         </section>
-      </div>
+
+      </main>
+
       <Footer />
     </>
   );

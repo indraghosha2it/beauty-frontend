@@ -385,7 +385,7 @@ export default function ModeratorDashboard() {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading moderator dashboard...</p>
         </div>
       </div>
@@ -400,7 +400,7 @@ export default function ModeratorDashboard() {
           <p className="text-red-600">{error}</p>
           <button
             onClick={loadDashboardData}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            className="mt-4 px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition"
           >
             Try Again
           </button>
@@ -440,7 +440,7 @@ export default function ModeratorDashboard() {
                 <button
                   onClick={() => setFilterType('month')}
                   className={`flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition ${
-                    filterType === 'month' ? 'bg-blue-600 text-white' : 'text-gray-600 hover:bg-gray-200'
+                    filterType === 'month' ? 'bg-pink-600 text-white' : 'text-gray-600 hover:bg-gray-200'
                   }`}
                 >
                   Monthly
@@ -448,7 +448,7 @@ export default function ModeratorDashboard() {
                 <button
                   onClick={() => setFilterType('year')}
                   className={`flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition ${
-                    filterType === 'year' ? 'bg-blue-600 text-white' : 'text-gray-600 hover:bg-gray-200'
+                    filterType === 'year' ? 'bg-pink-600 text-white' : 'text-gray-600 hover:bg-gray-200'
                   }`}
                 >
                   Yearly
@@ -578,8 +578,8 @@ export default function ModeratorDashboard() {
               <div className="bg-blue-50 rounded-lg p-3 sm:p-4 border border-blue-100">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-blue-600 text-xs sm:text-sm">Confirmed</p>
-                    <p className="text-xl sm:text-2xl font-bold text-blue-700">{stats.orders.confirmed}</p>
+                    <p className="text-pink-600 text-xs sm:text-sm">Confirmed</p>
+                    <p className="text-xl sm:text-2xl font-bold text-pink-700">{stats.orders.confirmed}</p>
                   </div>
                   <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />
                 </div>
@@ -657,10 +657,10 @@ export default function ModeratorDashboard() {
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <div>
                   <p className="text-sm text-gray-600">Products on Sale</p>
-                  <p className="text-2xl font-bold text-blue-600">{stats.products.onSale}</p>
+                  <p className="text-2xl font-bold text-pink-600">{stats.products.onSale}</p>
                 </div>
                 <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <TrendingUp className="h-5 w-5 text-blue-600" />
+                  <TrendingUp className="h-5 w-5 text-pink-600" />
                 </div>
               </div>
               <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -684,7 +684,7 @@ export default function ModeratorDashboard() {
               <h2 className="text-lg font-semibold text-gray-800">Recent Products</h2>
            <button 
   onClick={() => router.push('/moderator/all-products')}
-  className="text-blue-600 hover:text-blue-700 text-sm"
+  className="text-pink-600 hover:text-pink-700 text-sm"
 >
   View All
 </button>
@@ -692,7 +692,7 @@ export default function ModeratorDashboard() {
             <div className="space-y-3">
               {recentProducts.map((product, index) => (
                 <div key={product.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
-                  <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-600 text-xs">
+                  <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center font-bold text-pink-600 text-xs">
                     {index + 1}
                   </div>
                   {product.image ? (
@@ -708,7 +708,7 @@ export default function ModeratorDashboard() {
                   </div>
                   <div className="text-right">
                     {getStockBadge(product.stock)}
-                    <button className="ml-2 text-blue-600 hover:text-blue-800">
+                    <button className="ml-2 text-pink-600 hover:text-blue-800">
                       <Edit className="h-4 w-4" />
                     </button>
                   </div>
@@ -726,7 +726,7 @@ export default function ModeratorDashboard() {
               <h2 className="text-lg font-semibold text-gray-800">Pending Reviews</h2>
         <button 
   onClick={() => router.push('/moderator/manage-reviews')}
-  className="text-blue-600 hover:text-blue-700 text-sm"
+  className="text-pink-600 hover:text-pink-700 text-sm"
 >
   Moderate All
 </button>
@@ -792,7 +792,7 @@ export default function ModeratorDashboard() {
               <h2 className="text-lg font-semibold text-gray-800">Recent Orders ({getFilterLabel()})</h2>
               <button 
   onClick={() => router.push('/moderator/orders')}
-  className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+  className="text-pink-600 hover:text-pink-700 text-sm font-medium"
 >
   View All Orders
 </button>
@@ -816,7 +816,7 @@ export default function ModeratorDashboard() {
               <tbody className="divide-y divide-gray-200">
                 {recentOrders.map((order) => (
                   <tr key={order._id} className="hover:bg-gray-50 transition">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-pink-600">
                       {order.orderNumber}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -828,7 +828,7 @@ export default function ModeratorDashboard() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`text-xs px-2 py-1 rounded-full ${
-                        order.paymentMethod === 'cod' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'
+                        order.paymentMethod === 'cod' ? 'bg-blue-100 text-pink-700' : 'bg-green-100 text-green-700'
                       }`}>
                         {order.paymentMethod === 'cod' ? 'COD' : 'Online'}
                       </span>
@@ -860,7 +860,7 @@ export default function ModeratorDashboard() {
             {recentOrders.map((order) => (
               <div key={order._id} className="p-4 hover:bg-gray-50 transition">
                 <div className="flex justify-between items-start mb-2">
-                  <span className="text-sm font-medium text-blue-600">{order.orderNumber}</span>
+                  <span className="text-sm font-medium text-pink-600">{order.orderNumber}</span>
                   <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(order.orderStatus)}`}>
                     {getStatusLabel(order.orderStatus)}
                   </span>
@@ -872,7 +872,7 @@ export default function ModeratorDashboard() {
                 <div className="flex justify-between items-center">
                   <div>
                     <span className={`text-xs px-2 py-1 rounded-full ${
-                      order.paymentMethod === 'cod' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'
+                      order.paymentMethod === 'cod' ? 'bg-blue-100 text-pink-700' : 'bg-green-100 text-green-700'
                     }`}>
                       {order.paymentMethod === 'cod' ? 'COD' : 'Online'}
                     </span>
@@ -896,7 +896,7 @@ export default function ModeratorDashboard() {
         <div className="mt-6 bg-white rounded-xl shadow-sm p-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div>
-              <p className="text-2xl font-bold text-blue-600">{stats.orders.delivered}</p>
+              <p className="text-2xl font-bold text-pink-600">{stats.orders.delivered}</p>
               <p className="text-xs text-gray-500">Delivered Orders</p>
             </div>
             <div>

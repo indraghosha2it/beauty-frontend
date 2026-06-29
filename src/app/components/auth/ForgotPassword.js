@@ -60,7 +60,7 @@ export default function ForgotPassword({ onOTPSent, onBack }) {
       className="space-y-6"
     >
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Forgot Password?</h2>
+        <h2 className="text-2xl font-bold text-pink-600 mb-2">Forgot Password?</h2>
         <p className="text-gray-600">
           Enter your email address and we'll send you a OTP to reset your password.
         </p>
@@ -87,7 +87,7 @@ export default function ForgotPassword({ onOTPSent, onBack }) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-3 px-4 bg-black text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-[#6B4F3A]/25 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
+          className="w-full py-3 px-4 bg-pink-700 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-[#6B4F3A]/25 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
         >
           {isSubmitting ? (
             <>

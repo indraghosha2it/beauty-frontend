@@ -104,13 +104,13 @@ const FilterBar = ({
   <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-6">
     <div className="flex items-center justify-between mb-3">
       <h3 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
-        <Filter className="w-4 h-4 text-blue-600" />
+        <Filter className="w-4 h-4 text-pink-600" />
         Filters
       </h3>
       {getActiveFilterCount() > 0 && (
         <button
           onClick={clearFilters}
-          className="text-xs text-blue-600 hover:text-blue-700 font-medium"
+          className="text-xs text-pink-600 hover:text-pink-700 font-medium"
         >
           Clear All ({getActiveFilterCount()})
         </button>
@@ -126,7 +126,7 @@ const FilterBar = ({
           placeholder="Search products..."
           value={filters.search}
           onChange={(e) => handleFilterChange('search', e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none bg-white"
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none bg-white"
         />
       </div>
 
@@ -136,7 +136,7 @@ const FilterBar = ({
         <select
           value={filters.category}
           onChange={(e) => handleFilterChange('category', e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none bg-white"
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none bg-white"
         >
           <option value="">All Categories</option>
           {categories.map(cat => (
@@ -151,7 +151,7 @@ const FilterBar = ({
         <select
           value={filters.brand}
           onChange={(e) => handleFilterChange('brand', e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none bg-white"
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none bg-white"
         >
           <option value="">All Brands</option>
           {brands.map(brand => (
@@ -167,7 +167,7 @@ const FilterBar = ({
           <select
             value={filters.subcategory}
             onChange={(e) => handleFilterChange('subcategory', e.target.value)}
-            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none bg-white"
+            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none bg-white"
           >
             <option value="">All Subcategories</option>
             {subcategories.map(sub => (
@@ -184,7 +184,7 @@ const FilterBar = ({
           <select
             value={filters.childSubcategory}
             onChange={(e) => handleFilterChange('childSubcategory', e.target.value)}
-            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none bg-white"
+            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none bg-white"
           >
             <option value="">All Child Subcategories</option>
             {childSubcategories.map(child => (
@@ -200,7 +200,7 @@ const FilterBar = ({
         <select
           value={filters.unit}
           onChange={(e) => handleFilterChange('unit', e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none bg-white"
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none bg-white"
         >
           <option value="">All Units</option>
           <option value="pcs">Pieces (pcs)</option>
@@ -214,7 +214,7 @@ const FilterBar = ({
         <select
           value={filters.isFeatured}
           onChange={(e) => handleFilterChange('isFeatured', e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none bg-white"
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none bg-white"
         >
           <option value="">All Products</option>
           <option value="featured">Featured Only</option>
@@ -222,17 +222,17 @@ const FilterBar = ({
       </div>
 
       {/* Show on Banner Filter */}
-      <div>
+      {/* <div>
         <label className="block text-xs text-gray-500 mb-1">Banner</label>
         <select
           value={filters.showOnBanner}
           onChange={(e) => handleFilterChange('showOnBanner', e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none bg-white"
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none bg-white"
         >
           <option value="">All Products</option>
           <option value="true">Show on Banner</option>
         </select>
-      </div>
+      </div> */}
 
       {/* Status Filter */}
       <div>
@@ -240,7 +240,7 @@ const FilterBar = ({
         <select
           value={filters.status}
           onChange={(e) => handleFilterChange('status', e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none bg-white"
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none bg-white"
         >
           <option value="all">All</option>
           <option value="active">Active Only</option>
@@ -254,7 +254,7 @@ const FilterBar = ({
         <select
           value={filters.sortBy}
           onChange={(e) => handleFilterChange('sortBy', e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none bg-white"
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none bg-white"
         >
           <option value="newest">Newest First</option>
           <option value="price_low">Price: Low to High</option>
@@ -280,7 +280,7 @@ const FilterBar = ({
             }
           }}
           placeholder="0"
-          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none"
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none"
         />
       </div>
       <div>
@@ -296,21 +296,21 @@ const FilterBar = ({
             }
           }}
           placeholder="Any"
-          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none"
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none"
         />
       </div>
       <div className="flex items-end">
         <button
           onClick={applyPriceRange}
           disabled={!minPriceInput && !maxPriceInput}
-          className="w-full px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full px-3 py-2 bg-pink-600 text-white text-sm font-medium rounded-lg hover:bg-pink-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Apply Price
         </button>
       </div>
       {(filters.minPrice || filters.maxPrice) && (
         <div className="flex items-center justify-between bg-blue-50 p-2 rounded-lg border border-blue-200 col-span-4">
-          <span className="text-xs text-blue-700 font-medium">
+          <span className="text-xs text-pink-700 font-medium">
             Price: ৳{filters.minPrice || '0'} - ৳{filters.maxPrice || '∞'}
           </span>
           <button onClick={clearPriceRange} className="text-gray-400 hover:text-gray-600">
@@ -375,7 +375,7 @@ const FilterBar = ({
 //           <div className="flex-1 min-w-0">
 //             {/* Name and Status */}
 //             <div className="flex flex-wrap items-center gap-2 mb-1.5">
-//               <h3 className="text-sm font-semibold text-gray-900 truncate hover:text-blue-600 transition-colors max-w-[250px]" title={product.productName}>
+//               <h3 className="text-sm font-semibold text-gray-900 truncate hover:text-pink-600 transition-colors max-w-[250px]" title={product.productName}>
 //                 {product.productName}
 //               </h3>
               
@@ -437,7 +437,7 @@ const FilterBar = ({
 
 //             {/* Price */}
 //             <div className="flex items-baseline gap-2 mb-1.5">
-//               <span className="text-lg font-bold text-blue-600">
+//               <span className="text-lg font-bold text-pink-600">
 //                 ৳{formatPrice(currentPrice)}
 //               </span>
 //               {discountPercent > 0 && (
@@ -520,7 +520,7 @@ const FilterBar = ({
 //               <div className="flex items-center gap-1.5">
 //                 <button
 //                   onClick={() => onView(product._id)}
-//                   className="p-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+//                   className="p-1.5 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors"
 //                   title="View"
 //                 >
 //                   <Eye className="w-3.5 h-3.5" />
@@ -633,7 +633,7 @@ const ProductCard = ({ product, onEdit, onView, onDelete, onToggleStatus }) => {
           <div className="flex-1 min-w-0">
             {/* Name and Status */}
             <div className="flex flex-wrap items-center gap-2 mb-1.5">
-              <h3 className="text-sm font-semibold text-gray-900 truncate hover:text-blue-600 transition-colors max-w-[250px]" title={product.productName}>
+              <h3 className="text-sm font-semibold text-gray-900 truncate hover:text-pink-600 transition-colors max-w-[250px]" title={product.productName}>
                 {product.productName}
               </h3>
               
@@ -703,7 +703,7 @@ const ProductCard = ({ product, onEdit, onView, onDelete, onToggleStatus }) => {
 
             {/* Price */}
             <div className="flex items-baseline gap-2 mb-1.5">
-              <span className="text-lg font-bold text-blue-600">
+              <span className="text-lg font-bold text-pink-600">
                 ৳{formatPrice(currentPrice)}
               </span>
               {discountPercent > 0 && (
@@ -786,7 +786,7 @@ const ProductCard = ({ product, onEdit, onView, onDelete, onToggleStatus }) => {
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={() => onView(product._id)}
-                  className="p-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="p-1.5 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors"
                   title="View"
                 >
                   <Eye className="w-3.5 h-3.5" />
@@ -1245,10 +1245,10 @@ const fetchProducts = async () => {
               <div>
                 <div className="flex items-center gap-2">
                   <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                    <Package className="w-6 h-6 text-blue-600" />
+                    <Package className="w-6 h-6 text-pink-600" />
                     All Products
                   </h1>
-                  <span className="px-2 py-1 bg-blue-100 text-blue-600 text-xs font-medium rounded-full">
+                  <span className="px-2 py-1 bg-blue-100 text-pink-600 text-xs font-medium rounded-full">
                     Admin
                   </span>
                 </div>
@@ -1269,7 +1269,7 @@ const fetchProducts = async () => {
               </button>
               <Link
                 href="/admin/create-products"
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium shadow-md"
+                className="flex items-center gap-2 px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors text-sm font-medium shadow-md"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Product</span>
@@ -1313,7 +1313,7 @@ const fetchProducts = async () => {
         {/* Loading State */}
         {loading && (
           <div className="flex justify-center items-center py-20">
-            <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+            <Loader2 className="w-8 h-8 animate-spin text-pink-600" />
           </div>
         )}
 
@@ -1326,7 +1326,7 @@ const fetchProducts = async () => {
                 <p className="text-sm text-gray-500 mb-4">No products found matching your criteria</p>
                 <button
                   onClick={clearFilters}
-                  className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors shadow-md"
+                  className="px-4 py-2 bg-pink-600 text-white text-sm rounded-lg hover:bg-pink-700 transition-colors shadow-md"
                 >
                   Clear Filters
                 </button>
@@ -1370,7 +1370,7 @@ const fetchProducts = async () => {
                             onClick={() => setCurrentPage(pageNum)}
                             className={`w-8 h-8 rounded-lg text-sm font-semibold transition-all shadow-sm ${
                               currentPage === pageNum
-                                ? 'bg-blue-600 text-white'
+                                ? 'bg-pink-600 text-white'
                                 : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-100'
                             }`}
                           >

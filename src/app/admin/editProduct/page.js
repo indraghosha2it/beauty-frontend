@@ -139,7 +139,7 @@
 //           <div key={index} className="relative">
 //             <div className="flex items-center gap-2 w-full">
 //               <div 
-//                 className="flex-1 flex items-center gap-2 bg-gray-50 rounded-lg border border-gray-200 p-2 cursor-pointer hover:border-blue-600 transition-colors"
+//                 className="flex-1 flex items-center gap-2 bg-gray-50 rounded-lg border border-gray-200 p-2 cursor-pointer hover:border-pink-600 transition-colors"
 //                 onClick={(e) => openColorPicker(index, e)}
 //               >
 //                 <div 
@@ -179,7 +179,7 @@
 //         <button
 //           type="button"
 //           onClick={addColor}
-//           className="w-full flex items-center justify-center gap-1 px-3 py-2 mt-2 text-xs font-medium text-blue-600 border border-dashed border-blue-300 rounded-lg hover:bg-blue-50 transition-colors"
+//           className="w-full flex items-center justify-center gap-1 px-3 py-2 mt-2 text-xs font-medium text-pink-600 border border-dashed border-blue-300 rounded-lg hover:bg-blue-50 transition-colors"
 //         >
 //           <Plus className="w-3.5 h-3.5" />
 //           Add Color
@@ -237,7 +237,7 @@
 //       <div className="bg-white rounded-xl shadow-xl max-w-md w-full mx-4 p-6">
 //         <div className="flex items-center justify-between mb-4">
 //           <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-//             <Building2 className="w-5 h-5 text-blue-600" />
+//             <Building2 className="w-5 h-5 text-pink-600" />
 //             Add New Brand
 //           </h3>
 //           <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-lg transition-colors">
@@ -255,7 +255,7 @@
 //               value={brandName}
 //               onChange={(e) => setBrandName(e.target.value)}
 //               placeholder="e.g., Apple, Samsung, Sony"
-//               className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition"
+//               className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition"
 //               autoFocus
 //             />
 //           </div>
@@ -270,7 +270,7 @@
 //             <button
 //               onClick={handleSubmit}
 //               disabled={isSubmitting}
-//               className="flex-1 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+//               className="flex-1 px-4 py-2 text-sm font-medium text-white bg-pink-600 rounded-lg hover:bg-pink-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
 //             >
 //               {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
 //               Add Brand
@@ -1117,7 +1117,7 @@
 //     return (
 //       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
 //         <div className="text-center">
-//           <Loader2 className="w-12 h-12 animate-spin text-blue-600 mx-auto mb-4" />
+//           <Loader2 className="w-12 h-12 animate-spin text-pink-600 mx-auto mb-4" />
 //           <p className="text-gray-600">Loading product details...</p>
 //         </div>
 //       </div>
@@ -1139,7 +1139,7 @@
 //                 </NextLink>
 //                 <div>
 //                   <div className="flex items-center gap-2">
-//                     <Package className="w-6 h-6 text-blue-600" />
+//                     <Package className="w-6 h-6 text-pink-600" />
 //                     <h1 className="text-xl font-bold text-gray-900">Edit Product</h1>
 //                   </div>
 //                   <p className="text-sm text-gray-500 mt-1">Update product information</p>
@@ -1165,14 +1165,14 @@
 //                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
 //                   <div className="p-5 border-b border-gray-200">
 //                     <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-//                       <Package className="w-5 h-5 text-blue-600" />
+//                       <Package className="w-5 h-5 text-pink-600" />
 //                       Basic Information
 //                     </h2>
 //                   </div>
 //                   <div className="p-5 space-y-4">
 //                     <div>
 //                       <label className="block text-sm font-medium text-gray-700 mb-1">Product Name <span className="text-red-500">*</span></label>
-//                       <input type="text" name="productName" value={formData.productName} onChange={handleChange} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.productName ? 'border-red-500' : 'border-gray-300'}`} placeholder="e.g., Wireless Headphones, Smart Watch Pro" />
+//                       <input type="text" name="productName" value={formData.productName} onChange={handleChange} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.productName ? 'border-red-500' : 'border-gray-300'}`} placeholder="e.g., Wireless Headphones, Smart Watch Pro" />
 //                       {errors.productName && <p className="text-xs text-red-600 mt-1">{errors.productName}</p>}
 //                     </div>
 
@@ -1201,7 +1201,7 @@
 //                               setFormData(prev => ({ ...prev, skuCode: e.target.value }));
 //                               if (errors.skuCode) setErrors(prev => ({ ...prev, skuCode: null }));
 //                             }}
-//                             className={`w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.skuCode || isSkuUnique === false ? 'border-red-500' : 'border-gray-300'}`}
+//                             className={`w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.skuCode || isSkuUnique === false ? 'border-red-500' : 'border-gray-300'}`}
 //                             placeholder="Enter SKU code"
 //                           />
 //                         </div>
@@ -1215,7 +1215,7 @@
 //                         <p className="text-xs text-green-600 mt-1">✓ SKU is available</p>
 //                       )}
 //                       {isSkuUnique === true && formData.skuCode === originalProduct?.skuCode && (
-//                         <p className="text-xs text-blue-600 mt-1">✓ Current SKU (no change)</p>
+//                         <p className="text-xs text-pink-600 mt-1">✓ Current SKU (no change)</p>
 //                       )}
 //                       <p className="text-xs text-gray-500 mt-1">Must be unique across all products. Format: letters, numbers, hyphens (4-20 chars)</p>
 //                     </div>
@@ -1260,7 +1260,7 @@
 //                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
 //                   <div className="p-5 border-b border-gray-200">
 //                     <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-//                       <Layers className="w-5 h-5 text-blue-600" />
+//                       <Layers className="w-5 h-5 text-pink-600" />
 //                       Categories & Classification
 //                     </h2>
 //                   </div>
@@ -1268,7 +1268,7 @@
 //                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 //                       <div>
 //                         <label className="block text-sm font-medium text-gray-700 mb-1">Category <span className="text-red-500">*</span></label>
-//                         <select name="category" value={formData.category} onChange={handleChange} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.category ? 'border-red-500' : 'border-gray-300'}`}>
+//                         <select name="category" value={formData.category} onChange={handleChange} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.category ? 'border-red-500' : 'border-gray-300'}`}>
 //                           <option value="">Select Category</option>
 //                           {categories.map(cat => (<option key={cat._id} value={cat._id}>{cat.name}</option>))}
 //                         </select>
@@ -1277,7 +1277,7 @@
 
 //                       <div>
 //                         <label className="block text-sm font-medium text-gray-700 mb-1">Subcategory <span className="text-gray-400 text-xs">(Optional)</span></label>
-//                         <select name="subcategory" value={formData.subcategory} onChange={handleChange} disabled={!formData.category || subcategories.length === 0} className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition disabled:bg-gray-100 disabled:cursor-not-allowed border-gray-300">
+//                         <select name="subcategory" value={formData.subcategory} onChange={handleChange} disabled={!formData.category || subcategories.length === 0} className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition disabled:bg-gray-100 disabled:cursor-not-allowed border-gray-300">
 //                           <option value="">Select Subcategory</option>
 //                           {subcategories.map(sub => (<option key={sub._id} value={sub._id}>{sub.name}</option>))}
 //                         </select>
@@ -1286,7 +1286,7 @@
 //                       {childSubcategories.length > 0 && (
 //                         <div>
 //                           <label className="block text-sm font-medium text-gray-700 mb-1">Child Subcategory <span className="text-gray-400 text-xs">(Optional)</span></label>
-//                           <select name="childSubcategory" value={formData.childSubcategory} onChange={handleChange} className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition border-gray-300">
+//                           <select name="childSubcategory" value={formData.childSubcategory} onChange={handleChange} className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition border-gray-300">
 //                             <option value="">Select Child Subcategory</option>
 //                             {childSubcategories.map(child => (<option key={child._id} value={child._id}>{child.name}</option>))}
 //                           </select>
@@ -1296,11 +1296,11 @@
 //                       <div>
 //                         <label className="block text-sm font-medium text-gray-700 mb-1">Brand <span className="text-red-500">*</span></label>
 //                         <div className="flex gap-2">
-//                           <select name="brand" value={formData.brand} onChange={handleChange} className={`flex-1 px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.brand ? 'border-red-500' : 'border-gray-300'}`}>
+//                           <select name="brand" value={formData.brand} onChange={handleChange} className={`flex-1 px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.brand ? 'border-red-500' : 'border-gray-300'}`}>
 //                             <option value="">Select Brand</option>
 //                             {brands.map(brand => (<option key={brand._id} value={brand.name}>{brand.name}</option>))}
 //                           </select>
-//                           <button type="button" onClick={() => setShowAddBrandModal(true)} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 whitespace-nowrap">
+//                           <button type="button" onClick={() => setShowAddBrandModal(true)} className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors flex items-center gap-2 whitespace-nowrap">
 //                             <Plus className="w-4 h-4" /> Add Brand
 //                           </button>
 //                         </div>
@@ -1314,7 +1314,7 @@
 //                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
 //                   <div className="p-5 border-b border-gray-200">
 //                     <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-//                       <DollarSign className="w-5 h-5 text-blue-600" />
+//                       <DollarSign className="w-5 h-5 text-pink-600" />
 //                       Pricing & Inventory
 //                     </h2>
 //                   </div>
@@ -1322,28 +1322,28 @@
 //                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 //                       <div>
 //                         <label className="block text-sm font-medium text-gray-700 mb-1">Stock Quantity <span className="text-red-500">*</span></label>
-//                         <input type="number" name="stockQuantity" value={formData.stockQuantity} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.stockQuantity ? 'border-red-500' : 'border-gray-300'}`} placeholder="0" />
+//                         <input type="number" name="stockQuantity" value={formData.stockQuantity} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.stockQuantity ? 'border-red-500' : 'border-gray-300'}`} placeholder="0" />
 //                       </div>
 
 //                       <div>
 //                         <label className="block text-sm font-medium text-gray-700 mb-1">Stock Alert Quantity</label>
-//                         <input type="number" name="stockAlertQuantity" value={formData.stockAlertQuantity} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition" placeholder="Notify when stock reaches this level" />
+//                         <input type="number" name="stockAlertQuantity" value={formData.stockAlertQuantity} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition" placeholder="Notify when stock reaches this level" />
 //                         <p className="text-xs text-gray-500 mt-1">You'll be notified when stock reaches this level</p>
 //                       </div>
 
 //                       <div>
 //                         <label className="block text-sm font-medium text-gray-700 mb-1">Regular Price (৳) <span className="text-red-500">*</span></label>
-//                         <input type="number" name="regularPrice" value={formData.regularPrice} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.regularPrice ? 'border-red-500' : 'border-gray-300'}`} placeholder="0" />
+//                         <input type="number" name="regularPrice" value={formData.regularPrice} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.regularPrice ? 'border-red-500' : 'border-gray-300'}`} placeholder="0" />
 //                       </div>
 
 //                       <div>
 //                         <label className="block text-sm font-medium text-gray-700 mb-1">Cost Per Item (৳) <span className="text-gray-400 text-xs">(Optional)</span></label>
-//                         <input type="number" name="costPerItem" value={formData.costPerItem} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition" placeholder="0" />
+//                         <input type="number" name="costPerItem" value={formData.costPerItem} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition" placeholder="0" />
 //                       </div>
 
 //                       <div>
 //                         <label className="block text-sm font-medium text-gray-700 mb-1">Discount Price (৳) <span className="text-gray-400 text-xs">(Optional)</span></label>
-//                         <input type="number" name="discountPrice" value={formData.discountPrice} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.discountPrice ? 'border-red-500' : 'border-gray-300'}`} placeholder="0" />
+//                         <input type="number" name="discountPrice" value={formData.discountPrice} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.discountPrice ? 'border-red-500' : 'border-gray-300'}`} placeholder="0" />
 //                         {formData.discountPrice > 0 && formData.regularPrice && (
 //                           <p className="text-xs text-green-600 mt-1">Save: ৳{(formData.regularPrice - formData.discountPrice).toFixed(2)} ({Math.round(((formData.regularPrice - formData.discountPrice) / formData.regularPrice) * 100)}% off)</p>
 //                         )}
@@ -1351,7 +1351,7 @@
 
 //                       <div>
 //                         <label className="block text-sm font-medium text-gray-700 mb-1">Unit <span className="text-red-500">*</span></label>
-//                         <select name="unit" value={formData.unit} onChange={handleUnitChange} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.unit ? 'border-red-500' : 'border-gray-300'}`}>
+//                         <select name="unit" value={formData.unit} onChange={handleUnitChange} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.unit ? 'border-red-500' : 'border-gray-300'}`}>
 //                           {UNIT_OPTIONS.map(unit => (<option key={unit.value} value={unit.value}>{unit.label}</option>))}
 //                         </select>
 //                         {errors.unit && <p className="text-xs text-red-600 mt-1">{errors.unit}</p>}
@@ -1361,7 +1361,7 @@
 //                     {showCustomUnit && (
 //                       <div className="mt-4">
 //                         <label className="block text-sm font-medium text-gray-700 mb-1">Custom Unit <span className="text-red-500">*</span></label>
-//                         <input type="text" name="customUnit" value={formData.customUnit} onChange={(e) => setFormData(prev => ({ ...prev, customUnit: e.target.value }))} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.customUnit ? 'border-red-500' : 'border-gray-300'}`} placeholder="e.g., pair, set, dozen" />
+//                         <input type="text" name="customUnit" value={formData.customUnit} onChange={(e) => setFormData(prev => ({ ...prev, customUnit: e.target.value }))} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.customUnit ? 'border-red-500' : 'border-gray-300'}`} placeholder="e.g., pair, set, dozen" />
 //                         {errors.customUnit && <p className="text-xs text-red-600 mt-1">{errors.customUnit}</p>}
 //                       </div>
 //                     )}
@@ -1372,7 +1372,7 @@
 //                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
 //                   <div className="p-5 border-b border-gray-200">
 //                     <div className="flex items-center justify-between cursor-pointer" onClick={() => setShowAdditionalInfo(!showAdditionalInfo)}>
-//                       <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Info className="w-5 h-5 text-blue-600" /> Additional Information</h2>
+//                       <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Info className="w-5 h-5 text-pink-600" /> Additional Information</h2>
 //                       <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform ${showAdditionalInfo ? 'rotate-180' : ''}`} />
 //                     </div>
 //                   </div>
@@ -1381,12 +1381,12 @@
 //                       <div className="space-y-4">
 //                         {formData.additionalInfo.map((info, index) => (
 //                           <div key={index} className="flex gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-//                             <input type="text" placeholder="Field name" value={info.fieldName} onChange={(e) => updateAdditionalInfo(index, 'fieldName', e.target.value)} className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none" />
-//                             <input type="text" placeholder="Field value" value={info.fieldValue} onChange={(e) => updateAdditionalInfo(index, 'fieldValue', e.target.value)} className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none" />
+//                             <input type="text" placeholder="Field name" value={info.fieldName} onChange={(e) => updateAdditionalInfo(index, 'fieldName', e.target.value)} className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none" />
+//                             <input type="text" placeholder="Field value" value={info.fieldValue} onChange={(e) => updateAdditionalInfo(index, 'fieldValue', e.target.value)} className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none" />
 //                             <button type="button" onClick={() => removeAdditionalInfo(index)} className="p-2 text-gray-400 hover:text-red-500"><X className="w-5 h-5" /></button>
 //                           </div>
 //                         ))}
-//                         <button type="button" onClick={addAdditionalInfo} className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 border-2 border-dashed border-blue-300 rounded-lg hover:bg-blue-50"><Plus className="w-4 h-4" /> Add Additional Information</button>
+//                         <button type="button" onClick={addAdditionalInfo} className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-pink-600 border-2 border-dashed border-blue-300 rounded-lg hover:bg-blue-50"><Plus className="w-4 h-4" /> Add Additional Information</button>
 //                       </div>
 //                     </div>
 //                   )}
@@ -1396,7 +1396,7 @@
 //                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
 //                   <div className="p-5 border-b border-gray-200">
 //                     <div className="flex items-center justify-between cursor-pointer" onClick={() => setShowDeliveryInfo(!showDeliveryInfo)}>
-//                       <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Package className="w-5 h-5 text-blue-600" /> Delivery Details <span className="text-gray-400 text-xs">(Optional)</span></h2>
+//                       <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Package className="w-5 h-5 text-pink-600" /> Delivery Details <span className="text-gray-400 text-xs">(Optional)</span></h2>
 //                       <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform ${showDeliveryInfo ? 'rotate-180' : ''}`} />
 //                     </div>
 //                   </div>
@@ -1423,7 +1423,7 @@
 //                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
 //                   <div className="p-5 border-b border-gray-200">
 //                     <div className="flex items-center justify-between cursor-pointer" onClick={() => setShowMeta(!showMeta)}>
-//                       <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Search className="w-5 h-5 text-blue-600" /> SEO & Meta Settings</h2>
+//                       <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Search className="w-5 h-5 text-pink-600" /> SEO & Meta Settings</h2>
 //                       <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform ${showMeta ? 'rotate-180' : ''}`} />
 //                     </div>
 //                   </div>
@@ -1432,26 +1432,26 @@
 //                       <div className="space-y-4">
 //                         <div>
 //                           <label className="block text-sm font-medium text-gray-700 mb-1">Meta Title <span className="text-xs text-gray-400 ml-2">(70 characters max)</span></label>
-//                           <input type="text" value={formData.metaSettings.metaTitle} onChange={(e) => handleMetaChange('metaTitle', e.target.value)} maxLength="70" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition" placeholder="e.g., Buy Wireless Headphones Online | Smart Gadget" />
+//                           <input type="text" value={formData.metaSettings.metaTitle} onChange={(e) => handleMetaChange('metaTitle', e.target.value)} maxLength="70" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition" placeholder="e.g., Buy Wireless Headphones Online | Smart Gadget" />
 //                           <div className="flex justify-end mt-1"><span className={`text-xs ${formData.metaSettings.metaTitle?.length > 70 ? 'text-red-500' : 'text-gray-400'}`}>{formData.metaSettings.metaTitle?.length || 0}/70</span></div>
 //                         </div>
 
 //                         <div>
 //                           <label className="block text-sm font-medium text-gray-700 mb-1">Meta Description <span className="text-xs text-gray-400 ml-2">(160 characters max)</span></label>
-//                           <textarea value={formData.metaSettings.metaDescription} onChange={(e) => handleMetaChange('metaDescription', e.target.value)} maxLength="160" rows="3" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition resize-none" placeholder="Write a compelling description that appears in search engine results..." />
+//                           <textarea value={formData.metaSettings.metaDescription} onChange={(e) => handleMetaChange('metaDescription', e.target.value)} maxLength="160" rows="3" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition resize-none" placeholder="Write a compelling description that appears in search engine results..." />
 //                           <div className="flex justify-end mt-1"><span className={`text-xs ${formData.metaSettings.metaDescription?.length > 160 ? 'text-red-500' : 'text-gray-400'}`}>{formData.metaSettings.metaDescription?.length || 0}/160</span></div>
 //                         </div>
 
 //                         <div>
 //                           <label className="block text-sm font-medium text-gray-700 mb-1">Meta Keywords <span className="text-xs text-gray-400 ml-2">(Comma separated)</span></label>
 //                           <div className="flex gap-2">
-//                             <input type="text" value={keywordInput} onChange={(e) => setKeywordInput(e.target.value)} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); addKeyword(); } }} className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition" placeholder="e.g., wireless headphones, bluetooth earphones" />
-//                             <button type="button" onClick={addKeyword} className="px-4 py-2 text-white rounded-lg bg-blue-600 hover:bg-blue-700"><Plus className="w-4 h-4" /> Add</button>
+//                             <input type="text" value={keywordInput} onChange={(e) => setKeywordInput(e.target.value)} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); addKeyword(); } }} className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition" placeholder="e.g., wireless headphones, bluetooth earphones" />
+//                             <button type="button" onClick={addKeyword} className="px-4 py-2 text-white rounded-lg bg-pink-600 hover:bg-pink-700"><Plus className="w-4 h-4" /> Add</button>
 //                           </div>
 //                           {formData.metaSettings.metaKeywords?.length > 0 && (
 //                             <div className="mt-3 flex flex-wrap gap-2">
 //                               {formData.metaSettings.metaKeywords.map((keyword, index) => (
-//                                 <div key={index} className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-700">
+//                                 <div key={index} className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full bg-blue-100 text-pink-700">
 //                                   <span>{keyword}</span>
 //                                   <button type="button" onClick={() => removeKeyword(index)} className="hover:text-red-500"><X className="w-3 h-3" /></button>
 //                                 </div>
@@ -1470,7 +1470,7 @@
 //                 {/* Product Images Card */}
 //                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
 //                   <div className="p-5 border-b border-gray-200">
-//                     <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><ImageIcon className="w-5 h-5 text-blue-600" /> Product Images <span className="text-red-500">*</span></h2>
+//                     <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><ImageIcon className="w-5 h-5 text-pink-600" /> Product Images <span className="text-red-500">*</span></h2>
 //                     <p className="text-xs text-gray-500 mt-1">Upload up to 6 images (JPG, PNG, WebP, max 5MB each) • Drag to reorder</p>
 //                   </div>
 //                   <div className="p-5">
@@ -1478,14 +1478,14 @@
                     
 //                     <div className="mb-4">
 //                       <input type="file" id="multiple-images" className="hidden" accept="image/jpeg,image/jpg,image/png,image/webp" multiple onChange={handleMultipleImageSelect} ref={el => { if (el) fileInputRefs.current['multiple'] = el; }} />
-//                       <button type="button" onClick={() => fileInputRefs.current['multiple']?.click()} className="w-full flex items-center justify-center gap-2 px-4 py-3 font-medium rounded-lg border-2 border-dashed border-blue-300 bg-blue-50 text-blue-600 hover:bg-blue-100"><Upload className="w-5 h-5" /> Select Multiple Images (Up to 6)</button>
+//                       <button type="button" onClick={() => fileInputRefs.current['multiple']?.click()} className="w-full flex items-center justify-center gap-2 px-4 py-3 font-medium rounded-lg border-2 border-dashed border-blue-300 bg-blue-50 text-pink-600 hover:bg-blue-100"><Upload className="w-5 h-5" /> Select Multiple Images (Up to 6)</button>
 //                     </div>
 
 //                     <div className="grid grid-cols-2 gap-4">
 //                       {productImages.map((img, index) => (
-//                         <div key={index} draggable={img.preview !== null && !img.uploading} onDragStart={() => handleDragStart(index)} onDragOver={(e) => handleDragOverWithFeedback(e, index)} onDragLeave={handleDragLeave} onDrop={() => handleDropWithFeedback(index)} onDragEnd={handleDragEnd} className={`transition-all duration-200 ${draggedIndex === index ? 'opacity-50 scale-95' : ''} ${dragOverIndex === index && draggedIndex !== index && draggedIndex !== null ? 'ring-2 ring-blue-600 ring-offset-2 rounded-lg' : ''}`}>
+//                         <div key={index} draggable={img.preview !== null && !img.uploading} onDragStart={() => handleDragStart(index)} onDragOver={(e) => handleDragOverWithFeedback(e, index)} onDragLeave={handleDragLeave} onDrop={() => handleDropWithFeedback(index)} onDragEnd={handleDragEnd} className={`transition-all duration-200 ${draggedIndex === index ? 'opacity-50 scale-95' : ''} ${dragOverIndex === index && draggedIndex !== index && draggedIndex !== null ? 'ring-2 ring-pink-600 ring-offset-2 rounded-lg' : ''}`}>
 //                           {img.preview ? (
-//                             <div className="relative rounded-lg overflow-hidden border-2 border-gray-200 h-40 hover:border-blue-600 transition-colors cursor-grab active:cursor-grabbing bg-gray-100">
+//                             <div className="relative rounded-lg overflow-hidden border-2 border-gray-200 h-40 hover:border-pink-600 transition-colors cursor-grab active:cursor-grabbing bg-gray-100">
 //                               <div className="absolute top-1 left-1 bg-black/50 rounded px-1.5 py-0.5 z-10"><GripVertical className="w-3 h-3 text-white" /></div>
 //                               <img src={img.preview} alt={`Product ${index + 1}`} className="w-full h-full object-contain bg-gray-100" />
 //                               {img.uploading && <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10"><Loader2 className="w-6 h-6 text-white animate-spin" /></div>}
@@ -1493,7 +1493,7 @@
 //                               {index === 0 && img.url && !img.uploading && <span className="absolute bottom-1 left-1 px-1.5 py-0.5 bg-green-500 text-white text-[10px] rounded z-10">Primary</span>}
 //                             </div>
 //                           ) : (
-//                             <div className={`border-2 border-dashed rounded-lg p-4 text-center h-40 flex flex-col items-center justify-center cursor-pointer transition-colors ${img.error ? 'border-red-300 bg-red-50' : 'border-gray-300 bg-gray-50 hover:border-blue-600 hover:bg-blue-50'}`} onClick={() => fileInputRefs.current[index]?.click()}>
+//                             <div className={`border-2 border-dashed rounded-lg p-4 text-center h-40 flex flex-col items-center justify-center cursor-pointer transition-colors ${img.error ? 'border-red-300 bg-red-50' : 'border-gray-300 bg-gray-50 hover:border-pink-600 hover:bg-blue-50'}`} onClick={() => fileInputRefs.current[index]?.click()}>
 //                               <input type="file" ref={el => fileInputRefs.current[index] = el} className="hidden" accept="image/jpeg,image/jpg,image/png,image/webp" onChange={(e) => handleImageChange(e, index)} />
 //                               <ImageIcon className={`w-8 h-8 mx-auto mb-2 ${img.error ? 'text-red-400' : 'text-gray-400'}`} />
 //                               <p className={`text-xs ${img.error ? 'text-red-600' : 'text-gray-600'}`}>Slot {index + 1}</p>
@@ -1513,18 +1513,18 @@
 //                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
 //                   <div className="p-5 border-b border-gray-200">
 //                     <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-//                       <Star className="w-5 h-5 text-blue-600" />
+//                       <Star className="w-5 h-5 text-pink-600" />
 //                       Product Promotion
 //                     </h2>
 //                   </div>
 //                   <div className="p-5 space-y-4">
 //                     <label className="flex items-center gap-3 cursor-pointer">
-//                       <input type="checkbox" checked={formData.showOnBanner} onChange={(e) => setFormData(prev => ({ ...prev, showOnBanner: e.target.checked }))} className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-600" />
+//                       <input type="checkbox" checked={formData.showOnBanner} onChange={(e) => setFormData(prev => ({ ...prev, showOnBanner: e.target.checked }))} className="w-5 h-5 rounded border-gray-300 text-pink-600 focus:ring-pink-600" />
 //                       <div><span className="text-sm font-medium text-gray-700">Show on Banner</span><p className="text-xs text-gray-500">Product will be displayed on the homepage banner</p></div>
 //                     </label>
 
 //                     <label className="flex items-center gap-3 cursor-pointer">
-//                       <input type="checkbox" checked={formData.isFeatured} onChange={(e) => setFormData(prev => ({ ...prev, isFeatured: e.target.checked }))} className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-600" />
+//                       <input type="checkbox" checked={formData.isFeatured} onChange={(e) => setFormData(prev => ({ ...prev, isFeatured: e.target.checked }))} className="w-5 h-5 rounded border-gray-300 text-pink-600 focus:ring-pink-600" />
 //                       <div><span className="text-sm font-medium text-gray-700">Mark as Featured Product</span><p className="text-xs text-gray-500">Featured products will appear in special sections</p></div>
 //                     </label>
 
@@ -1533,7 +1533,7 @@
 //                       {errors.tags && <p className="text-xs text-red-600 mb-2">{errors.tags}</p>}
 //                       <div className="grid grid-cols-2 gap-2">
 //                         {PRODUCT_TAGS.map(tag => (
-//                           <button key={tag.value} type="button" onClick={() => handleTagSelect(tag.value)} className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-all text-sm ${formData.tags.includes(tag.value) ? 'border-blue-600 bg-blue-50 text-blue-700' : 'border-gray-200 hover:border-gray-300 text-gray-600'}`}>
+//                           <button key={tag.value} type="button" onClick={() => handleTagSelect(tag.value)} className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-all text-sm ${formData.tags.includes(tag.value) ? 'border-pink-600 bg-blue-50 text-pink-700' : 'border-gray-200 hover:border-gray-300 text-gray-600'}`}>
 //                             {tag.icon} <span>{tag.label}</span>
 //                           </button>
 //                         ))}
@@ -1550,7 +1550,7 @@
 //                 {/* Colors */}
 //                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
 //                   <div className="p-5 border-b border-gray-200">
-//                     <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Palette className="w-5 h-5 text-blue-600" /> Colors <span className="text-gray-400 text-xs">(Optional)</span></h2>
+//                     <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Palette className="w-5 h-5 text-pink-600" /> Colors <span className="text-gray-400 text-xs">(Optional)</span></h2>
 //                   </div>
 //                   <div className="p-5">
 //                     <ColorPicker colors={formData.colors} onChange={(colors) => setFormData(prev => ({ ...prev, colors }))} />
@@ -1560,7 +1560,7 @@
 //                 {/* Status Card */}
 //                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
 //                   <div className="p-5 border-b border-gray-200">
-//                     <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Box className="w-5 h-5 text-blue-600" /> Product Status</h2>
+//                     <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Box className="w-5 h-5 text-pink-600" /> Product Status</h2>
 //                   </div>
 //                   <div className="p-5">
 //                     <label className="flex items-center gap-3 cursor-pointer">
@@ -1577,7 +1577,7 @@
 //               <NextLink href="/admin/all-products">
 //                 <button type="button" className="px-6 py-2.5 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors">Cancel</button>
 //               </NextLink>
-//               <button type="submit" disabled={isSubmitting || !hasChanges()} className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50">
+//               <button type="submit" disabled={isSubmitting || !hasChanges()} className="flex items-center gap-2 px-6 py-2.5 bg-pink-600 text-white font-medium rounded-lg hover:bg-pink-700 transition-colors disabled:opacity-50">
 //                 {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
 //                 {isSubmitting ? 'Updating...' : 'Update Product'}
 //               </button>
@@ -1732,7 +1732,7 @@ const ColorPicker = ({ colors, onChange }) => {
           <div key={index} className="relative">
             <div className="flex items-center gap-2 w-full">
               <div 
-                className="flex-1 flex items-center gap-2 bg-gray-50 rounded-lg border border-gray-200 p-2 cursor-pointer hover:border-blue-600 transition-colors"
+                className="flex-1 flex items-center gap-2 bg-gray-50 rounded-lg border border-gray-200 p-2 cursor-pointer hover:border-pink-600 transition-colors"
                 onClick={(e) => openColorPicker(index, e)}
               >
                 <div 
@@ -1772,7 +1772,7 @@ const ColorPicker = ({ colors, onChange }) => {
         <button
           type="button"
           onClick={addColor}
-          className="w-full flex items-center justify-center gap-1 px-3 py-2 mt-2 text-xs font-medium text-blue-600 border border-dashed border-blue-300 rounded-lg hover:bg-blue-50 transition-colors"
+          className="w-full flex items-center justify-center gap-1 px-3 py-2 mt-2 text-xs font-medium text-pink-600 border border-dashed border-blue-300 rounded-lg hover:bg-blue-50 transition-colors"
         >
           <Plus className="w-3.5 h-3.5" />
           Add Color
@@ -1830,7 +1830,7 @@ const AddBrandModal = ({ isOpen, onClose, onBrandAdded }) => {
       <div className="bg-white rounded-xl shadow-xl max-w-md w-full mx-4 p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-            <Building2 className="w-5 h-5 text-blue-600" />
+            <Building2 className="w-5 h-5 text-pink-600" />
             Add New Brand
           </h3>
           <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-lg transition-colors">
@@ -1848,7 +1848,7 @@ const AddBrandModal = ({ isOpen, onClose, onBrandAdded }) => {
               value={brandName}
               onChange={(e) => setBrandName(e.target.value)}
               placeholder="e.g., Apple, Samsung, Sony"
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition"
+              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition"
               autoFocus
             />
           </div>
@@ -1863,7 +1863,7 @@ const AddBrandModal = ({ isOpen, onClose, onBrandAdded }) => {
             <button
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className="flex-1 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+              className="flex-1 px-4 py-2 text-sm font-medium text-white bg-pink-600 rounded-lg hover:bg-pink-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
               Add Brand
@@ -2739,7 +2739,7 @@ const fetchTags = async () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 animate-spin text-blue-600 mx-auto mb-4" />
+          <Loader2 className="w-12 h-12 animate-spin text-pink-600 mx-auto mb-4" />
           <p className="text-gray-600">Loading product details...</p>
         </div>
       </div>
@@ -2761,7 +2761,7 @@ const fetchTags = async () => {
                 </NextLink>
                 <div>
                   <div className="flex items-center gap-2">
-                    <Package className="w-6 h-6 text-blue-600" />
+                    <Package className="w-6 h-6 text-pink-600" />
                     <h1 className="text-xl font-bold text-gray-900">Edit Product</h1>
                   </div>
                   <p className="text-sm text-gray-500 mt-1">Update product information</p>
@@ -2787,14 +2787,14 @@ const fetchTags = async () => {
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
                   <div className="p-5 border-b border-gray-200">
                     <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                      <Package className="w-5 h-5 text-blue-600" />
+                      <Package className="w-5 h-5 text-pink-600" />
                       Basic Information
                     </h2>
                   </div>
                   <div className="p-5 space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">Product Name <span className="text-red-500">*</span></label>
-                      <input type="text" name="productName" value={formData.productName} onChange={handleChange} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.productName ? 'border-red-500' : 'border-gray-300'}`} placeholder="e.g., Wireless Headphones, Smart Watch Pro" />
+                      <input type="text" name="productName" value={formData.productName} onChange={handleChange} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.productName ? 'border-red-500' : 'border-gray-300'}`} placeholder="e.g., Wireless Headphones, Smart Watch Pro" />
                       {errors.productName && <p className="text-xs text-red-600 mt-1">{errors.productName}</p>}
                     </div>
 
@@ -2823,7 +2823,7 @@ const fetchTags = async () => {
                               setFormData(prev => ({ ...prev, skuCode: e.target.value }));
                               if (errors.skuCode) setErrors(prev => ({ ...prev, skuCode: null }));
                             }}
-                            className={`w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.skuCode || isSkuUnique === false ? 'border-red-500' : 'border-gray-300'}`}
+                            className={`w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.skuCode || isSkuUnique === false ? 'border-red-500' : 'border-gray-300'}`}
                             placeholder="Enter SKU code"
                           />
                         </div>
@@ -2837,7 +2837,7 @@ const fetchTags = async () => {
                         <p className="text-xs text-green-600 mt-1">✓ SKU is available</p>
                       )}
                       {isSkuUnique === true && formData.skuCode === originalProduct?.skuCode && (
-                        <p className="text-xs text-blue-600 mt-1">✓ Current SKU (no change)</p>
+                        <p className="text-xs text-pink-600 mt-1">✓ Current SKU (no change)</p>
                       )}
                       <p className="text-xs text-gray-500 mt-1">Must be unique across all products. Format: letters, numbers, hyphens (4-20 chars)</p>
                     </div>
@@ -2882,7 +2882,7 @@ const fetchTags = async () => {
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
                   <div className="p-5 border-b border-gray-200">
                     <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                      <Layers className="w-5 h-5 text-blue-600" />
+                      <Layers className="w-5 h-5 text-pink-600" />
                       Categories & Classification
                     </h2>
                   </div>
@@ -2890,7 +2890,7 @@ const fetchTags = async () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Category <span className="text-red-500">*</span></label>
-                        <select name="category" value={formData.category} onChange={handleChange} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.category ? 'border-red-500' : 'border-gray-300'}`}>
+                        <select name="category" value={formData.category} onChange={handleChange} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.category ? 'border-red-500' : 'border-gray-300'}`}>
                           <option value="">Select Category</option>
                           {categories.map(cat => (<option key={cat._id} value={cat._id}>{cat.name}</option>))}
                         </select>
@@ -2899,7 +2899,7 @@ const fetchTags = async () => {
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Subcategory <span className="text-gray-400 text-xs">(Optional)</span></label>
-                        <select name="subcategory" value={formData.subcategory} onChange={handleChange} disabled={!formData.category || subcategories.length === 0} className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition disabled:bg-gray-100 disabled:cursor-not-allowed border-gray-300">
+                        <select name="subcategory" value={formData.subcategory} onChange={handleChange} disabled={!formData.category || subcategories.length === 0} className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition disabled:bg-gray-100 disabled:cursor-not-allowed border-gray-300">
                           <option value="">Select Subcategory</option>
                           {subcategories.map(sub => (<option key={sub._id} value={sub._id}>{sub.name}</option>))}
                         </select>
@@ -2908,7 +2908,7 @@ const fetchTags = async () => {
                       {childSubcategories.length > 0 && (
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">Child Subcategory <span className="text-gray-400 text-xs">(Optional)</span></label>
-                          <select name="childSubcategory" value={formData.childSubcategory} onChange={handleChange} className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition border-gray-300">
+                          <select name="childSubcategory" value={formData.childSubcategory} onChange={handleChange} className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition border-gray-300">
                             <option value="">Select Child Subcategory</option>
                             {childSubcategories.map(child => (<option key={child._id} value={child._id}>{child.name}</option>))}
                           </select>
@@ -2918,11 +2918,11 @@ const fetchTags = async () => {
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Brand <span className="text-red-500">*</span></label>
                         <div className="flex gap-2">
-                          <select name="brand" value={formData.brand} onChange={handleChange} className={`flex-1 px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.brand ? 'border-red-500' : 'border-gray-300'}`}>
+                          <select name="brand" value={formData.brand} onChange={handleChange} className={`flex-1 px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.brand ? 'border-red-500' : 'border-gray-300'}`}>
                             <option value="">Select Brand</option>
                             {brands.map(brand => (<option key={brand._id} value={brand.name}>{brand.name}</option>))}
                           </select>
-                          <button type="button" onClick={() => setShowAddBrandModal(true)} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 whitespace-nowrap">
+                          <button type="button" onClick={() => setShowAddBrandModal(true)} className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors flex items-center gap-2 whitespace-nowrap">
                             <Plus className="w-4 h-4" /> Add Brand
                           </button>
                         </div>
@@ -2936,7 +2936,7 @@ const fetchTags = async () => {
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
                   <div className="p-5 border-b border-gray-200">
                     <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                      <DollarSign className="w-5 h-5 text-blue-600" />
+                      <DollarSign className="w-5 h-5 text-pink-600" />
                       Pricing & Inventory
                     </h2>
                   </div>
@@ -2944,28 +2944,28 @@ const fetchTags = async () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Stock Quantity <span className="text-red-500">*</span></label>
-                        <input type="number" name="stockQuantity" value={formData.stockQuantity} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.stockQuantity ? 'border-red-500' : 'border-gray-300'}`} placeholder="0" />
+                        <input type="number" name="stockQuantity" value={formData.stockQuantity} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.stockQuantity ? 'border-red-500' : 'border-gray-300'}`} placeholder="0" />
                       </div>
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Stock Alert Quantity</label>
-                        <input type="number" name="stockAlertQuantity" value={formData.stockAlertQuantity} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition" placeholder="Notify when stock reaches this level" />
+                        <input type="number" name="stockAlertQuantity" value={formData.stockAlertQuantity} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition" placeholder="Notify when stock reaches this level" />
                         <p className="text-xs text-gray-500 mt-1">You'll be notified when stock reaches this level</p>
                       </div>
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Regular Price (৳) <span className="text-red-500">*</span></label>
-                        <input type="number" name="regularPrice" value={formData.regularPrice} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.regularPrice ? 'border-red-500' : 'border-gray-300'}`} placeholder="0" />
+                        <input type="number" name="regularPrice" value={formData.regularPrice} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.regularPrice ? 'border-red-500' : 'border-gray-300'}`} placeholder="0" />
                       </div>
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Cost Per Item (৳) <span className="text-gray-400 text-xs">(Optional)</span></label>
-                        <input type="number" name="costPerItem" value={formData.costPerItem} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition" placeholder="0" />
+                        <input type="number" name="costPerItem" value={formData.costPerItem} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition" placeholder="0" />
                       </div>
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Discount Price (৳) <span className="text-gray-400 text-xs">(Optional)</span></label>
-                        <input type="number" name="discountPrice" value={formData.discountPrice} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.discountPrice ? 'border-red-500' : 'border-gray-300'}`} placeholder="0" />
+                        <input type="number" name="discountPrice" value={formData.discountPrice} onChange={handleNumberChange} onWheel={(e) => e.target.blur()} min="0" step="1" className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.discountPrice ? 'border-red-500' : 'border-gray-300'}`} placeholder="0" />
                         {formData.discountPrice > 0 && formData.regularPrice && (
                           <p className="text-xs text-green-600 mt-1">Save: ৳{(formData.regularPrice - formData.discountPrice).toFixed(2)} ({Math.round(((formData.regularPrice - formData.discountPrice) / formData.regularPrice) * 100)}% off)</p>
                         )}
@@ -2973,7 +2973,7 @@ const fetchTags = async () => {
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Unit <span className="text-red-500">*</span></label>
-                        <select name="unit" value={formData.unit} onChange={handleUnitChange} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.unit ? 'border-red-500' : 'border-gray-300'}`}>
+                        <select name="unit" value={formData.unit} onChange={handleUnitChange} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.unit ? 'border-red-500' : 'border-gray-300'}`}>
                           {UNIT_OPTIONS.map(unit => (<option key={unit.value} value={unit.value}>{unit.label}</option>))}
                         </select>
                         {errors.unit && <p className="text-xs text-red-600 mt-1">{errors.unit}</p>}
@@ -2983,7 +2983,7 @@ const fetchTags = async () => {
                     {showCustomUnit && (
                       <div className="mt-4">
                         <label className="block text-sm font-medium text-gray-700 mb-1">Custom Unit <span className="text-red-500">*</span></label>
-                        <input type="text" name="customUnit" value={formData.customUnit} onChange={(e) => setFormData(prev => ({ ...prev, customUnit: e.target.value }))} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition ${errors.customUnit ? 'border-red-500' : 'border-gray-300'}`} placeholder="e.g., pair, set, dozen" />
+                        <input type="text" name="customUnit" value={formData.customUnit} onChange={(e) => setFormData(prev => ({ ...prev, customUnit: e.target.value }))} className={`w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition ${errors.customUnit ? 'border-red-500' : 'border-gray-300'}`} placeholder="e.g., pair, set, dozen" />
                         {errors.customUnit && <p className="text-xs text-red-600 mt-1">{errors.customUnit}</p>}
                       </div>
                     )}
@@ -2994,7 +2994,7 @@ const fetchTags = async () => {
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
                   <div className="p-5 border-b border-gray-200">
                     <div className="flex items-center justify-between cursor-pointer" onClick={() => setShowAdditionalInfo(!showAdditionalInfo)}>
-                      <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Info className="w-5 h-5 text-blue-600" /> Additional Information</h2>
+                      <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Info className="w-5 h-5 text-pink-600" /> Additional Information</h2>
                       <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform ${showAdditionalInfo ? 'rotate-180' : ''}`} />
                     </div>
                   </div>
@@ -3003,12 +3003,12 @@ const fetchTags = async () => {
                       <div className="space-y-4">
                         {formData.additionalInfo.map((info, index) => (
                           <div key={index} className="flex gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                            <input type="text" placeholder="Field name" value={info.fieldName} onChange={(e) => updateAdditionalInfo(index, 'fieldName', e.target.value)} className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none" />
-                            <input type="text" placeholder="Field value" value={info.fieldValue} onChange={(e) => updateAdditionalInfo(index, 'fieldValue', e.target.value)} className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none" />
+                            <input type="text" placeholder="Field name" value={info.fieldName} onChange={(e) => updateAdditionalInfo(index, 'fieldName', e.target.value)} className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none" />
+                            <input type="text" placeholder="Field value" value={info.fieldValue} onChange={(e) => updateAdditionalInfo(index, 'fieldValue', e.target.value)} className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none" />
                             <button type="button" onClick={() => removeAdditionalInfo(index)} className="p-2 text-gray-400 hover:text-red-500"><X className="w-5 h-5" /></button>
                           </div>
                         ))}
-                        <button type="button" onClick={addAdditionalInfo} className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 border-2 border-dashed border-blue-300 rounded-lg hover:bg-blue-50"><Plus className="w-4 h-4" /> Add Additional Information</button>
+                        <button type="button" onClick={addAdditionalInfo} className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-pink-600 border-2 border-dashed border-blue-300 rounded-lg hover:bg-blue-50"><Plus className="w-4 h-4" /> Add Additional Information</button>
                       </div>
                     </div>
                   )}
@@ -3018,7 +3018,7 @@ const fetchTags = async () => {
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
                   <div className="p-5 border-b border-gray-200">
                     <div className="flex items-center justify-between cursor-pointer" onClick={() => setShowDeliveryInfo(!showDeliveryInfo)}>
-                      <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Package className="w-5 h-5 text-blue-600" /> Delivery Details <span className="text-gray-400 text-xs">(Optional)</span></h2>
+                      <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Package className="w-5 h-5 text-pink-600" /> Delivery Details <span className="text-gray-400 text-xs">(Optional)</span></h2>
                       <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform ${showDeliveryInfo ? 'rotate-180' : ''}`} />
                     </div>
                   </div>
@@ -3045,7 +3045,7 @@ const fetchTags = async () => {
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
                   <div className="p-5 border-b border-gray-200">
                     <div className="flex items-center justify-between cursor-pointer" onClick={() => setShowMeta(!showMeta)}>
-                      <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Search className="w-5 h-5 text-blue-600" /> SEO & Meta Settings</h2>
+                      <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Search className="w-5 h-5 text-pink-600" /> SEO & Meta Settings</h2>
                       <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform ${showMeta ? 'rotate-180' : ''}`} />
                     </div>
                   </div>
@@ -3054,26 +3054,26 @@ const fetchTags = async () => {
                       <div className="space-y-4">
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">Meta Title <span className="text-xs text-gray-400 ml-2">(70 characters max)</span></label>
-                          <input type="text" value={formData.metaSettings.metaTitle} onChange={(e) => handleMetaChange('metaTitle', e.target.value)} maxLength="70" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition" placeholder="e.g., Buy Wireless Headphones Online | Smart Gadget" />
+                          <input type="text" value={formData.metaSettings.metaTitle} onChange={(e) => handleMetaChange('metaTitle', e.target.value)} maxLength="70" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition" placeholder="e.g., Buy Wireless Headphones Online | Smart Gadget" />
                           <div className="flex justify-end mt-1"><span className={`text-xs ${formData.metaSettings.metaTitle?.length > 70 ? 'text-red-500' : 'text-gray-400'}`}>{formData.metaSettings.metaTitle?.length || 0}/70</span></div>
                         </div>
 
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">Meta Description <span className="text-xs text-gray-400 ml-2">(160 characters max)</span></label>
-                          <textarea value={formData.metaSettings.metaDescription} onChange={(e) => handleMetaChange('metaDescription', e.target.value)} maxLength="160" rows="3" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition resize-none" placeholder="Write a compelling description that appears in search engine results..." />
+                          <textarea value={formData.metaSettings.metaDescription} onChange={(e) => handleMetaChange('metaDescription', e.target.value)} maxLength="160" rows="3" className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition resize-none" placeholder="Write a compelling description that appears in search engine results..." />
                           <div className="flex justify-end mt-1"><span className={`text-xs ${formData.metaSettings.metaDescription?.length > 160 ? 'text-red-500' : 'text-gray-400'}`}>{formData.metaSettings.metaDescription?.length || 0}/160</span></div>
                         </div>
 
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">Meta Keywords <span className="text-xs text-gray-400 ml-2">(Comma separated)</span></label>
                           <div className="flex gap-2">
-                            <input type="text" value={keywordInput} onChange={(e) => setKeywordInput(e.target.value)} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); addKeyword(); } }} className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition" placeholder="e.g., wireless headphones, bluetooth earphones" />
-                            <button type="button" onClick={addKeyword} className="px-4 py-2 text-white rounded-lg bg-blue-600 hover:bg-blue-700"><Plus className="w-4 h-4" /> Add</button>
+                            <input type="text" value={keywordInput} onChange={(e) => setKeywordInput(e.target.value)} onKeyPress={(e) => { if (e.key === 'Enter') { e.preventDefault(); addKeyword(); } }} className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition" placeholder="e.g., wireless headphones, bluetooth earphones" />
+                            <button type="button" onClick={addKeyword} className="px-4 py-2 text-white rounded-lg bg-pink-600 hover:bg-pink-700"><Plus className="w-4 h-4" /> Add</button>
                           </div>
                           {formData.metaSettings.metaKeywords?.length > 0 && (
                             <div className="mt-3 flex flex-wrap gap-2">
                               {formData.metaSettings.metaKeywords.map((keyword, index) => (
-                                <div key={index} className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-700">
+                                <div key={index} className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full bg-blue-100 text-pink-700">
                                   <span>{keyword}</span>
                                   <button type="button" onClick={() => removeKeyword(index)} className="hover:text-red-500"><X className="w-3 h-3" /></button>
                                 </div>
@@ -3092,7 +3092,7 @@ const fetchTags = async () => {
                 {/* Product Images Card */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
                   <div className="p-5 border-b border-gray-200">
-                    <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><ImageIcon className="w-5 h-5 text-blue-600" /> Product Images <span className="text-red-500">*</span></h2>
+                    <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><ImageIcon className="w-5 h-5 text-pink-600" /> Product Images <span className="text-red-500">*</span></h2>
                     <p className="text-xs text-gray-500 mt-1">Upload up to 6 images (JPG, PNG, WebP, max 5MB each) • Drag to reorder</p>
                   </div>
                   <div className="p-5">
@@ -3100,14 +3100,14 @@ const fetchTags = async () => {
                     
                     <div className="mb-4">
                       <input type="file" id="multiple-images" className="hidden" accept="image/jpeg,image/jpg,image/png,image/webp" multiple onChange={handleMultipleImageSelect} ref={el => { if (el) fileInputRefs.current['multiple'] = el; }} />
-                      <button type="button" onClick={() => fileInputRefs.current['multiple']?.click()} className="w-full flex items-center justify-center gap-2 px-4 py-3 font-medium rounded-lg border-2 border-dashed border-blue-300 bg-blue-50 text-blue-600 hover:bg-blue-100"><Upload className="w-5 h-5" /> Select Multiple Images (Up to 6)</button>
+                      <button type="button" onClick={() => fileInputRefs.current['multiple']?.click()} className="w-full flex items-center justify-center gap-2 px-4 py-3 font-medium rounded-lg border-2 border-dashed border-blue-300 bg-blue-50 text-pink-600 hover:bg-blue-100"><Upload className="w-5 h-5" /> Select Multiple Images (Up to 6)</button>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                       {productImages.map((img, index) => (
-                        <div key={index} draggable={img.preview !== null && !img.uploading} onDragStart={() => handleDragStart(index)} onDragOver={(e) => handleDragOverWithFeedback(e, index)} onDragLeave={handleDragLeave} onDrop={() => handleDropWithFeedback(index)} onDragEnd={handleDragEnd} className={`transition-all duration-200 ${draggedIndex === index ? 'opacity-50 scale-95' : ''} ${dragOverIndex === index && draggedIndex !== index && draggedIndex !== null ? 'ring-2 ring-blue-600 ring-offset-2 rounded-lg' : ''}`}>
+                        <div key={index} draggable={img.preview !== null && !img.uploading} onDragStart={() => handleDragStart(index)} onDragOver={(e) => handleDragOverWithFeedback(e, index)} onDragLeave={handleDragLeave} onDrop={() => handleDropWithFeedback(index)} onDragEnd={handleDragEnd} className={`transition-all duration-200 ${draggedIndex === index ? 'opacity-50 scale-95' : ''} ${dragOverIndex === index && draggedIndex !== index && draggedIndex !== null ? 'ring-2 ring-pink-600 ring-offset-2 rounded-lg' : ''}`}>
                           {img.preview ? (
-                            <div className="relative rounded-lg overflow-hidden border-2 border-gray-200 h-40 hover:border-blue-600 transition-colors cursor-grab active:cursor-grabbing bg-gray-100">
+                            <div className="relative rounded-lg overflow-hidden border-2 border-gray-200 h-40 hover:border-pink-600 transition-colors cursor-grab active:cursor-grabbing bg-gray-100">
                               <div className="absolute top-1 left-1 bg-black/50 rounded px-1.5 py-0.5 z-10"><GripVertical className="w-3 h-3 text-white" /></div>
                               <img src={img.preview} alt={`Product ${index + 1}`} className="w-full h-full object-contain bg-gray-100" />
                               {img.uploading && <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10"><Loader2 className="w-6 h-6 text-white animate-spin" /></div>}
@@ -3115,7 +3115,7 @@ const fetchTags = async () => {
                               {index === 0 && img.url && !img.uploading && <span className="absolute bottom-1 left-1 px-1.5 py-0.5 bg-green-500 text-white text-[10px] rounded z-10">Primary</span>}
                             </div>
                           ) : (
-                            <div className={`border-2 border-dashed rounded-lg p-4 text-center h-40 flex flex-col items-center justify-center cursor-pointer transition-colors ${img.error ? 'border-red-300 bg-red-50' : 'border-gray-300 bg-gray-50 hover:border-blue-600 hover:bg-blue-50'}`} onClick={() => fileInputRefs.current[index]?.click()}>
+                            <div className={`border-2 border-dashed rounded-lg p-4 text-center h-40 flex flex-col items-center justify-center cursor-pointer transition-colors ${img.error ? 'border-red-300 bg-red-50' : 'border-gray-300 bg-gray-50 hover:border-pink-600 hover:bg-blue-50'}`} onClick={() => fileInputRefs.current[index]?.click()}>
                               <input type="file" ref={el => fileInputRefs.current[index] = el} className="hidden" accept="image/jpeg,image/jpg,image/png,image/webp" onChange={(e) => handleImageChange(e, index)} />
                               <ImageIcon className={`w-8 h-8 mx-auto mb-2 ${img.error ? 'text-red-400' : 'text-gray-400'}`} />
                               <p className={`text-xs ${img.error ? 'text-red-600' : 'text-gray-600'}`}>Slot {index + 1}</p>
@@ -3135,18 +3135,18 @@ const fetchTags = async () => {
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
                   <div className="p-5 border-b border-gray-200">
                     <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                      <Star className="w-5 h-5 text-blue-600" />
+                      <Star className="w-5 h-5 text-pink-600" />
                       Product Promotion
                     </h2>
                   </div>
                   <div className="p-5 space-y-4">
-                    <label className="flex items-center gap-3 cursor-pointer">
-                      <input type="checkbox" checked={formData.showOnBanner} onChange={(e) => setFormData(prev => ({ ...prev, showOnBanner: e.target.checked }))} className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-600" />
+                    {/* <label className="flex items-center gap-3 cursor-pointer">
+                      <input type="checkbox" checked={formData.showOnBanner} onChange={(e) => setFormData(prev => ({ ...prev, showOnBanner: e.target.checked }))} className="w-5 h-5 rounded border-gray-300 text-pink-600 focus:ring-pink-600" />
                       <div><span className="text-sm font-medium text-gray-700">Show on Banner</span><p className="text-xs text-gray-500">Product will be displayed on the homepage banner</p></div>
-                    </label>
+                    </label> */}
 
                     <label className="flex items-center gap-3 cursor-pointer">
-                      <input type="checkbox" checked={formData.isFeatured} onChange={(e) => setFormData(prev => ({ ...prev, isFeatured: e.target.checked }))} className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-600" />
+                      <input type="checkbox" checked={formData.isFeatured} onChange={(e) => setFormData(prev => ({ ...prev, isFeatured: e.target.checked }))} className="w-5 h-5 rounded border-gray-300 text-pink-600 focus:ring-pink-600" />
                       <div><span className="text-sm font-medium text-gray-700">Mark as Featured Product</span><p className="text-xs text-gray-500">Featured products will appear in special sections</p></div>
                     </label>
 
@@ -3159,7 +3159,7 @@ const fetchTags = async () => {
   
   {isLoadingTags ? (
     <div className="flex justify-center py-4">
-      <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
+      <Loader2 className="w-6 h-6 animate-spin text-pink-600" />
     </div>
   ) : productTags.length === 0 ? (
     <div className="text-center py-4 bg-gray-50 rounded-lg border border-gray-200">
@@ -3167,7 +3167,7 @@ const fetchTags = async () => {
       <button
         type="button"
         onClick={() => router.push('/admin/tags')}
-        className="mt-2 text-sm text-blue-600 hover:text-blue-700 font-medium"
+        className="mt-2 text-sm text-pink-600 hover:text-pink-700 font-medium"
       >
         Create Tags →
       </button>
@@ -3181,7 +3181,7 @@ const fetchTags = async () => {
           onClick={() => handleTagSelect(tag._id)} 
           className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-all text-sm ${
             formData.tags.includes(tag._id) 
-              ? 'border-blue-600 bg-blue-50 text-blue-700' 
+              ? 'border-pink-600 bg-blue-50 text-pink-700' 
               : 'border-gray-200 hover:border-gray-300 text-gray-600'
           }`}
         >
@@ -3211,7 +3211,7 @@ const fetchTags = async () => {
                 {/* Colors */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
                   <div className="p-5 border-b border-gray-200">
-                    <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Palette className="w-5 h-5 text-blue-600" /> Colors <span className="text-gray-400 text-xs">(Optional)</span></h2>
+                    <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Palette className="w-5 h-5 text-pink-600" /> Colors <span className="text-gray-400 text-xs">(Optional)</span></h2>
                   </div>
                   <div className="p-5">
                     <ColorPicker colors={formData.colors} onChange={(colors) => setFormData(prev => ({ ...prev, colors }))} />
@@ -3221,7 +3221,7 @@ const fetchTags = async () => {
                 {/* Status Card */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200">
                   <div className="p-5 border-b border-gray-200">
-                    <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Box className="w-5 h-5 text-blue-600" /> Product Status</h2>
+                    <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2"><Box className="w-5 h-5 text-pink-600" /> Product Status</h2>
                   </div>
                   <div className="p-5">
                     <label className="flex items-center gap-3 cursor-pointer">
@@ -3238,7 +3238,7 @@ const fetchTags = async () => {
               <NextLink href="/admin/all-products">
                 <button type="button" className="px-6 py-2.5 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors">Cancel</button>
               </NextLink>
-              <button type="submit" disabled={isSubmitting || !hasChanges()} className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50">
+              <button type="submit" disabled={isSubmitting || !hasChanges()} className="flex items-center gap-2 px-6 py-2.5 bg-pink-600 text-white font-medium rounded-lg hover:bg-pink-700 transition-colors disabled:opacity-50">
                 {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                 {isSubmitting ? 'Updating...' : 'Update Product'}
               </button>

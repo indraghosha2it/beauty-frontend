@@ -736,9 +736,9 @@ export default function BannerCarousel() {
               {/* Content Container - Large device same, small device adjusted */}
               <div className="relative h-full flex items-center py-3 sm:py-4 md:py-0">
                 <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12">
-                  <div className="flex items-center gap-2 sm:gap-4 md:gap-6">
+                  <div className="flex items-center gap-0 sm:gap-4 md:gap-6">
                     {/* Left Content - Reduced width on small devices to give more space to image */}
-                    <div className="flex-1 min-w-0 max-w-[45%] sm:max-w-full md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
+                    <div className="flex-1 ml-4 md:ml-0  min-w-0 max-w-[45%] sm:max-w-full md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
                       {/* Badge */}
                       <div className={`mb-1 sm:mb-2 inline-block transition-all duration-700 delay-100 ${
                         currentSlide === index && !isTransitioning ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
@@ -836,7 +836,7 @@ export default function BannerCarousel() {
 
                     {/* Right Side - Product Image in Circle - Larger on small devices */}
                     {productImageUrl && (
-                      <div className="flex-shrink-0 ml-18 sm:ml-3 md:ml-6 lg:ml-8">
+                      <div className="flex-shrink-0 ml-12 sm:ml-3 md:ml-6 lg:ml-8">
                         {/* <div className="relative w-24 sm:w-32 md:w-48 lg:w-72 xl:w-80"> */}
                         <div className="relative w-28 sm:w-40 md:w-56 lg:w-80 xl:w-88">
                           {/* Animated Border Ring - Larger on mobile */}

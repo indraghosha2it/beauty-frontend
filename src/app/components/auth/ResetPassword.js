@@ -123,7 +123,7 @@ export default function ResetPassword({ email, otp, onBack }) {
       className="space-y-6"
     >
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Reset Password</h2>
+        <h2 className="text-2xl font-bold text-pink-600 mb-2">Reset Password</h2>
         <p className="text-gray-600">
           Create a new password for<br />
           <span className="font-semibold text-blue-600">{email}</span>
@@ -200,7 +200,7 @@ export default function ResetPassword({ email, otp, onBack }) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-3 px-4 bg-black text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-[#6B4F3A]/25 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
+          className="w-full py-3 px-4 bg-pink-700 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-[#6B4F3A]/25 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
         >
           {isSubmitting ? (
             <>

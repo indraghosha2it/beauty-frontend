@@ -8,28 +8,36 @@ export default function MetadataUpdater({ product }) {
     
     const updateMetadata = () => {
       try {
-        // Get SEO data from product metaSettings or generate fallback for ToyMart
+        // Get SEO data from product metaSettings or generate fallback for Beauty Bucket
         const metaTitle = product.metaSettings?.metaTitle || 
-          `${product.productName} - Premium Kids Toy | ToyMart Bangladesh`;
+          `${product.productName} - Premium Beauty Product | Beauty Bucket Bangladesh`;
         
         const metaDescription = product.metaSettings?.metaDescription || 
-          `${product.productName} - Premium quality kids toy from ToyMart Bangladesh. ${product.shortDescription?.substring(0, 150) || ''} Safe, educational, and fun for children ages ${product.ageGroup || '3+'}. ✓COD ✓bKash/Nagad ✓Free Delivery.`;
+          `${product.productName} - Premium quality beauty product from Beauty Bucket Bangladesh. ${product.shortDescription?.substring(0, 150) || ''} ✓100% Authentic ✓Dermatologist Approved ✓Free Delivery on orders above 2000 BDT.`;
         
         const metaKeywords = product.metaSettings?.metaKeywords || [
           product.productName,
           product.category?.name,
           product.tags,
-          'kids toys',
-          'educational toys',
-          'Bangladesh toy store',
-          'toymart',
+          'beauty products',
+          'skincare',
+          'cosmetics',
+          'makeup',
+          'haircare',
+          'fragrance',
+          'beauty bucket',
+          'premium beauty',
+          'authentic beauty products',
+          'dermatologist approved',
+          'cruelty free beauty',
+          'natural skincare',
           ...(product.tags || [])
         ].flat().filter(Boolean);
         
         // Get primary image
         const primaryImage = product.images?.find(img => img.isPrimary)?.url || 
                              product.images?.[0]?.url || 
-                             '/toy-default-og.jpg';
+                             '/beauty-default-og.jpg';
         
         // Update document title
         document.title = metaTitle;
@@ -66,10 +74,10 @@ export default function MetadataUpdater({ product }) {
         // Open Graph tags
         updateOrCreateMetaTag('og:title', metaTitle, true);
         updateOrCreateMetaTag('og:description', metaDescription, true);
-        updateOrCreateMetaTag('og:url', `https://toymart.com.bd/productDetails?id=${product._id}`, true);
+        updateOrCreateMetaTag('og:url', `https://beautybucket.com/productDetails?id=${product._id}`, true);
         updateOrCreateMetaTag('og:image', primaryImage, true);
         updateOrCreateMetaTag('og:type', 'product', true);
-        updateOrCreateMetaTag('og:site_name', 'ToyMart', true);
+        updateOrCreateMetaTag('og:site_name', 'Beauty Bucket', true);
         updateOrCreateMetaTag('og:availability', product.stockQuantity > 0 ? 'in stock' : 'out of stock', true);
         updateOrCreateMetaTag('og:price:amount', product.discountPrice || product.regularPrice, true);
         updateOrCreateMetaTag('og:price:currency', 'BDT', true);
@@ -79,11 +87,11 @@ export default function MetadataUpdater({ product }) {
         updateOrCreateMetaTag('twitter:description', metaDescription);
         updateOrCreateMetaTag('twitter:image', primaryImage);
         updateOrCreateMetaTag('twitter:card', 'summary_large_image');
-        updateOrCreateMetaTag('twitter:site', '@ToyMartBD');
+        updateOrCreateMetaTag('twitter:site', '@BeautyBucketBD');
         
         // Canonical link
         let canonical = document.querySelector('link[rel="canonical"]');
-        const canonicalUrl = `https://toymart.com.bd/productDetails?id=${product._id}`;
+        const canonicalUrl = `https://beautybucket.com/productDetails?id=${product._id}`;
         if (canonical) {
           canonical.setAttribute('href', canonicalUrl);
         } else {
@@ -99,7 +107,7 @@ export default function MetadataUpdater({ product }) {
           existingJsonLd.remove();
         }
         
-        // Add JSON-LD structured data for better SEO - ToyMart specific
+        // Add JSON-LD structured data for better SEO - Beauty Bucket specific
         const currentPrice = product.discountPrice && product.discountPrice < product.regularPrice 
           ? product.discountPrice 
           : product.regularPrice;
@@ -114,12 +122,12 @@ export default function MetadataUpdater({ product }) {
           "mpn": product.skuCode || product._id,
           "brand": {
             "@type": "Brand",
-            "name": product.brand || "ToyMart",
-            "logo": "https://toymart.com.bd/logo.png"
+            "name": product.brand || "Beauty Bucket",
+            "logo": "https://beautybucket.com/logo.png"
           },
           "manufacturer": {
             "@type": "Organization",
-            "name": "ToyMart",
+            "name": "Beauty Bucket",
             "address": {
               "@type": "PostalAddress",
               "addressCountry": "BD",
@@ -133,7 +141,7 @@ export default function MetadataUpdater({ product }) {
             "priceCurrency": "BDT",
             "availability": product.stockQuantity > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
             "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
-            "url": `https://toymart.com.bd/productDetails?id=${product._id}`,
+            "url": `https://beautybucket.com/productDetails?id=${product._id}`,
             "shippingDetails": {
               "@type": "OfferShippingDetails",
               "shippingDestination": {
@@ -154,28 +162,28 @@ export default function MetadataUpdater({ product }) {
           "additionalProperty": [
             {
               "@type": "PropertyValue",
-              "name": "Age Group",
-              "value": product.ageGroup || "3+ years"
+              "name": "Skin Type",
+              "value": product.skinType || "All Skin Types"
             },
             {
               "@type": "PropertyValue",
               "name": "Category",
-              "value": product.category?.name || product.categoryName || "Kids Toy"
+              "value": product.category?.name || product.categoryName || "Beauty Product"
             },
             {
               "@type": "PropertyValue",
-              "name": "Material",
-              "value": product.materials || "Non-toxic, Child-safe materials"
+              "name": "Ingredients",
+              "value": product.ingredients || "Natural, Dermatologist Approved Ingredients"
             },
             {
               "@type": "PropertyValue",
               "name": "Origin",
-              "value": "Bangladesh"
+              "value": "Imported, Bangladesh"
             },
             {
               "@type": "PropertyValue",
               "name": "Safety Certified",
-              "value": "ASTM, EN71 Certified"
+              "value": "Dermatologically Tested, Hypoallergenic"
             }
           ]
         };
@@ -189,31 +197,31 @@ export default function MetadataUpdater({ product }) {
           });
         }
         
-        // Add educational benefits if available
-        if (product.educationalBenefits) {
+        // Add benefits if available
+        if (product.benefits) {
           jsonLd.additionalProperty.push({
             "@type": "PropertyValue",
-            "name": "Educational Benefits",
-            "value": product.educationalBenefits
+            "name": "Benefits",
+            "value": product.benefits
           });
         }
         
-        // Add dimensions if available
-        if (product.dimensions) {
+        // Add key ingredients if available
+        if (product.keyIngredients) {
           jsonLd.additionalProperty.push({
             "@type": "PropertyValue",
-            "name": "Dimensions",
-            "value": product.dimensions
+            "name": "Key Ingredients",
+            "value": product.keyIngredients
           });
         }
         
-        // Add weight if available
-        if (product.weight) {
+        // Add volume/weight if available
+        if (product.volume) {
           jsonLd.additionalProperty.push({
             "@type": "PropertyValue",
-            "name": "Weight",
-            "value": product.weight,
-            "unitText": product.weightUnit || "kg"
+            "name": "Volume/Weight",
+            "value": product.volume,
+            "unitText": product.volumeUnit || "ml"
           });
         }
         
@@ -240,11 +248,11 @@ export default function MetadataUpdater({ product }) {
           "value": product.codAvailable !== false ? "Available" : "Not Available"
         });
         
-        // Add warranty information
+        // Add authenticity
         jsonLd.additionalProperty.push({
           "@type": "PropertyValue",
-          "name": "Warranty",
-          "value": "30 Days Manufacturing Warranty"
+          "name": "Authenticity",
+          "value": "100% Genuine Product"
         });
         
         // Add return policy
@@ -252,6 +260,20 @@ export default function MetadataUpdater({ product }) {
           "@type": "PropertyValue",
           "name": "Return Policy",
           "value": "7 Days Return Policy for defective products"
+        });
+        
+        // Add cruelty-free status
+        jsonLd.additionalProperty.push({
+          "@type": "PropertyValue",
+          "name": "Cruelty Free",
+          "value": "Yes"
+        });
+        
+        // Add dermatologist approved
+        jsonLd.additionalProperty.push({
+          "@type": "PropertyValue",
+          "name": "Dermatologist Approved",
+          "value": "Yes"
         });
         
         // Add the JSON-LD script to head
@@ -267,10 +289,10 @@ export default function MetadataUpdater({ product }) {
           const orgJsonLd = {
             "@context": "https://schema.org",
             "@type": "Store",
-            "name": "ToyMart",
-            "url": "https://toymart.com.bd",
-            "logo": "https://toymart.com.bd/logo.png",
-            "description": "Bangladesh's premier kids toy e-commerce website. Shop educational toys, Montessori toys, STEM kits, RC cars, outdoor toys, dolls and more.",
+            "name": "Beauty Bucket",
+            "url": "https://beautybucket.com",
+            "logo": "https://beautybucket.com/logo.png",
+            "description": "Bangladesh's premier beauty e-commerce website. Shop skincare, makeup, haircare, fragrances, and premium beauty products. 100% authentic, dermatologist approved.",
             "address": {
               "@type": "PostalAddress",
               "addressCountry": "BD",
@@ -282,16 +304,22 @@ export default function MetadataUpdater({ product }) {
               "@type": "ContactPoint",
               "contactType": "Customer Service",
               "telephone": "+8801234567890",
-              "email": "support@toymart.com.bd",
+              "email": "support@beautybucket.com",
               "availableLanguage": ["English", "Bengali"]
             },
             "sameAs": [
-              "https://www.facebook.com/toymartbd",
-              "https://www.instagram.com/toymart.bd"
+              "https://www.facebook.com/beautybucketbd",
+              "https://www.instagram.com/beautybucket.bd"
             ],
-            "priceRange": "৳200 - ৳20000",
+            "priceRange": "৳200 - ৳50000",
             "currenciesAccepted": "BDT",
-            "paymentAccepted": "Cash on Delivery, bKash, Nagad, Credit Card"
+            "paymentAccepted": "Cash on Delivery, bKash, Nagad, Credit Card",
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+              "opens": "09:00",
+              "closes": "21:00"
+            }
           };
           
           const orgScript = document.createElement('script');
@@ -301,7 +329,7 @@ export default function MetadataUpdater({ product }) {
           document.head.appendChild(orgScript);
         }
         
-        console.log('Metadata updated for ToyMart product:', product.productName);
+        console.log('Metadata updated for Beauty Bucket product:', product.productName);
         console.log('JSON-LD added for product:', product.productName);
         
       } catch (error) {

@@ -1,3 +1,4 @@
+// app/contact/page.js
 import { Suspense } from 'react';
 import ContactClient from './ContactClient';
 
@@ -10,11 +11,11 @@ function ContactLoading() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-br from-[#FFF9F0] to-[#D4EDEE] flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-[#FFF5F6] via-[#FFD2DB] to-[#FFE8ED] flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 mx-auto bg-[#4A8A90]/20 rounded-full animate-pulse mb-4"></div>
-          <div className="h-6 w-48 bg-[#4A8A90]/20 rounded mx-auto animate-pulse"></div>
-          <div className="h-4 w-64 bg-[#4A8A90]/20 rounded mx-auto mt-3 animate-pulse"></div>
+          <div className="w-16 h-16 mx-auto bg-[#EE4275]/20 rounded-full animate-pulse mb-4"></div>
+          <div className="h-6 w-48 bg-[#EE4275]/20 rounded mx-auto animate-pulse"></div>
+          <div className="h-4 w-64 bg-[#EE4275]/20 rounded mx-auto mt-3 animate-pulse"></div>
         </div>
       </div>
       <Footer />
@@ -22,59 +23,72 @@ function ContactLoading() {
   );
 }
 
-// ToyMart Contact Us Page SEO Metadata
+// Beauty Bucket Contact Us Page SEO Metadata
 export const metadata = {
-  title: "Contact Us | Get in Touch with ToyMart - Kids Toy Store Bangladesh",
-  description: "Contact ToyMart customer support for questions about toys, orders, delivery, or returns. Call, email, or visit us in Dhaka. We're here to help 24/7!",
+  title: "Contact Us | Get in Touch with Beauty Bucket - Premium Beauty Store Bangladesh",
+  description: "Contact Beauty Bucket customer support for questions about skincare, makeup, fragrances, orders, delivery, or returns. Call, email, or visit us in Dhaka. We're here to help!",
   keywords: [
     // Contact specific
-    "contact toymart",
-    "toy store customer care bd",
-    "kids toy support bangladesh",
-    "toymart helpline",
-    "customer service toys bd",
+    "contact beauty bucket",
+    "beauty store customer care bd",
+    "cosmetics support bangladesh",
+    "beauty bucket helpline",
+    "customer service skincare bd",
     
     // Contact methods
-    "toy shop phone number",
-    "toymart email address",
-    "toy store location dhaka",
-    "customer care number toys",
-    "24/7 toy support bd",
+    "beauty shop phone number",
+    "beauty bucket email address",
+    "cosmetics store location dhaka",
+    "customer care number beauty",
+    "beauty support bd",
     
     // Support inquiries
-    "toy order help",
+    "skincare order help",
     "delivery support bangladesh",
-    "toy return contact",
-    "product inquiry toys",
-    "toy warranty support",
+    "cosmetics return contact",
+    "product inquiry beauty",
+    "makeup warranty support",
     
     // Business inquiries
-    "toy business contact",
-    "wholesale toys inquiry",
-    "toy supplier bangladesh",
-    "partnership toys bd",
+    "beauty business contact",
+    "cosmetics wholesale inquiry",
+    "beauty supplier bangladesh",
+    "partnership cosmetics bd",
     
     // Social media
-    "toymart facebook",
-    "toymart instagram",
-    "toy store social media",
+    "beauty bucket facebook",
+    "beauty bucket instagram",
+    "cosmetics store social media",
     
     // Location
-    "toy store dhaka address",
-    "kids shop gulshan",
-    "toymart office location"
+    "beauty store dhaka address",
+    "cosmetics shop gulshan",
+    "beauty bucket office location",
+    
+    // Beauty specific
+    "skincare consultation bd",
+    "makeup help bangladesh",
+    "fragrance inquiry dhaka",
+    "beauty advice bd",
+    
+    // Customer service
+    "beauty product support",
+    "cosmetics helpline bd",
+    "skincare customer care",
+    "beauty store assistance",
+    "makeup expert help"
   ],
   openGraph: {
-    title: "Contact ToyMart - We're Here to Help | Kids Toy Store Bangladesh",
-    description: "Need help with your toy order? Have questions about our products? Contact our friendly customer support team via phone, email, or visit our Dhaka store.",
-    url: process.env.NEXT_PUBLIC_BASE_URL + '/contact' || 'https://toymart.com.bd/contact',
-    siteName: "ToyMart",
+    title: "Contact Beauty Bucket - We're Here to Help | Premium Beauty Store Bangladesh",
+    description: "Need help with your beauty order? Have questions about skincare, makeup, or fragrances? Contact our friendly customer support team via phone, email, or visit our Dhaka store.",
+    url: process.env.NEXT_PUBLIC_BASE_URL + '/contact' || 'https://beautybucket.com.bd/contact',
+    siteName: "Beauty Bucket",
     images: [
       {
-        url: '/contact-og.jpg',
+        url: '/contact-og-beautybucket.jpg',
         width: 1200,
         height: 630,
-        alt: 'Contact ToyMart - Customer Support for Kids Toys',
+        alt: 'Contact Beauty Bucket - Customer Support for Premium Beauty Products',
       },
     ],
     type: 'website',
@@ -83,11 +97,11 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@ToyMartBD',
-    creator: '@ToyMartBD',
-    title: "Contact ToyMart | Customer Support",
-    description: "Questions about toys or orders? Contact our friendly team. Call, email, or visit us in Dhaka.",
-    images: ['/contact-twitter.jpg'],
+    site: '@BeautyBucketBD',
+    creator: '@BeautyBucketBD',
+    title: "Contact Beauty Bucket | Customer Support",
+    description: "Questions about beauty products or orders? Contact our friendly team. Call, email, or visit us in Dhaka.",
+    images: ['/contact-twitter-beautybucket.jpg'],
   },
   alternates: {
     canonical: '/contact',
@@ -109,15 +123,19 @@ export const metadata = {
   },
   // Contact page specific metadata
   other: {
-    'application-name': 'ToyMart Contact',
-    'msapplication-TileColor': '#FF6B35',
-    'theme-color': '#FF6B35',
+    'application-name': 'Beauty Bucket Contact',
+    'msapplication-TileColor': '#EE4275',
+    'theme-color': '#EE4275',
     'page-type': 'contact-us',
-    'contact-email': 'support@toymart.com',
+    'contact-email': 'support@beautybucket.com',
     'contact-phone': '+8801234567890',
-    'business-hours': 'Mon-Fri 9AM-8PM, Sat 10AM-6PM',
+    'business-hours': 'Mon-Sat 9AM-9PM, Sun 10AM-6PM',
     'address-locality': 'Dhaka',
     'address-country': 'BD',
+    'product-categories': 'Skincare, Makeup, Fragrances, Hair Care, Body Care',
+    'authenticity': '100% Genuine Products',
+    'beauty-consultation': 'Available via Chat & Phone',
+    'customer-care-type': 'Beauty Experts Support',
   },
 };
 

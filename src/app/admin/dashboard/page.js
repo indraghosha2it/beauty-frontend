@@ -368,7 +368,7 @@
 //     return (
 //       <div className="flex items-center justify-center min-h-screen bg-gray-50">
 //         <div className="text-center">
-//           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+//           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-600 mx-auto"></div>
 //           <p className="mt-4 text-gray-600">Loading dashboard...</p>
 //         </div>
 //       </div>
@@ -383,7 +383,7 @@
 //           <p className="text-red-600">{error}</p>
 //           <button
 //             onClick={loadDashboardData}
-//             className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+//             className="mt-4 px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition"
 //           >
 //             Try Again
 //           </button>
@@ -418,7 +418,7 @@
 //                 <button
 //                   onClick={() => setFilterType('month')}
 //                   className={`flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition ${
-//                     filterType === 'month' ? 'bg-blue-600 text-white' : 'text-gray-600 hover:bg-gray-200'
+//                     filterType === 'month' ? 'bg-pink-600 text-white' : 'text-gray-600 hover:bg-gray-200'
 //                   }`}
 //                 >
 //                   Monthly
@@ -426,7 +426,7 @@
 //                 <button
 //                   onClick={() => setFilterType('year')}
 //                   className={`flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition ${
-//                     filterType === 'year' ? 'bg-blue-600 text-white' : 'text-gray-600 hover:bg-gray-200'
+//                     filterType === 'year' ? 'bg-pink-600 text-white' : 'text-gray-600 hover:bg-gray-200'
 //                   }`}
 //                 >
 //                   Yearly
@@ -486,7 +486,7 @@
 
 //         {/* Revenue Overview Cards */}
 //         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
-//           <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl shadow-lg p-4 sm:p-6 text-white">
+//           <div className="bg-gradient-to-r from-blue-500 to-pink-600 rounded-xl shadow-lg p-4 sm:p-6 text-white">
 //             <div className="flex items-center justify-between">
 //               <div>
 //                 <p className="text-blue-100 text-xs sm:text-sm">Filtered Revenue</p>
@@ -556,8 +556,8 @@
 //               <div className="bg-blue-50 rounded-lg p-3 sm:p-4 border border-blue-100">
 //                 <div className="flex items-center justify-between">
 //                   <div>
-//                     <p className="text-blue-600 text-xs sm:text-sm">Confirmed</p>
-//                     <p className="text-xl sm:text-2xl font-bold text-blue-700">{stats.orders.confirmed}</p>
+//                     <p className="text-pink-600 text-xs sm:text-sm">Confirmed</p>
+//                     <p className="text-xl sm:text-2xl font-bold text-pink-700">{stats.orders.confirmed}</p>
 //                   </div>
 //                   <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />
 //                 </div>
@@ -607,7 +607,7 @@
 //             <div className="space-y-3 sm:space-y-4">
 //               {topProducts.map((product, index) => (
 //                 <div key={product.id} className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-gray-50 rounded-lg">
-//                   <div className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-600 text-sm sm:text-base">
+//                   <div className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-100 rounded-full flex items-center justify-center font-bold text-pink-600 text-sm sm:text-base">
 //                     {index + 1}
 //                   </div>
 //                   {product.image ? (
@@ -640,7 +640,7 @@
 //             <div className="space-y-3">
 //               <div className="flex justify-between items-center">
 //                 <span className="text-gray-600 text-sm sm:text-base">Cash on Delivery</span>
-//                 <span className="font-semibold text-blue-600">{stats.payments.cod} orders</span>
+//                 <span className="font-semibold text-pink-600">{stats.payments.cod} orders</span>
 //               </div>
 //               <div className="flex justify-between items-center">
 //                 <span className="text-gray-600 text-sm sm:text-base">Online Payment</span>
@@ -691,7 +691,7 @@
 //               </div>
 //               <div className="flex justify-between items-center">
 //                 <span className="text-gray-600 text-sm sm:text-base">Products on Sale</span>
-//                 <span className="font-semibold text-blue-600">{stats.products.onSale}</span>
+//                 <span className="font-semibold text-pink-600">{stats.products.onSale}</span>
 //               </div>
 //             </div>
             
@@ -717,7 +717,7 @@
 //           <div className="px-4 sm:px-6 py-4 border-b border-gray-200">
 //             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
 //               <h2 className="text-lg font-semibold text-gray-800">Recent Orders ({getFilterLabel()})</h2>
-//               <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+//               <button className="text-pink-600 hover:text-pink-700 text-sm font-medium">
 //                 View All Orders
 //               </button>
 //             </div>
@@ -739,7 +739,7 @@
 //               <tbody className="divide-y divide-gray-200">
 //                 {recentOrders.map((order) => (
 //                   <tr key={order._id} className="hover:bg-gray-50 transition">
-//                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
+//                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-pink-600">
 //                       {order.orderNumber}
 //                     </td>
 //                     <td className="px-6 py-4 whitespace-nowrap">
@@ -751,7 +751,7 @@
 //                     </td>
 //                     <td className="px-6 py-4 whitespace-nowrap">
 //                       <span className={`text-xs px-2 py-1 rounded-full ${
-//                         order.paymentMethod === 'cod' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'
+//                         order.paymentMethod === 'cod' ? 'bg-blue-100 text-pink-700' : 'bg-green-100 text-green-700'
 //                       }`}>
 //                         {order.paymentMethod === 'cod' ? 'COD' : 'Online'}
 //                       </span>
@@ -782,7 +782,7 @@
 //             {recentOrders.map((order) => (
 //               <div key={order._id} className="p-4 hover:bg-gray-50 transition">
 //                 <div className="flex justify-between items-start mb-2">
-//                   <span className="text-sm font-medium text-blue-600">{order.orderNumber}</span>
+//                   <span className="text-sm font-medium text-pink-600">{order.orderNumber}</span>
 //                   <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(order.orderStatus)}`}>
 //                     {getStatusLabel(order.orderStatus)}
 //                   </span>
@@ -794,7 +794,7 @@
 //                 <div className="flex justify-between items-center">
 //                   <div>
 //                     <span className={`text-xs px-2 py-1 rounded-full ${
-//                       order.paymentMethod === 'cod' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'
+//                       order.paymentMethod === 'cod' ? 'bg-blue-100 text-pink-700' : 'bg-green-100 text-green-700'
 //                     }`}>
 //                       {order.paymentMethod === 'cod' ? 'COD' : 'Online'}
 //                     </span>
@@ -1185,7 +1185,7 @@ export default function AdminDashboard() {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading dashboard...</p>
         </div>
       </div>
@@ -1200,7 +1200,7 @@ export default function AdminDashboard() {
           <p className="text-red-600">{error}</p>
           <button
             onClick={loadDashboardData}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            className="mt-4 px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition"
           >
             Try Again
           </button>
@@ -1241,7 +1241,7 @@ export default function AdminDashboard() {
                 <button
                   onClick={() => setFilterType('month')}
                   className={`flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition ${
-                    filterType === 'month' ? 'bg-blue-600 text-white' : 'text-gray-600 hover:bg-gray-200'
+                    filterType === 'month' ? 'bg-pink-600 text-white' : 'text-gray-600 hover:bg-gray-200'
                   }`}
                 >
                   Monthly
@@ -1249,7 +1249,7 @@ export default function AdminDashboard() {
                 <button
                   onClick={() => setFilterType('year')}
                   className={`flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition ${
-                    filterType === 'year' ? 'bg-blue-600 text-white' : 'text-gray-600 hover:bg-gray-200'
+                    filterType === 'year' ? 'bg-pink-600 text-white' : 'text-gray-600 hover:bg-gray-200'
                   }`}
                 >
                   Yearly
@@ -1381,8 +1381,8 @@ export default function AdminDashboard() {
               <div className="bg-blue-50 rounded-lg p-3 sm:p-4 border border-blue-100">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-blue-600 text-xs sm:text-sm">Confirmed</p>
-                    <p className="text-xl sm:text-2xl font-bold text-blue-700">{stats.orders.confirmed}</p>
+                    <p className="text-pink-600 text-xs sm:text-sm">Confirmed</p>
+                    <p className="text-xl sm:text-2xl font-bold text-pink-700">{stats.orders.confirmed}</p>
                   </div>
                   <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-blue-500" />
                 </div>
@@ -1435,7 +1435,7 @@ export default function AdminDashboard() {
             <div className="space-y-3 sm:space-y-4">
               {topProducts.map((product, index) => (
                 <div key={product.id} className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-gray-50 rounded-lg">
-                  <div className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-600 text-sm sm:text-base">
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-100 rounded-full flex items-center justify-center font-bold text-pink-600 text-sm sm:text-base">
                     {index + 1}
                   </div>
                   {product.image ? (
@@ -1470,7 +1470,7 @@ export default function AdminDashboard() {
             <div className="space-y-3">
               <div className="flex justify-between items-center">
                 <span className="text-gray-600 text-sm sm:text-base">Cash on Delivery</span>
-                <span className="font-semibold text-blue-600">{stats.payments.cod} orders</span>
+                <span className="font-semibold text-pink-600">{stats.payments.cod} orders</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-600 text-sm sm:text-base">Online Payment</span>
@@ -1524,7 +1524,7 @@ export default function AdminDashboard() {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-600 text-sm sm:text-base">Products on Sale</span>
-                <span className="font-semibold text-blue-600">{stats.products.onSale}</span>
+                <span className="font-semibold text-pink-600">{stats.products.onSale}</span>
               </div>
             </div>
             
@@ -1552,7 +1552,7 @@ export default function AdminDashboard() {
               <h2 className="text-lg font-semibold text-gray-800">Recent Orders ({getFilterLabel()})</h2>
               <button 
                 onClick={() => router.push('/admin/orders')}
-                className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+                className="text-pink-600 hover:text-pink-700 text-sm font-medium"
               >
                 View All Orders
               </button>
@@ -1575,7 +1575,7 @@ export default function AdminDashboard() {
               <tbody className="divide-y divide-gray-200">
                 {recentOrders.map((order) => (
                   <tr key={order._id} className="hover:bg-gray-50 transition">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-pink-600">
                       {order.orderNumber}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -1587,7 +1587,7 @@ export default function AdminDashboard() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`text-xs px-2 py-1 rounded-full ${
-                        order.paymentMethod === 'cod' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'
+                        order.paymentMethod === 'cod' ? 'bg-blue-100 text-pink-700' : 'bg-green-100 text-green-700'
                       }`}>
                         {order.paymentMethod === 'cod' ? 'COD' : 'Online'}
                       </span>
@@ -1618,7 +1618,7 @@ export default function AdminDashboard() {
             {recentOrders.map((order) => (
               <div key={order._id} className="p-4 hover:bg-gray-50 transition">
                 <div className="flex justify-between items-start mb-2">
-                  <span className="text-sm font-medium text-blue-600">{order.orderNumber}</span>
+                  <span className="text-sm font-medium text-pink-600">{order.orderNumber}</span>
                   <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(order.orderStatus)}`}>
                     {getStatusLabel(order.orderStatus)}
                   </span>
@@ -1630,7 +1630,7 @@ export default function AdminDashboard() {
                 <div className="flex justify-between items-center">
                   <div>
                     <span className={`text-xs px-2 py-1 rounded-full ${
-                      order.paymentMethod === 'cod' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'
+                      order.paymentMethod === 'cod' ? 'bg-blue-100 text-pink-700' : 'bg-green-100 text-green-700'
                     }`}>
                       {order.paymentMethod === 'cod' ? 'COD' : 'Online'}
                     </span>

@@ -111,7 +111,7 @@ export default function ModalResetPassword({ email, otp, onBack, onSuccess }) {
       className="space-y-6"
     >
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Reset Password</h2>
+        <h2 className="text-2xl font-bold text-pink-600 mb-2">Reset Password</h2>
         <p className="text-gray-600">
           Create a new password for<br />
           <span className="font-semibold text-[#6B4F3A]">{email}</span>

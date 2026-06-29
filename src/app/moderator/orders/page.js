@@ -1,9 +1,8 @@
 
-
 // // app/moderator/orders/page.js
 // 'use client';
 
-// import { useState, useEffect, useCallback } from 'react';
+// import { useState, useEffect, useCallback, useRef } from 'react';
 // import { useRouter } from 'next/navigation';
 // import { toast } from 'sonner';
 // import { motion } from 'framer-motion';
@@ -38,7 +37,8 @@
 //   FaMobileAlt,
 //   FaShoppingBag,
 //   FaFilter,
-//   FaArrowRight
+//   FaArrowRight,
+//   FaChevronDown
 // } from 'react-icons/fa';
 
 // const ORDER_STATUSES = [
@@ -57,12 +57,113 @@
 //   { value: 'refunded', label: 'Refunded', color: 'bg-orange-100 text-orange-700' }
 // ];
 
-// // Edit Order Modal
+// // Searchable Select Component
+// const SearchableSelect = ({ name, value, onChange, options, placeholder, required, disabled, error }) => {
+//   const [isOpen, setIsOpen] = useState(false);
+//   const [searchTerm, setSearchTerm] = useState('');
+//   const dropdownRef = useRef(null);
+
+//   const filteredOptions = options.filter(option =>
+//     option.toLowerCase().includes(searchTerm.toLowerCase())
+//   );
+
+//   const handleSelect = (selectedValue) => {
+//     onChange({ target: { name, value: selectedValue } });
+//     setIsOpen(false);
+//     setSearchTerm('');
+//   };
+
+//   const handleClear = () => {
+//     onChange({ target: { name, value: '' } });
+//     setSearchTerm('');
+//   };
+
+//   useEffect(() => {
+//     const handleClickOutside = (event) => {
+//       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+//         setIsOpen(false);
+//       }
+//     };
+//     document.addEventListener('mousedown', handleClickOutside);
+//     return () => document.removeEventListener('mousedown', handleClickOutside);
+//   }, []);
+
+//   const selectedOption = value && options.includes(value) ? value : '';
+
+//   return (
+//     <div className="relative" ref={dropdownRef}>
+//       <div
+//         className={`w-full px-3 py-2 border rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent cursor-pointer flex items-center justify-between transition-all text-sm ${
+//           disabled ? 'bg-gray-50 cursor-not-allowed' : 'bg-white'
+//         } ${error ? 'border-red-500' : 'border-gray-300 hover:border-blue-500'}`}
+//         onClick={() => !disabled && setIsOpen(!isOpen)}
+//       >
+//         <span className={`text-sm ${selectedOption ? 'text-gray-900 font-medium' : 'text-gray-400'}`}>
+//           {selectedOption || placeholder}
+//         </span>
+//         <div className="flex items-center gap-2 flex-shrink-0">
+//           {selectedOption && !disabled && (
+//             <button
+//               type="button"
+//               onClick={(e) => {
+//                 e.stopPropagation();
+//                 handleClear();
+//               }}
+//               className="text-gray-400 hover:text-gray-600"
+//             >
+//               <FaTimes className="w-3 h-3" />
+//             </button>
+//           )}
+//           <FaChevronDown className={`w-3 h-3 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+//         </div>
+//       </div>
+
+//       {isOpen && !disabled && (
+//         <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-hidden">
+//           <div className="p-2 border-b border-gray-100">
+//             <div className="relative">
+//               <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-3.5 h-3.5" />
+//               <input
+//                 type="text"
+//                 value={searchTerm}
+//                 onChange={(e) => setSearchTerm(e.target.value)}
+//                 placeholder="Search..."
+//                 className="w-full pl-9 pr-3 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+//                 onClick={(e) => e.stopPropagation()}
+//               />
+//             </div>
+//           </div>
+//           <div className="overflow-y-auto max-h-48">
+//             {filteredOptions.length > 0 ? (
+//               filteredOptions.map((option, idx) => (
+//                 <button
+//                   key={idx}
+//                   type="button"
+//                   onClick={() => handleSelect(option)}
+//                   className="w-full px-4 py-2 text-left hover:bg-gray-100 transition-colors text-sm"
+//                 >
+//                   {option}
+//                 </button>
+//               ))
+//             ) : (
+//               <div className="px-4 py-3 text-sm text-gray-500 text-center">
+//                 No results found
+//               </div>
+//             )}
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// // Edit Order Modal - With Division Support
 // const EditOrderModal = ({ isOpen, onClose, order, onUpdate }) => {
 //   const [formData, setFormData] = useState({
 //     fullName: '',
 //     email: '',
 //     phone: '',
+//     division: '',
 //     address: '',
 //     city: '',
 //     zone: '',
@@ -71,6 +172,79 @@
 //     deliveryNote: ''
 //   });
 //   const [loading, setLoading] = useState(false);
+//   const [locationData, setLocationData] = useState({});
+//   const [divisions, setDivisions] = useState({});
+//   const [divisionList, setDivisionList] = useState([]);
+//   const [citiesByDivision, setCitiesByDivision] = useState([]);
+//   const [zones, setZones] = useState([]);
+//   const [areas, setAreas] = useState([]);
+//   const [locationLoading, setLocationLoading] = useState(true);
+
+//   // Fetch locations
+//   useEffect(() => {
+//     const fetchLocations = async () => {
+//       try {
+//         const response = await fetch('/api/locations');
+//         const data = await response.json();
+//         setLocationData(data.locationData || {});
+        
+//         const divisions = data.divisions || {};
+//         const filteredDivisions = {};
+//         const divisionKeys = [];
+        
+//         Object.keys(divisions).forEach(key => {
+//           if (key !== 'Other') {
+//             filteredDivisions[key] = divisions[key];
+//             divisionKeys.push(key);
+//           }
+//         });
+        
+//         setDivisions(filteredDivisions);
+//         setDivisionList(divisionKeys.sort());
+//         setLocationLoading(false);
+//       } catch (error) {
+//         console.error('Failed to load location data:', error);
+//         setLocationLoading(false);
+//       }
+//     };
+//     fetchLocations();
+//   }, []);
+
+//   // Update cities when division changes
+//   useEffect(() => {
+//     if (formData.division && divisions[formData.division]) {
+//       setCitiesByDivision(divisions[formData.division]);
+//       setZones([]);
+//       setAreas([]);
+//     } else {
+//       setCitiesByDivision([]);
+//     }
+//   }, [formData.division, divisions]);
+
+//   // Update zones when city changes
+//   useEffect(() => {
+//     const selectedCity = formData.city;
+//     if (selectedCity && locationData[selectedCity]) {
+//       const availableZones = Object.keys(locationData[selectedCity].zones || {});
+//       setZones(availableZones);
+//       setAreas([]);
+//     } else {
+//       setZones([]);
+//       setAreas([]);
+//     }
+//   }, [formData.city, locationData]);
+
+//   // Update areas when zone changes
+//   useEffect(() => {
+//     const selectedCity = formData.city;
+//     const selectedZone = formData.zone;
+//     if (selectedCity && selectedZone && locationData[selectedCity]) {
+//       const availableAreas = locationData[selectedCity].zones[selectedZone] || [];
+//       setAreas(availableAreas);
+//     } else {
+//       setAreas([]);
+//     }
+//   }, [formData.zone, formData.city, locationData]);
 
 //   useEffect(() => {
 //     if (order) {
@@ -78,6 +252,7 @@
 //         fullName: order.customerInfo?.fullName || '',
 //         email: order.customerInfo?.email || '',
 //         phone: order.customerInfo?.phone || '',
+//         division: order.customerInfo?.division || '',
 //         address: order.customerInfo?.address || '',
 //         city: order.customerInfo?.city || '',
 //         zone: order.customerInfo?.zone || '',
@@ -87,6 +262,29 @@
 //       });
 //     }
 //   }, [order]);
+
+//   const handleInputChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData(prev => ({ ...prev, [name]: value }));
+    
+//     // If division changes, reset city, zone, area
+//     if (name === 'division') {
+//       setFormData(prev => ({ ...prev, city: '', zone: '', area: '' }));
+//       setZones([]);
+//       setAreas([]);
+//     }
+    
+//     // If city changes, reset zone, area
+//     if (name === 'city') {
+//       setFormData(prev => ({ ...prev, zone: '', area: '' }));
+//       setAreas([]);
+//     }
+    
+//     // If zone changes, reset area
+//     if (name === 'zone') {
+//       setFormData(prev => ({ ...prev, area: '' }));
+//     }
+//   };
 
 //   const handleSubmit = async () => {
 //     setLoading(true);
@@ -103,6 +301,7 @@
 //             fullName: formData.fullName,
 //             email: formData.email,
 //             phone: formData.phone,
+//             division: formData.division,
 //             address: formData.address,
 //             city: formData.city,
 //             zone: formData.zone,
@@ -165,7 +364,7 @@
 //                 />
 //               </div>
 //               <div>
-//                 <label className="block text-xs font-medium text-gray-700 mb-1">Email *</label>
+//                 <label className="block text-xs font-medium text-gray-700 mb-1">Email</label>
 //                 <input
 //                   type="email"
 //                   value={formData.email}
@@ -183,12 +382,50 @@
 //                 />
 //               </div>
 //               <div>
-//                 <label className="block text-xs font-medium text-gray-700 mb-1">City</label>
-//                 <input
-//                   type="text"
+//                 <label className="block text-xs font-medium text-gray-700 mb-1">Division *</label>
+//                 <SearchableSelect
+//                   name="division"
+//                   value={formData.division}
+//                   onChange={handleInputChange}
+//                   options={divisionList}
+//                   placeholder="Select Division"
+//                   disabled={locationLoading}
+//                   error={!formData.division && false}
+//                 />
+//               </div>
+//               <div>
+//                 <label className="block text-xs font-medium text-gray-700 mb-1">District/City *</label>
+//                 <SearchableSelect
+//                   name="city"
 //                   value={formData.city}
-//                   onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-//                   className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition"
+//                   onChange={handleInputChange}
+//                   options={citiesByDivision}
+//                   placeholder={formData.division ? "Select District" : "Select Division First"}
+//                   disabled={!formData.division || locationLoading}
+//                   error={!formData.city && false}
+//                 />
+//               </div>
+//               <div>
+//                 <label className="block text-xs font-medium text-gray-700 mb-1">Upazila/Thana *</label>
+//                 <SearchableSelect
+//                   name="zone"
+//                   value={formData.zone}
+//                   onChange={handleInputChange}
+//                   options={zones}
+//                   placeholder={formData.city ? "Select Upazila/Thana" : "Select District First"}
+//                   disabled={!formData.city || locationLoading}
+//                   error={!formData.zone && false}
+//                 />
+//               </div>
+//               <div>
+//                 <label className="block text-xs font-medium text-gray-700 mb-1">Union/Area</label>
+//                 <SearchableSelect
+//                   name="area"
+//                   value={formData.area}
+//                   onChange={handleInputChange}
+//                   options={areas}
+//                   placeholder={formData.zone ? "Select Union/Area" : "Select Upazila First"}
+//                   disabled={!formData.zone || locationLoading}
 //                 />
 //               </div>
 //               <div className="md:col-span-2">
@@ -659,7 +896,7 @@
 //   );
 // };
 
-// // Order Details Modal
+// // Order Details Modal - Updated with Division
 // const OrderDetailsModal = ({ isOpen, onClose, order, onStatusUpdate, onPaymentUpdate, userRole }) => {
 //   if (!isOpen || !order) return null;
 
@@ -779,9 +1016,6 @@
 //                 <p><span className="text-gray-500">Name:</span> {order.customerInfo?.fullName}</p>
 //                 <p><span className="text-gray-500">Email:</span> {order.customerInfo?.email}</p>
 //                 <p><span className="text-gray-500">Phone:</span> {order.customerInfo?.phone}</p>
-//                 {order.customerInfo?.whatsapp && (
-//                   <p><span className="text-gray-500">WhatsApp:</span> {order.customerInfo.whatsapp}</p>
-//                 )}
 //               </div>
 //             </div>
 
@@ -791,10 +1025,13 @@
 //                 Delivery Information
 //               </h3>
 //               <div className="space-y-1 text-xs">
+//                 <p><span className="text-gray-500">Division:</span> <span className="font-medium">{order.customerInfo?.division || 'N/A'}</span></p>
+//                 <p><span className="text-gray-500">District/City:</span> <span className="font-medium">{order.customerInfo?.city || 'N/A'}</span></p>
+//                 <p><span className="text-gray-500">Upazila/Thana:</span> <span className="font-medium">{order.customerInfo?.zone || 'N/A'}</span></p>
+//                 {order.customerInfo?.area && (
+//                   <p><span className="text-gray-500">Union/Area:</span> <span className="font-medium">{order.customerInfo.area}</span></p>
+//                 )}
 //                 <p><span className="text-gray-500">Address:</span> {order.customerInfo?.address}</p>
-//                 <p><span className="text-gray-500">City:</span> {order.customerInfo?.city}</p>
-//                 <p><span className="text-gray-500">Upazila/Thana:</span> {order.customerInfo?.zone}</p>
-//                 {order.customerInfo?.area && <p><span className="text-gray-500">Area:</span> {order.customerInfo.area}</p>}
 //                 {order.trackingNumber && (
 //                   <p><span className="text-gray-500">Tracking:</span> <span className="font-mono">{order.trackingNumber}</span></p>
 //                 )}
@@ -1044,11 +1281,14 @@
 //   };
 
 //   const exportToCSV = () => {
-//     const headers = ['Order ID', 'Customer', 'Phone', 'Total', 'Status', 'Payment Status', 'Payment Method', 'Date'];
+//     const headers = ['Order ID', 'Customer', 'Phone', 'Division', 'City', 'Upazila/Thana', 'Total', 'Status', 'Payment Status', 'Payment Method', 'Date'];
 //     const rows = orders.map(order => [
 //       order.orderNumber || order._id.slice(-8).toUpperCase(),
 //       order.customerInfo?.fullName || '',
 //       order.customerInfo?.phone || '',
+//       order.customerInfo?.division || '',
+//       order.customerInfo?.city || '',
+//       order.customerInfo?.zone || '',
 //       order.total || 0,
 //       ORDER_STATUSES.find(s => s.value === order.orderStatus)?.label || order.orderStatus,
 //       PAYMENT_STATUSES.find(p => p.value === order.paymentStatus)?.label || order.paymentStatus,
@@ -1148,7 +1388,7 @@
 //           </div>
 
 //           {/* Stats Cards */}
-//           {stats && (
+//           {stats ? (
 //             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-6">
 //               <StatCard title="Total Orders" value={stats?.totalOrders || 0} icon={<FaBox className="w-5 h-5 text-blue-500" />} color="bg-blue-50" />
 //               <StatCard title="Pending Payment" value={stats?.pendingOrders || 0} icon={<FaClock className="w-5 h-5 text-yellow-500" />} color="bg-yellow-50" />
@@ -1157,6 +1397,15 @@
 //               <StatCard title="Cancelled" value={stats?.cancelledOrders || 0} icon={<FaTimesCircle className="w-5 h-5 text-red-500" />} color="bg-red-50" />
 //               <StatCard title="Today" value={stats?.todayOrders || 0} icon={<FaCalendarAlt className="w-5 h-5 text-cyan-500" />} color="bg-cyan-50" />
 //               <StatCard title="Revenue" value={stats?.totalRevenue || 0} icon={<FaMoneyBillWave className="w-5 h-5 text-emerald-500" />} color="bg-emerald-50" />
+//             </div>
+//           ) : (
+//             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-6">
+//               {[...Array(7)].map((_, i) => (
+//                 <div key={i} className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm animate-pulse">
+//                   <div className="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
+//                   <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+//                 </div>
+//               ))}
 //             </div>
 //           )}
 
@@ -1273,7 +1522,6 @@
 //                     <th className="px-3 py-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Total</th>
 //                     <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
 //                     <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Payment</th>
-//                     {/* <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Method</th> */}
 //                     <th className="px-3 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Date</th>
 //                     <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
 //                   </tr>
@@ -1281,7 +1529,7 @@
 //                 <tbody>
 //                   {loading ? (
 //                     <tr>
-//                       <td colSpan="9" className="px-4 py-12 text-center">
+//                       <td colSpan="8" className="px-4 py-12 text-center">
 //                         <div className="flex justify-center">
 //                           <div className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
 //                         </div>
@@ -1290,7 +1538,7 @@
 //                     </tr>
 //                   ) : orders.length === 0 ? (
 //                     <tr>
-//                       <td colSpan="9" className="px-4 py-16 text-center">
+//                       <td colSpan="8" className="px-4 py-16 text-center">
 //                         <div className="flex flex-col items-center gap-3">
 //                           <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
 //                             <FaBox className="w-8 h-8 text-gray-400" />
@@ -1322,7 +1570,6 @@
 //                             {getPaymentBadge(order.paymentStatus)}
 //                           </button>
 //                         </td>
-//                         {/* <td className="px-3 py-3 text-center">{getPaymentMethodBadge(order.paymentMethod)}</td> */}
 //                         <td className="px-3 py-3 text-xs text-gray-500 whitespace-nowrap">
 //                           {order.orderStatus === 'delivered' && order.deliveredAt ? (
 //                             <div className="flex flex-col gap-0.5">
@@ -1433,9 +1680,7 @@
 // }
 
 
-
-
-// app/moderator/orders/page.js
+// app/moderator/orders/page.js - BeautyBucket Theme with Invoice Download
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
@@ -1474,26 +1719,33 @@ import {
   FaShoppingBag,
   FaFilter,
   FaArrowRight,
-  FaChevronDown
+  FaChevronDown,
+  FaHeart,
+  FaStar,
+  FaEnvelope,
+  FaPhone,
+  FaWhatsapp,
+  FaShieldAlt
 } from 'react-icons/fa';
+import { generateInvoicePDF } from '@/utils/invoicePDF';
 
 const ORDER_STATUSES = [
-  { value: 'placed', label: 'Placed', color: 'bg-blue-100 text-blue-700', icon: FaClock, nextStatuses: ['confirmed', 'cancelled'] },
-  { value: 'confirmed', label: 'Confirmed', color: 'bg-cyan-100 text-cyan-700', icon: FaCheckCircle, nextStatuses: ['processing', 'cancelled'] },
-  { value: 'processing', label: 'Processing', color: 'bg-purple-100 text-purple-700', icon: FaSpinner, nextStatuses: ['shipped', 'cancelled'] },
-  { value: 'shipped', label: 'Shipped', color: 'bg-indigo-100 text-indigo-700', icon: FaShippingFast, nextStatuses: ['delivered', 'cancelled'] },
-  { value: 'delivered', label: 'Delivered', color: 'bg-green-100 text-green-700', icon: FaCheckDouble, nextStatuses: [] },
-  { value: 'cancelled', label: 'Cancelled', color: 'bg-red-100 text-red-700', icon: FaBan, nextStatuses: [] },
+  { value: 'placed', label: 'Placed', color: 'bg-[#FFF5F6] text-[#EE4275] border-[#FFD2DB]', icon: FaClock, nextStatuses: ['confirmed', 'cancelled'] },
+  { value: 'confirmed', label: 'Confirmed', color: 'bg-[#FFF5F6] text-[#EE4275] border-[#FFD2DB]', icon: FaCheckCircle, nextStatuses: ['processing', 'cancelled'] },
+  { value: 'processing', label: 'Processing', color: 'bg-[#FFF5F6] text-[#8B7A8C] border-[#FFD2DB]', icon: FaSpinner, nextStatuses: ['shipped', 'cancelled'] },
+  { value: 'shipped', label: 'Shipped', color: 'bg-[#FFF5F6] text-[#EE4275] border-[#FFD2DB]', icon: FaShippingFast, nextStatuses: ['delivered', 'cancelled'] },
+  { value: 'delivered', label: 'Delivered', color: 'bg-green-50 text-green-600 border-green-200', icon: FaCheckDouble, nextStatuses: [] },
+  { value: 'cancelled', label: 'Cancelled', color: 'bg-red-50 text-red-600 border-red-200', icon: FaBan, nextStatuses: [] },
 ];
 
 const PAYMENT_STATUSES = [
-  { value: 'pending', label: 'Pending', color: 'bg-yellow-100 text-yellow-700' },
-  { value: 'paid', label: 'Paid', color: 'bg-green-100 text-green-700' },
-  { value: 'failed', label: 'Failed', color: 'bg-red-100 text-red-700' },
-  { value: 'refunded', label: 'Refunded', color: 'bg-orange-100 text-orange-700' }
+  { value: 'pending', label: 'Pending', color: 'bg-[#FFF5F6] text-[#FFC107] border-[#FFD2DB]' },
+  { value: 'paid', label: 'Paid', color: 'bg-green-50 text-green-600 border-green-200' },
+  { value: 'failed', label: 'Failed', color: 'bg-red-50 text-red-600 border-red-200' },
+  { value: 'refunded', label: 'Refunded', color: 'bg-[#FFF5F6] text-[#8B7A8C] border-[#FFD2DB]' }
 ];
 
-// Searchable Select Component
+// Searchable Select Component - Beauty Theme
 const SearchableSelect = ({ name, value, onChange, options, placeholder, required, disabled, error }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -1529,12 +1781,12 @@ const SearchableSelect = ({ name, value, onChange, options, placeholder, require
   return (
     <div className="relative" ref={dropdownRef}>
       <div
-        className={`w-full px-3 py-2 border rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent cursor-pointer flex items-center justify-between transition-all text-sm ${
-          disabled ? 'bg-gray-50 cursor-not-allowed' : 'bg-white'
-        } ${error ? 'border-red-500' : 'border-gray-300 hover:border-blue-500'}`}
+        className={`w-full px-3 py-2 border rounded-xl focus-within:ring-2 focus-within:ring-[#EE4275] focus-within:border-transparent cursor-pointer flex items-center justify-between transition-all text-sm ${
+          disabled ? 'bg-[#FFF5F6] cursor-not-allowed' : 'bg-white'
+        } ${error ? 'border-red-500' : 'border-[#FFD2DB]/50 hover:border-[#EE4275]/50'}`}
         onClick={() => !disabled && setIsOpen(!isOpen)}
       >
-        <span className={`text-sm ${selectedOption ? 'text-gray-900 font-medium' : 'text-gray-400'}`}>
+        <span className={`text-sm ${selectedOption ? 'text-[#2D1B2E] font-medium' : 'text-[#C4B5C5]'}`}>
           {selectedOption || placeholder}
         </span>
         <div className="flex items-center gap-2 flex-shrink-0">
@@ -1545,26 +1797,26 @@ const SearchableSelect = ({ name, value, onChange, options, placeholder, require
                 e.stopPropagation();
                 handleClear();
               }}
-              className="text-gray-400 hover:text-gray-600"
+              className="text-[#C4B5C5] hover:text-[#EE4275]"
             >
               <FaTimes className="w-3 h-3" />
             </button>
           )}
-          <FaChevronDown className={`w-3 h-3 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          <FaChevronDown className={`w-3 h-3 text-[#C4B5C5] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
         </div>
       </div>
 
       {isOpen && !disabled && (
-        <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-hidden">
-          <div className="p-2 border-b border-gray-100">
+        <div className="absolute z-50 w-full mt-1 bg-white border border-[#FFD2DB]/50 rounded-xl shadow-lg max-h-60 overflow-hidden">
+          <div className="p-2 border-b border-[#FFD2DB]/30">
             <div className="relative">
-              <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-3.5 h-3.5" />
+              <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#C4B5C5] w-3.5 h-3.5" />
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search..."
-                className="w-full pl-9 pr-3 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                className="w-full pl-9 pr-3 py-1.5 border border-[#FFD2DB]/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#EE4275] text-sm"
                 onClick={(e) => e.stopPropagation()}
               />
             </div>
@@ -1576,13 +1828,13 @@ const SearchableSelect = ({ name, value, onChange, options, placeholder, require
                   key={idx}
                   type="button"
                   onClick={() => handleSelect(option)}
-                  className="w-full px-4 py-2 text-left hover:bg-gray-100 transition-colors text-sm"
+                  className="w-full px-4 py-2 text-left hover:bg-[#FFF5F6] transition-colors text-sm text-[#2D1B2E]"
                 >
                   {option}
                 </button>
               ))
             ) : (
-              <div className="px-4 py-3 text-sm text-gray-500 text-center">
+              <div className="px-4 py-3 text-sm text-[#C4B5C5] text-center">
                 No results found
               </div>
             )}
@@ -1593,7 +1845,7 @@ const SearchableSelect = ({ name, value, onChange, options, placeholder, require
   );
 };
 
-// Edit Order Modal - With Division Support
+// Edit Order Modal - Beauty Theme
 const EditOrderModal = ({ isOpen, onClose, order, onUpdate }) => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -1703,20 +1955,17 @@ const EditOrderModal = ({ isOpen, onClose, order, onUpdate }) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     
-    // If division changes, reset city, zone, area
     if (name === 'division') {
       setFormData(prev => ({ ...prev, city: '', zone: '', area: '' }));
       setZones([]);
       setAreas([]);
     }
     
-    // If city changes, reset zone, area
     if (name === 'city') {
       setFormData(prev => ({ ...prev, zone: '', area: '' }));
       setAreas([]);
     }
     
-    // If zone changes, reset area
     if (name === 'zone') {
       setFormData(prev => ({ ...prev, area: '' }));
     }
@@ -1772,13 +2021,13 @@ const EditOrderModal = ({ isOpen, onClose, order, onUpdate }) => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
-        className="relative bg-white rounded-xl shadow-2xl w-full max-w-2xl my-8 overflow-hidden"
+        className="relative bg-white rounded-2xl border border-[#FFD2DB]/30 shadow-2xl w-full max-w-2xl my-8 overflow-hidden"
       >
-        <div className="p-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white sticky top-0">
+        <div className="p-4 bg-gradient-to-r from-[#EE4275] to-[#FF6B9D] text-white sticky top-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <FaEdit className="w-5 h-5" />
-              <h2 className="text-lg font-bold">Edit Order</h2>
+              <h2 className="text-lg font-bold" style={{ fontFamily: '"Playfair Display"' }}>Edit Order</h2>
             </div>
             <button onClick={onClose} className="p-1 hover:bg-white/20 rounded-lg transition-colors">
               <FaTimes className="w-4 h-4" />
@@ -1791,34 +2040,34 @@ const EditOrderModal = ({ isOpen, onClose, order, onUpdate }) => {
           <div className="space-y-3">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Full Name *</label>
+                <label className="block text-xs font-medium text-[#2D1B2E] mb-1">Full Name *</label>
                 <input
                   type="text"
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition"
+                  className="w-full px-3 py-2 text-sm border border-[#FFD2DB]/50 rounded-xl focus:ring-2 focus:ring-[#EE4275] focus:border-transparent bg-[#FFF5F6]/20 hover:bg-white transition text-[#2D1B2E]"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Email</label>
+                <label className="block text-xs font-medium text-[#2D1B2E] mb-1">Email</label>
                 <input
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition"
+                  className="w-full px-3 py-2 text-sm border border-[#FFD2DB]/50 rounded-xl focus:ring-2 focus:ring-[#EE4275] focus:border-transparent bg-[#FFF5F6]/20 hover:bg-white transition text-[#2D1B2E]"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Phone *</label>
+                <label className="block text-xs font-medium text-[#2D1B2E] mb-1">Phone *</label>
                 <input
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition"
+                  className="w-full px-3 py-2 text-sm border border-[#FFD2DB]/50 rounded-xl focus:ring-2 focus:ring-[#EE4275] focus:border-transparent bg-[#FFF5F6]/20 hover:bg-white transition text-[#2D1B2E]"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Division *</label>
+                <label className="block text-xs font-medium text-[#2D1B2E] mb-1">Division *</label>
                 <SearchableSelect
                   name="division"
                   value={formData.division}
@@ -1830,7 +2079,7 @@ const EditOrderModal = ({ isOpen, onClose, order, onUpdate }) => {
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">District/City *</label>
+                <label className="block text-xs font-medium text-[#2D1B2E] mb-1">District/City *</label>
                 <SearchableSelect
                   name="city"
                   value={formData.city}
@@ -1842,7 +2091,7 @@ const EditOrderModal = ({ isOpen, onClose, order, onUpdate }) => {
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Upazila/Thana *</label>
+                <label className="block text-xs font-medium text-[#2D1B2E] mb-1">Upazila/Thana *</label>
                 <SearchableSelect
                   name="zone"
                   value={formData.zone}
@@ -1854,7 +2103,7 @@ const EditOrderModal = ({ isOpen, onClose, order, onUpdate }) => {
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Union/Area</label>
+                <label className="block text-xs font-medium text-[#2D1B2E] mb-1">Union/Area</label>
                 <SearchableSelect
                   name="area"
                   value={formData.area}
@@ -1865,32 +2114,32 @@ const EditOrderModal = ({ isOpen, onClose, order, onUpdate }) => {
                 />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-xs font-medium text-gray-700 mb-1">Address *</label>
+                <label className="block text-xs font-medium text-[#2D1B2E] mb-1">Address *</label>
                 <textarea
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                   rows="2"
-                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition"
+                  className="w-full px-3 py-2 text-sm border border-[#FFD2DB]/50 rounded-xl focus:ring-2 focus:ring-[#EE4275] focus:border-transparent bg-[#FFF5F6]/20 hover:bg-white transition text-[#2D1B2E]"
                 />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-xs font-medium text-gray-700 mb-1">Delivery Note</label>
+                <label className="block text-xs font-medium text-[#2D1B2E] mb-1">Delivery Note</label>
                 <textarea
                   value={formData.deliveryNote}
                   onChange={(e) => setFormData({ ...formData, deliveryNote: e.target.value })}
                   rows="2"
-                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition"
+                  className="w-full px-3 py-2 text-sm border border-[#FFD2DB]/50 rounded-xl focus:ring-2 focus:ring-[#EE4275] focus:border-transparent bg-[#FFF5F6]/20 hover:bg-white transition text-[#2D1B2E]"
                 />
               </div>
             </div>
           </div>
         </div>
 
-        <div className="p-4 border-t border-gray-200 bg-gray-50 flex gap-3">
-          <button onClick={onClose} className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 text-sm font-medium transition">
+        <div className="p-4 border-t border-[#FFD2DB]/30 bg-[#FFF5F6]/20 flex gap-3">
+          <button onClick={onClose} className="flex-1 px-4 py-2 border border-[#FFD2DB]/50 text-[#8B7A8C] rounded-xl hover:bg-white transition text-sm font-medium">
             Cancel
           </button>
-          <button onClick={handleSubmit} disabled={loading} className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center justify-center gap-2 text-sm font-medium transition">
+          <button onClick={handleSubmit} disabled={loading} className="flex-1 px-4 py-2 bg-gradient-to-r from-[#EE4275] to-[#FF6B9D] text-white rounded-xl hover:shadow-lg hover:shadow-[#EE4275]/25 transition-all disabled:opacity-50 flex items-center justify-center gap-2 text-sm font-medium">
             {loading ? <FaSpinner className="w-3 h-3 animate-spin" /> : <FaSave className="w-3 h-3" />}
             Save Changes
           </button>
@@ -1900,7 +2149,7 @@ const EditOrderModal = ({ isOpen, onClose, order, onUpdate }) => {
   );
 };
 
-// Delete Confirm Modal
+// Delete Confirm Modal - Beauty Theme
 const DeleteConfirmModal = ({ isOpen, onClose, order, onDelete }) => {
   const [loading, setLoading] = useState(false);
 
@@ -1937,26 +2186,26 @@ const DeleteConfirmModal = ({ isOpen, onClose, order, onDelete }) => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
-        className="relative bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden"
+        className="relative bg-white rounded-2xl border border-[#FFD2DB]/30 shadow-2xl w-full max-w-md overflow-hidden"
       >
-        <div className="p-4 bg-gradient-to-r from-red-600 to-red-500 text-white">
+        <div className="p-4 bg-gradient-to-r from-red-500 to-red-600 text-white">
           <div className="flex items-center gap-2">
             <FaExclamationTriangle className="w-5 h-5" />
-            <h2 className="text-lg font-bold">Delete Order</h2>
+            <h2 className="text-lg font-bold" style={{ fontFamily: '"Playfair Display"' }}>Delete Order</h2>
           </div>
         </div>
 
         <div className="p-5 text-center">
-          <p className="text-gray-700 text-sm mb-2">Are you sure you want to delete this order?</p>
-          <p className="text-xs text-gray-500">Order #{order?.orderNumber || order?._id?.slice(-8).toUpperCase()}</p>
+          <p className="text-[#2D1B2E] text-sm mb-2">Are you sure you want to delete this order?</p>
+          <p className="text-xs text-[#8B7A8C]">Order #{order?.orderNumber || order?._id?.slice(-8).toUpperCase()}</p>
           <p className="text-xs text-red-500 mt-3">⚠️ This action cannot be undone!</p>
         </div>
 
-        <div className="p-4 border-t border-gray-200 bg-gray-50 flex gap-3">
-          <button onClick={onClose} className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 text-sm font-medium transition">
+        <div className="p-4 border-t border-[#FFD2DB]/30 bg-[#FFF5F6]/20 flex gap-3">
+          <button onClick={onClose} className="flex-1 px-4 py-2 border border-[#FFD2DB]/50 text-[#8B7A8C] rounded-xl hover:bg-white transition text-sm font-medium">
             Cancel
           </button>
-          <button onClick={handleDelete} disabled={loading} className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 flex items-center justify-center gap-2 text-sm font-medium transition">
+          <button onClick={handleDelete} disabled={loading} className="flex-1 px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:shadow-lg hover:shadow-red-500/25 transition-all disabled:opacity-50 flex items-center justify-center gap-2 text-sm font-medium">
             {loading ? <FaSpinner className="w-3 h-3 animate-spin" /> : <FaTrash className="w-3 h-3" />}
             Delete Order
           </button>
@@ -1966,7 +2215,7 @@ const DeleteConfirmModal = ({ isOpen, onClose, order, onDelete }) => {
   );
 };
 
-// Status Update Modal
+// Status Update Modal - Beauty Theme
 const StatusUpdateModal = ({ isOpen, onClose, order, onUpdate }) => {
   const [selectedStatus, setSelectedStatus] = useState('');
   const [trackingNumber, setTrackingNumber] = useState('');
@@ -2057,13 +2306,13 @@ const StatusUpdateModal = ({ isOpen, onClose, order, onUpdate }) => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
-        className="relative bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden"
+        className="relative bg-white rounded-2xl border border-[#FFD2DB]/30 shadow-2xl w-full max-w-md overflow-hidden"
       >
-        <div className="p-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white">
+        <div className="p-4 bg-gradient-to-r from-[#EE4275] to-[#FF6B9D] text-white">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <FaEdit className="w-5 h-5" />
-              <h2 className="text-lg font-bold">Update Order Status</h2>
+              <h2 className="text-lg font-bold" style={{ fontFamily: '"Playfair Display"' }}>Update Order Status</h2>
             </div>
             <button onClick={onClose} className="p-1 hover:bg-white/20 rounded-lg transition-colors">
               <FaTimes className="w-4 h-4" />
@@ -2074,15 +2323,15 @@ const StatusUpdateModal = ({ isOpen, onClose, order, onUpdate }) => {
 
         <div className="p-4 space-y-3 max-h-[60vh] overflow-y-auto">
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">Current Status</label>
-            <div className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium ${currentStatusInfo?.color || 'bg-gray-100 text-gray-700'}`}>
+            <label className="block text-xs font-medium text-[#2D1B2E] mb-1">Current Status</label>
+            <div className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium border ${currentStatusInfo?.color || 'bg-[#FFF5F6] text-[#8B7A8C] border-[#FFD2DB]'}`}>
               {currentStatusInfo?.icon && <currentStatusInfo.icon className="w-3 h-3" />}
               <span>{currentStatusInfo?.label || selectedStatus}</span>
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">Change Status To</label>
+            <label className="block text-xs font-medium text-[#2D1B2E] mb-1">Change Status To</label>
             <select
               value={selectedStatus}
               onChange={(e) => {
@@ -2091,7 +2340,7 @@ const StatusUpdateModal = ({ isOpen, onClose, order, onUpdate }) => {
                   setCancellationReason('');
                 }
               }}
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition"
+              className="w-full px-3 py-2 text-sm border border-[#FFD2DB]/50 rounded-xl focus:ring-2 focus:ring-[#EE4275] focus:border-transparent bg-[#FFF5F6]/20 hover:bg-white transition text-[#2D1B2E]"
             >
               <option value={order.orderStatus}>Current: {currentStatusInfo?.label}</option>
               {availableNextStatuses.map(statusValue => {
@@ -2104,7 +2353,7 @@ const StatusUpdateModal = ({ isOpen, onClose, order, onUpdate }) => {
               })}
             </select>
             {availableNextStatuses.length === 0 && (
-              <p className="text-xs text-amber-600 mt-1 flex items-center gap-1">
+              <p className="text-xs text-[#FFC107] mt-1 flex items-center gap-1">
                 <FaExclamationTriangle className="w-3 h-3" />
                 This order is final and cannot be changed further
               </p>
@@ -2113,33 +2362,33 @@ const StatusUpdateModal = ({ isOpen, onClose, order, onUpdate }) => {
 
           {isCancelling && (
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">
-                Cancellation Reason <span className="text-red-500">*</span>
+              <label className="block text-xs font-medium text-[#2D1B2E] mb-1">
+                Cancellation Reason <span className="text-[#EE4275]">*</span>
               </label>
               <textarea
                 value={cancellationReason}
                 onChange={(e) => setCancellationReason(e.target.value)}
                 rows="3"
                 placeholder="Please provide a reason for cancellation..."
-                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition"
+                className="w-full px-3 py-2 text-sm border border-[#FFD2DB]/50 rounded-xl focus:ring-2 focus:ring-[#EE4275] focus:border-transparent bg-[#FFF5F6]/20 hover:bg-white transition text-[#2D1B2E] placeholder:text-[#C4B5C5]"
                 required
               />
             </div>
           )}
 
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">Delivery Note (Optional)</label>
+            <label className="block text-xs font-medium text-[#2D1B2E] mb-1">Delivery Note (Optional)</label>
             <textarea
               value={deliveryNote}
               onChange={(e) => setDeliveryNote(e.target.value)}
               rows="2"
               placeholder="Add any delivery notes or special instructions"
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition"
+              className="w-full px-3 py-2 text-sm border border-[#FFD2DB]/50 rounded-xl focus:ring-2 focus:ring-[#EE4275] focus:border-transparent bg-[#FFF5F6]/20 hover:bg-white transition text-[#2D1B2E] placeholder:text-[#C4B5C5]"
             />
           </div>
 
           {selectedStatus === 'delivered' && order.paymentStatus !== 'paid' && (
-            <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+            <div className="bg-green-50 border border-green-200 rounded-xl p-3">
               <p className="text-xs text-green-700 flex items-center gap-2">
                 <FaCheckCircle className="w-3 h-3" />
                 Payment status will be automatically updated to "Paid"
@@ -2148,14 +2397,14 @@ const StatusUpdateModal = ({ isOpen, onClose, order, onUpdate }) => {
           )}
         </div>
 
-        <div className="p-4 border-t border-gray-200 bg-gray-50 flex gap-3">
-          <button onClick={onClose} className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 text-sm font-medium transition">
+        <div className="p-4 border-t border-[#FFD2DB]/30 bg-[#FFF5F6]/20 flex gap-3">
+          <button onClick={onClose} className="flex-1 px-4 py-2 border border-[#FFD2DB]/50 text-[#8B7A8C] rounded-xl hover:bg-white transition text-sm font-medium">
             Cancel
           </button>
           <button
             onClick={handleSubmit}
             disabled={loading || selectedStatus === order.orderStatus}
-            className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center justify-center gap-2 text-sm font-medium transition"
+            className="flex-1 px-4 py-2 bg-gradient-to-r from-[#EE4275] to-[#FF6B9D] text-white rounded-xl hover:shadow-lg hover:shadow-[#EE4275]/25 transition-all disabled:opacity-50 flex items-center justify-center gap-2 text-sm font-medium"
           >
             {loading ? <FaSpinner className="w-3 h-3 animate-spin" /> : <FaCheckCircle className="w-3 h-3" />}
             Update Status
@@ -2166,7 +2415,7 @@ const StatusUpdateModal = ({ isOpen, onClose, order, onUpdate }) => {
   );
 };
 
-// Payment Status Modal
+// Payment Status Modal - Beauty Theme
 const PaymentStatusModal = ({ isOpen, onClose, order, onUpdate }) => {
   const [selectedStatus, setSelectedStatus] = useState('');
   const [loading, setLoading] = useState(false);
@@ -2263,13 +2512,13 @@ const PaymentStatusModal = ({ isOpen, onClose, order, onUpdate }) => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
-        className="relative bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden"
+        className="relative bg-white rounded-2xl border border-[#FFD2DB]/30 shadow-2xl w-full max-w-md overflow-hidden"
       >
-        <div className="p-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white">
+        <div className="p-4 bg-gradient-to-r from-[#EE4275] to-[#FF6B9D] text-white">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <FaMoneyBillWave className="w-5 h-5" />
-              <h2 className="text-lg font-bold">Update Payment Status</h2>
+              <h2 className="text-lg font-bold" style={{ fontFamily: '"Playfair Display"' }}>Update Payment Status</h2>
             </div>
             <button onClick={onClose} className="p-1 hover:bg-white/20 rounded-lg transition-colors">
               <FaTimes className="w-4 h-4" />
@@ -2280,24 +2529,24 @@ const PaymentStatusModal = ({ isOpen, onClose, order, onUpdate }) => {
 
         <div className="p-4 space-y-3">
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">Current Payment Status</label>
-            <div className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium ${currentPaymentInfo?.color || 'bg-gray-100 text-gray-700'}`}>
+            <label className="block text-xs font-medium text-[#2D1B2E] mb-1">Current Payment Status</label>
+            <div className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium border ${currentPaymentInfo?.color || 'bg-[#FFF5F6] text-[#8B7A8C] border-[#FFD2DB]'}`}>
               <FaMoneyBillWave className="w-3 h-3" />
               <span>{currentPaymentInfo?.label || order?.paymentStatus}</span>
             </div>
-            <div className="mt-1 text-xs text-gray-500">
-              Order Status: <span className="font-medium">{order?.orderStatus}</span> | 
-              Payment Method: <span className="font-medium">{order?.paymentMethod === 'cod' ? 'COD' : 'Online'}</span>
+            <div className="mt-1 text-xs text-[#8B7A8C]">
+              Order Status: <span className="font-medium text-[#2D1B2E]">{order?.orderStatus}</span> | 
+              Payment Method: <span className="font-medium text-[#2D1B2E]">{order?.paymentMethod === 'cod' ? 'COD' : 'Online'}</span>
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">Change Payment Status To</label>
+            <label className="block text-xs font-medium text-[#2D1B2E] mb-1">Change Payment Status To</label>
             {canChange ? (
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
-                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition"
+                className="w-full px-3 py-2 text-sm border border-[#FFD2DB]/50 rounded-xl focus:ring-2 focus:ring-[#EE4275] focus:border-transparent bg-[#FFF5F6]/20 hover:bg-white transition text-[#2D1B2E]"
               >
                 <option value={order.paymentStatus}>Current: {currentPaymentInfo?.label}</option>
                 {availableStatuses.map(status => (
@@ -2307,21 +2556,21 @@ const PaymentStatusModal = ({ isOpen, onClose, order, onUpdate }) => {
                 ))}
               </select>
             ) : (
-              <div className="px-3 py-2 text-sm bg-gray-100 text-gray-500 rounded-lg">
+              <div className="px-3 py-2 text-sm bg-[#FFF5F6] text-[#8B7A8C] rounded-xl border border-[#FFD2DB]/50">
                 No further changes allowed
               </div>
             )}
           </div>
         </div>
 
-        <div className="p-4 border-t border-gray-200 bg-gray-50 flex gap-3">
-          <button onClick={onClose} className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 text-sm font-medium transition">
+        <div className="p-4 border-t border-[#FFD2DB]/30 bg-[#FFF5F6]/20 flex gap-3">
+          <button onClick={onClose} className="flex-1 px-4 py-2 border border-[#FFD2DB]/50 text-[#8B7A8C] rounded-xl hover:bg-white transition text-sm font-medium">
             Cancel
           </button>
           <button
             onClick={handleSubmit}
             disabled={loading || !canChange || selectedStatus === order?.paymentStatus}
-            className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center justify-center gap-2 text-sm font-medium transition"
+            className="flex-1 px-4 py-2 bg-gradient-to-r from-[#EE4275] to-[#FF6B9D] text-white rounded-xl hover:shadow-lg hover:shadow-[#EE4275]/25 transition-all disabled:opacity-50 flex items-center justify-center gap-2 text-sm font-medium"
           >
             {loading ? <FaSpinner className="w-3 h-3 animate-spin" /> : <FaSave className="w-3 h-3" />}
             Update Payment
@@ -2332,8 +2581,10 @@ const PaymentStatusModal = ({ isOpen, onClose, order, onUpdate }) => {
   );
 };
 
-// Order Details Modal - Updated with Division
-const OrderDetailsModal = ({ isOpen, onClose, order, onStatusUpdate, onPaymentUpdate, userRole }) => {
+// Order Details Modal - Beauty Theme with Invoice Download
+const OrderDetailsModal = ({ isOpen, onClose, order, onStatusUpdate, onPaymentUpdate, onDownloadInvoice, userRole }) => {
+  const [downloading, setDownloading] = useState(false);
+
   if (!isOpen || !order) return null;
 
   const statusInfo = ORDER_STATUSES.find(s => s.value === order.orderStatus);
@@ -2342,19 +2593,28 @@ const OrderDetailsModal = ({ isOpen, onClose, order, onStatusUpdate, onPaymentUp
   const isCancelled = order.orderStatus === 'cancelled';
   const isDelivered = order.orderStatus === 'delivered';
 
+  const handleDownload = async () => {
+    setDownloading(true);
+    try {
+      await onDownloadInvoice(order);
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm overflow-y-auto p-4">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
-        className="relative bg-white rounded-xl shadow-2xl w-full max-w-3xl my-8 overflow-hidden"
+        className="relative bg-white rounded-2xl border border-[#FFD2DB]/30 shadow-2xl w-full max-w-3xl my-8 overflow-hidden"
       >
-        <div className="p-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white sticky top-0">
+        <div className="p-4 bg-gradient-to-r from-[#EE4275] to-[#FF6B9D] text-white sticky top-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <FaFileInvoice className="w-5 h-5" />
-              <h2 className="text-lg font-bold">Order Details</h2>
+              <h2 className="text-lg font-bold" style={{ fontFamily: '"Playfair Display"' }}>Order Details</h2>
             </div>
             <button onClick={onClose} className="p-1 hover:bg-white/20 rounded-lg transition-colors">
               <FaTimes className="w-4 h-4" />
@@ -2370,7 +2630,7 @@ const OrderDetailsModal = ({ isOpen, onClose, order, onStatusUpdate, onPaymentUp
                 onClose();
                 canChangeStatus && onStatusUpdate();
               }}
-              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all ${statusInfo?.color || 'bg-gray-100 text-gray-700'} ${canChangeStatus ? 'cursor-pointer hover:opacity-80' : 'cursor-default'}`}
+              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border transition-all ${statusInfo?.color || 'bg-[#FFF5F6] text-[#8B7A8C] border-[#FFD2DB]'} ${canChangeStatus ? 'cursor-pointer hover:opacity-80' : 'cursor-default'}`}
               title={canChangeStatus ? 'Click to update status' : 'Status cannot be changed'}
             >
               {statusInfo?.icon && <statusInfo.icon className="w-3 h-3" />}
@@ -2382,23 +2642,29 @@ const OrderDetailsModal = ({ isOpen, onClose, order, onStatusUpdate, onPaymentUp
                 onClose();
                 onPaymentUpdate();
               }}
-              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all ${paymentInfo?.color || 'bg-gray-100 text-gray-700'} cursor-pointer hover:opacity-80`}
+              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border transition-all ${paymentInfo?.color || 'bg-[#FFF5F6] text-[#8B7A8C] border-[#FFD2DB]'} cursor-pointer hover:opacity-80`}
               title="Click to update payment status"
             >
               <FaMoneyBillWave className="w-3 h-3" />
               <span>Payment: {paymentInfo?.label || order.paymentStatus}</span>
               <FaEdit className="w-2.5 h-2.5 ml-1" />
             </button>
-            {order.paymentMethod === 'cod' && (
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700">
-                <FaMoneyBillWave className="w-3 h-3" />
-                <span>Cash on Delivery</span>
-              </div>
-            )}
+            <button
+              onClick={handleDownload}
+              disabled={downloading}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border bg-[#FFF5F6] text-[#EE4275] border-[#FFD2DB] hover:bg-white transition-colors disabled:opacity-50"
+            >
+              {downloading ? (
+                <FaSpinner className="w-3 h-3 animate-spin" />
+              ) : (
+                <FaDownload className="w-3 h-3" />
+              )}
+              Invoice
+            </button>
           </div>
 
           {isDelivered && order.deliveredAt && (
-            <div className="mb-5 bg-green-50 border-l-4 border-green-500 rounded-lg p-3">
+            <div className="mb-5 bg-green-50 border-l-4 border-green-500 rounded-xl p-3">
               <div className="flex items-start gap-2">
                 <FaCheckDouble className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
                 <div>
@@ -2418,7 +2684,7 @@ const OrderDetailsModal = ({ isOpen, onClose, order, onStatusUpdate, onPaymentUp
           )}
 
           {isCancelled && order.cancellationReason && (
-            <div className="mb-5 bg-red-50 border-l-4 border-red-500 rounded-lg p-3">
+            <div className="mb-5 bg-red-50 border-l-4 border-red-500 rounded-xl p-3">
               <div className="flex items-start gap-2">
                 <FaExclamationTriangle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
                 <div>
@@ -2443,84 +2709,84 @@ const OrderDetailsModal = ({ isOpen, onClose, order, onStatusUpdate, onPaymentUp
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h3 className="font-semibold text-gray-900 text-sm mb-2 flex items-center gap-1.5">
-                <FaUser className="w-3.5 h-3.5 text-blue-600" />
+            <div className="bg-[#FFF5F6]/50 rounded-xl p-4 border border-[#FFD2DB]/20">
+              <h3 className="font-semibold text-[#2D1B2E] text-sm mb-2 flex items-center gap-1.5">
+                <FaUser className="w-3.5 h-3.5 text-[#EE4275]" />
                 Customer Information
               </h3>
               <div className="space-y-1 text-xs">
-                <p><span className="text-gray-500">Name:</span> {order.customerInfo?.fullName}</p>
-                <p><span className="text-gray-500">Email:</span> {order.customerInfo?.email}</p>
-                <p><span className="text-gray-500">Phone:</span> {order.customerInfo?.phone}</p>
+                <p><span className="text-[#8B7A8C]">Name:</span> <span className="text-[#2D1B2E]">{order.customerInfo?.fullName}</span></p>
+                <p><span className="text-[#8B7A8C]">Email:</span> <span className="text-[#2D1B2E]">{order.customerInfo?.email}</span></p>
+                <p><span className="text-[#8B7A8C]">Phone:</span> <span className="text-[#2D1B2E]">{order.customerInfo?.phone}</span></p>
               </div>
             </div>
 
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h3 className="font-semibold text-gray-900 text-sm mb-2 flex items-center gap-1.5">
-                <FaMapMarkerAlt className="w-3.5 h-3.5 text-blue-600" />
+            <div className="bg-[#FFF5F6]/50 rounded-xl p-4 border border-[#FFD2DB]/20">
+              <h3 className="font-semibold text-[#2D1B2E] text-sm mb-2 flex items-center gap-1.5">
+                <FaMapMarkerAlt className="w-3.5 h-3.5 text-[#EE4275]" />
                 Delivery Information
               </h3>
               <div className="space-y-1 text-xs">
-                <p><span className="text-gray-500">Division:</span> <span className="font-medium">{order.customerInfo?.division || 'N/A'}</span></p>
-                <p><span className="text-gray-500">District/City:</span> <span className="font-medium">{order.customerInfo?.city || 'N/A'}</span></p>
-                <p><span className="text-gray-500">Upazila/Thana:</span> <span className="font-medium">{order.customerInfo?.zone || 'N/A'}</span></p>
+                <p><span className="text-[#8B7A8C]">Division:</span> <span className="font-medium text-[#2D1B2E]">{order.customerInfo?.division || 'N/A'}</span></p>
+                <p><span className="text-[#8B7A8C]">District/City:</span> <span className="font-medium text-[#2D1B2E]">{order.customerInfo?.city || 'N/A'}</span></p>
+                <p><span className="text-[#8B7A8C]">Upazila/Thana:</span> <span className="font-medium text-[#2D1B2E]">{order.customerInfo?.zone || 'N/A'}</span></p>
                 {order.customerInfo?.area && (
-                  <p><span className="text-gray-500">Union/Area:</span> <span className="font-medium">{order.customerInfo.area}</span></p>
+                  <p><span className="text-[#8B7A8C]">Union/Area:</span> <span className="font-medium text-[#2D1B2E]">{order.customerInfo.area}</span></p>
                 )}
-                <p><span className="text-gray-500">Address:</span> {order.customerInfo?.address}</p>
+                <p><span className="text-[#8B7A8C]">Address:</span> <span className="text-[#2D1B2E]">{order.customerInfo?.address}</span></p>
                 {order.trackingNumber && (
-                  <p><span className="text-gray-500">Tracking:</span> <span className="font-mono">{order.trackingNumber}</span></p>
+                  <p><span className="text-[#8B7A8C]">Tracking:</span> <span className="font-mono text-[#EE4275]">{order.trackingNumber}</span></p>
                 )}
               </div>
             </div>
           </div>
 
           <div className="mb-5">
-            <h3 className="font-semibold text-gray-900 text-sm mb-2 flex items-center gap-1.5">
-              <FaBox className="w-3.5 h-3.5 text-blue-600" />
+            <h3 className="font-semibold text-[#2D1B2E] text-sm mb-2 flex items-center gap-1.5">
+              <FaBox className="w-3.5 h-3.5 text-[#EE4275]" />
               Order Items
             </h3>
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
-                <thead className="bg-gray-50">
+                <thead className="bg-[#FFF5F6]">
                   <tr>
-                    <th className="px-3 py-2 text-left">Product</th>
-                    <th className="px-3 py-2 text-center">Qty</th>
-                    <th className="px-3 py-2 text-right">Price</th>
-                    <th className="px-3 py-2 text-right">Total</th>
+                    <th className="px-3 py-2 text-left text-[#2D1B2E]">Product</th>
+                    <th className="px-3 py-2 text-center text-[#2D1B2E]">Qty</th>
+                    <th className="px-3 py-2 text-right text-[#2D1B2E]">Price</th>
+                    <th className="px-3 py-2 text-right text-[#2D1B2E]">Total</th>
                   </tr>
                 </thead>
                 <tbody>
                   {order.items?.map((item, idx) => (
-                    <tr key={idx} className="border-t border-gray-100">
+                    <tr key={idx} className="border-t border-[#FFD2DB]/20">
                       <td className="px-3 py-2">
                         <div className="flex items-center gap-2">
                           <img 
                             src={item.image || 'https://via.placeholder.com/30'} 
                             alt={item.productName}
-                            className="w-8 h-8 rounded-lg object-cover border border-gray-200"
-                            onError={(e) => { e.target.src = 'https://via.placeholder.com/30?text=Gadget'; }}
+                            className="w-8 h-8 rounded-lg object-cover border border-[#FFD2DB]/30"
+                            onError={(e) => { e.target.src = 'https://via.placeholder.com/30?text=Product'; }}
                           />
                           <div>
-                            <p className="font-medium text-sm">{item.productName}</p>
+                            <p className="font-medium text-sm text-[#2D1B2E]">{item.productName}</p>
                           </div>
                         </div>
                       </td>
-                      <td className="px-3 py-2 text-center">{item.quantity}</td>
-                      <td className="px-3 py-2 text-right">৳{(item.discountPrice || item.regularPrice).toFixed(2)}</td>
-                      <td className="px-3 py-2 text-right font-medium">৳{((item.discountPrice || item.regularPrice) * item.quantity).toFixed(2)}</td>
+                      <td className="px-3 py-2 text-center text-[#2D1B2E]">{item.quantity}</td>
+                      <td className="px-3 py-2 text-right text-[#2D1B2E]">৳{(item.discountPrice || item.regularPrice).toFixed(2)}</td>
+                      <td className="px-3 py-2 text-right font-medium text-[#EE4275]">৳{((item.discountPrice || item.regularPrice) * item.quantity).toFixed(2)}</td>
                     </tr>
                   ))}
                 </tbody>
-                <tfoot className="border-t border-gray-200">
-                  <tr><td colSpan="3" className="px-3 py-1.5 text-right font-medium">Subtotal:</td><td className="px-3 py-1.5 text-right">৳{order.subtotal?.toFixed(2)}</td></tr>
-                  <tr><td colSpan="3" className="px-3 py-1.5 text-right font-medium">Shipping:</td><td className="px-3 py-1.5 text-right">৳{order.shippingCost?.toFixed(2)}</td></tr>
+                <tfoot className="border-t border-[#FFD2DB]/30">
+                  <tr><td colSpan="3" className="px-3 py-1.5 text-right font-medium text-[#2D1B2E]">Subtotal:</td><td className="px-3 py-1.5 text-right text-[#2D1B2E]">৳{order.subtotal?.toFixed(2)}</td></tr>
+                  <tr><td colSpan="3" className="px-3 py-1.5 text-right font-medium text-[#2D1B2E]">Shipping:</td><td className="px-3 py-1.5 text-right text-[#2D1B2E]">৳{order.shippingCost?.toFixed(2)}</td></tr>
                   {order.discount > 0 && (
                     <tr><td colSpan="3" className="px-3 py-1.5 text-right font-medium text-green-600">Discount:</td><td className="px-3 py-1.5 text-right text-green-600">- ৳{order.discount.toFixed(2)}</td></tr>
                   )}
                   <tr className="text-sm font-bold">
-                    <td colSpan="3" className="px-3 py-1.5 text-right">Total:</td>
-                    <td className="px-3 py-1.5 text-right text-blue-600">৳{order.total?.toFixed(2)}</td>
+                    <td colSpan="3" className="px-3 py-1.5 text-right text-[#2D1B2E]">Total:</td>
+                    <td className="px-3 py-1.5 text-right text-[#EE4275]">৳{order.total?.toFixed(2)}</td>
                   </tr>
                 </tfoot>
               </table>
@@ -2528,19 +2794,19 @@ const OrderDetailsModal = ({ isOpen, onClose, order, onStatusUpdate, onPaymentUp
           </div>
 
           {(order.couponCode || order.deliveryNote) && (
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h3 className="font-semibold text-gray-900 text-sm mb-1.5">Additional Information</h3>
-              {order.couponCode && <p className="text-xs"><span className="text-gray-500">Coupon Applied:</span> {order.couponCode}</p>}
-              {order.deliveryNote && <p className="text-xs"><span className="text-gray-500">Delivery Note:</span> {order.deliveryNote}</p>}
+            <div className="bg-[#FFF5F6]/50 rounded-xl p-4 border border-[#FFD2DB]/20">
+              <h3 className="font-semibold text-[#2D1B2E] text-sm mb-1.5">Additional Information</h3>
+              {order.couponCode && <p className="text-xs"><span className="text-[#8B7A8C]">Coupon Applied:</span> <span className="text-[#EE4275] font-medium">{order.couponCode}</span></p>}
+              {order.deliveryNote && <p className="text-xs"><span className="text-[#8B7A8C]">Delivery Note:</span> <span className="text-[#2D1B2E]">{order.deliveryNote}</span></p>}
             </div>
           )}
         </div>
 
-        <div className="p-4 border-t border-gray-200 bg-gray-50 flex justify-end gap-2">
-          <button onClick={() => window.print()} className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors flex items-center gap-1.5 text-sm font-medium">
+        <div className="p-4 border-t border-[#FFD2DB]/30 bg-[#FFF5F6]/20 flex justify-end gap-2">
+          <button onClick={() => window.print()} className="px-4 py-2 border border-[#FFD2DB]/50 text-[#8B7A8C] rounded-xl hover:bg-white transition-colors flex items-center gap-1.5 text-sm font-medium">
             <FaPrint className="w-3.5 h-3.5" /> Print
           </button>
-          <button onClick={onClose} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+          <button onClick={onClose} className="px-4 py-2 bg-gradient-to-r from-[#EE4275] to-[#FF6B9D] text-white rounded-xl hover:shadow-lg hover:shadow-[#EE4275]/25 transition-all text-sm font-medium">
             Close
           </button>
         </div>
@@ -2549,7 +2815,7 @@ const OrderDetailsModal = ({ isOpen, onClose, order, onStatusUpdate, onPaymentUp
   );
 };
 
-// Main Moderator Orders Page Component
+// Main Moderator Orders Page Component - Beauty Theme
 export default function ModeratorOrdersPage() {
   const router = useRouter();
   const [orders, setOrders] = useState([]);
@@ -2571,6 +2837,7 @@ export default function ModeratorOrdersPage() {
   const [sortBy, setSortBy] = useState('-createdAt');
   const [activeStatusTab, setActiveStatusTab] = useState('all');
   const [userRole, setUserRole] = useState(null);
+  const [downloadingOrders, setDownloadingOrders] = useState({});
 
   // Get user role from localStorage
   useEffect(() => {
@@ -2586,11 +2853,11 @@ export default function ModeratorOrdersPage() {
   }, []);
 
   const statusTabs = [
-    { value: 'all', label: 'All', count: stats?.totalOrders || 0, color: 'bg-gray-500' },
-    { value: 'placed', label: 'Placed', count: stats?.placedOrders || 0, color: 'bg-blue-500' },
-    { value: 'confirmed', label: 'Confirmed', count: stats?.confirmedOrders || 0, color: 'bg-cyan-500' },
-    { value: 'processing', label: 'Processing', count: stats?.processingOrders || 0, color: 'bg-purple-500' },
-    { value: 'shipped', label: 'Shipped', count: stats?.shippedOrders || 0, color: 'bg-indigo-500' },
+    { value: 'all', label: 'All', count: stats?.totalOrders || 0, color: 'bg-[#EE4275]' },
+    { value: 'placed', label: 'Placed', count: stats?.placedOrders || 0, color: 'bg-[#EE4275]' },
+    { value: 'confirmed', label: 'Confirmed', count: stats?.confirmedOrders || 0, color: 'bg-[#FF6B9D]' },
+    { value: 'processing', label: 'Processing', count: stats?.processingOrders || 0, color: 'bg-[#C4B5C5]' },
+    { value: 'shipped', label: 'Shipped', count: stats?.shippedOrders || 0, color: 'bg-[#EE4275]' },
     { value: 'delivered', label: 'Delivered', count: stats?.deliveredOrders || 0, color: 'bg-green-500' },
     { value: 'cancelled', label: 'Cancelled', count: stats?.cancelledOrders || 0, color: 'bg-red-500' }
   ];
@@ -2706,6 +2973,19 @@ export default function ModeratorOrdersPage() {
     fetchStats();
   };
 
+  const handleDownloadInvoice = async (order) => {
+    setDownloadingOrders(prev => ({ ...prev, [order._id]: true }));
+    try {
+      await generateInvoicePDF(order);
+      toast.success('Invoice downloaded successfully!');
+    } catch (error) {
+      console.error('Download error:', error);
+      toast.error('Failed to download invoice');
+    } finally {
+      setDownloadingOrders(prev => ({ ...prev, [order._id]: false }));
+    }
+  };
+
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString('en-BD', {
       day: '2-digit',
@@ -2745,9 +3025,9 @@ export default function ModeratorOrdersPage() {
 
   const getStatusBadge = (status) => {
     const statusInfo = ORDER_STATUSES.find(s => s.value === status);
-    if (!statusInfo) return <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700">{status}</span>;
+    if (!statusInfo) return <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#FFF5F6] text-[#8B7A8C] border border-[#FFD2DB]">{status}</span>;
     return (
-      <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium ${statusInfo.color}`}>
+      <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium border ${statusInfo.color}`}>
         <statusInfo.icon className="w-2.5 h-2.5" />
         {statusInfo.label}
       </span>
@@ -2757,7 +3037,7 @@ export default function ModeratorOrdersPage() {
   const getPaymentBadge = (status) => {
     const paymentInfo = PAYMENT_STATUSES.find(p => p.value === status);
     return (
-      <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium ${paymentInfo?.color || 'bg-gray-100 text-gray-700'}`}>
+      <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium border ${paymentInfo?.color || 'bg-[#FFF5F6] text-[#8B7A8C] border-[#FFD2DB]'}`}>
         <FaMoneyBillWave className="w-2.5 h-2.5" />
         {paymentInfo?.label || status}
       </span>
@@ -2766,17 +3046,17 @@ export default function ModeratorOrdersPage() {
 
   const getPaymentMethodBadge = (method) => {
     const methods = {
-      'cod': { label: 'COD', color: 'bg-orange-100 text-orange-700', icon: FaMoneyBillWave },
-      'online': { label: 'Online', color: 'bg-blue-100 text-blue-700', icon: FaCreditCard },
-      'bkash': { label: 'bKash', color: 'bg-pink-100 text-pink-700', icon: FaMobileAlt },
-      'nagad': { label: 'Nagad', color: 'bg-purple-100 text-purple-700', icon: FaMobileAlt }
+      'cod': { label: 'COD', color: 'bg-[#FFF5F6] text-[#EE4275] border-[#FFD2DB]', icon: FaMoneyBillWave },
+      'online': { label: 'Online', color: 'bg-[#FFF5F6] text-[#EE4275] border-[#FFD2DB]', icon: FaCreditCard },
+      'bkash': { label: 'bKash', color: 'bg-[#FFF5F6] text-[#EE4275] border-[#FFD2DB]', icon: FaMobileAlt },
+      'nagad': { label: 'Nagad', color: 'bg-[#FFF5F6] text-[#EE4275] border-[#FFD2DB]', icon: FaMobileAlt }
     };
     
-    const info = methods[method] || { label: method || 'Unknown', color: 'bg-gray-100 text-gray-700', icon: FaMoneyBillWave };
+    const info = methods[method] || { label: method || 'Unknown', color: 'bg-[#FFF5F6] text-[#8B7A8C] border-[#FFD2DB]', icon: FaMoneyBillWave };
     const Icon = info.icon;
     
     return (
-      <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium ${info.color}`}>
+      <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium border ${info.color}`}>
         <Icon className="w-2.5 h-2.5" />
         {info.label}
       </span>
@@ -2784,11 +3064,11 @@ export default function ModeratorOrdersPage() {
   };
 
   const StatCard = ({ title, value, icon, color }) => (
-    <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-2xl border border-[#FFD2DB]/20 p-4 shadow-sm hover:shadow-md transition-shadow">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-xs text-gray-500 font-medium">{title}</p>
-          <p className="text-xl font-bold text-gray-900">{value?.toLocaleString() || 0}</p>
+          <p className="text-xs text-[#8B7A8C] font-medium">{title}</p>
+          <p className="text-xl font-bold text-[#2D1B2E]">{value?.toLocaleString() || 0}</p>
         </div>
         <div className={`w-10 h-10 ${color} rounded-xl flex items-center justify-center`}>
           {icon}
@@ -2799,23 +3079,27 @@ export default function ModeratorOrdersPage() {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-50 pb-12 pt-6">
+      <div className="min-h-screen bg-[#FFF5F6]/20 pb-12 pt-6">
         <div className="container mx-auto px-4 max-w-7xl">
-          {/* Header */}
+          {/* Header - Beauty Theme */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
             <div>
               <div className="flex items-center gap-3">
-                <FaShoppingBag className="w-8 h-8 text-blue-600" />
-                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-                  Order Management
-                </h1>
+                <div className="w-10 h-10 bg-gradient-to-br from-[#EE4275] to-[#FF6B9D] rounded-xl flex items-center justify-center shadow-lg shadow-[#EE4275]/25">
+                  <FaShoppingBag className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-2xl md:text-3xl font-bold text-[#2D1B2E]" style={{ fontFamily: '"Playfair Display"' }}>
+                    Order Management
+                  </h1>
+                  <p className="text-sm text-[#8B7A8C] mt-0.5">Monitor and manage all beauty orders</p>
+                </div>
               </div>
-              <p className="text-sm text-gray-500 mt-1 ml-11">Monitor and manage all customer orders</p>
             </div>
             <div className="flex items-center gap-3">
               <button
                 onClick={exportToCSV}
-                className="flex items-center gap-2 px-4 py-2.5 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium shadow-sm"
+                className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#EE4275] to-[#FF6B9D] text-white rounded-xl hover:shadow-lg hover:shadow-[#EE4275]/25 transition-all text-sm font-medium shadow-sm"
               >
                 <FaDownload className="w-4 h-4" />
                 Export CSV
@@ -2823,33 +3107,35 @@ export default function ModeratorOrdersPage() {
             </div>
           </div>
 
+        
+
           {/* Stats Cards */}
           {stats ? (
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-6">
-              <StatCard title="Total Orders" value={stats?.totalOrders || 0} icon={<FaBox className="w-5 h-5 text-blue-500" />} color="bg-blue-50" />
-              <StatCard title="Pending Payment" value={stats?.pendingOrders || 0} icon={<FaClock className="w-5 h-5 text-yellow-500" />} color="bg-yellow-50" />
-              <StatCard title="Processing" value={stats?.processingOrdersCount || stats?.processingOrders || 0} icon={<FaSpinner className="w-5 h-5 text-purple-500" />} color="bg-purple-50" />
+              <StatCard title="Total Orders" value={stats?.totalOrders || 0} icon={<FaBox className="w-5 h-5 text-[#EE4275]" />} color="bg-[#FFF5F6]" />
+              <StatCard title="Pending Payment" value={stats?.pendingOrders || 0} icon={<FaClock className="w-5 h-5 text-[#FFC107]" />} color="bg-[#FFF5F6]" />
+              <StatCard title="Processing" value={stats?.processingOrdersCount || stats?.processingOrders || 0} icon={<FaSpinner className="w-5 h-5 text-[#8B7A8C]" />} color="bg-[#FFF5F6]" />
               <StatCard title="Delivered" value={stats?.deliveredOrders || 0} icon={<FaCheckCircle className="w-5 h-5 text-green-500" />} color="bg-green-50" />
               <StatCard title="Cancelled" value={stats?.cancelledOrders || 0} icon={<FaTimesCircle className="w-5 h-5 text-red-500" />} color="bg-red-50" />
-              <StatCard title="Today" value={stats?.todayOrders || 0} icon={<FaCalendarAlt className="w-5 h-5 text-cyan-500" />} color="bg-cyan-50" />
-              <StatCard title="Revenue" value={stats?.totalRevenue || 0} icon={<FaMoneyBillWave className="w-5 h-5 text-emerald-500" />} color="bg-emerald-50" />
+              <StatCard title="Today" value={stats?.todayOrders || 0} icon={<FaCalendarAlt className="w-5 h-5 text-[#EE4275]" />} color="bg-[#FFF5F6]" />
+              <StatCard title="Revenue" value={stats?.totalRevenue || 0} icon={<FaMoneyBillWave className="w-5 h-5 text-green-500" />} color="bg-green-50" />
             </div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-6">
               {[...Array(7)].map((_, i) => (
-                <div key={i} className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm animate-pulse">
-                  <div className="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
-                  <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+                <div key={i} className="bg-white rounded-2xl border border-[#FFD2DB]/20 p-4 shadow-sm animate-pulse">
+                  <div className="h-4 bg-[#FFD2DB]/30 rounded w-1/2 mb-2"></div>
+                  <div className="h-6 bg-[#FFD2DB]/30 rounded w-3/4"></div>
                 </div>
               ))}
             </div>
           )}
 
-          {/* Filters */}
-          <div className="bg-white rounded-xl border border-gray-200 p-4 mb-6 shadow-sm">
+          {/* Filters - Beauty Theme */}
+          <div className="bg-white rounded-2xl border border-[#FFD2DB]/40 p-4 mb-6 shadow-sm">
             <div className="flex flex-col md:flex-row gap-3">
               <div className="flex-1 relative">
-                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#C4B5C5] w-4 h-4" />
                 <input
                   type="text"
                   placeholder="Search by Order ID, Customer Name, Email or Phone..."
@@ -2858,7 +3144,7 @@ export default function ModeratorOrdersPage() {
                     setSearchTerm(e.target.value);
                     setCurrentPage(1);
                   }}
-                  className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition"
+                  className="w-full pl-10 pr-10 py-2.5 border border-[#FFD2DB]/50 rounded-xl focus:ring-2 focus:ring-[#EE4275] focus:border-transparent bg-[#FFF5F6]/20 hover:bg-white transition text-[#2D1B2E] placeholder:text-[#C4B5C5]"
                 />
                 {searchTerm && (
                   <button
@@ -2866,7 +3152,7 @@ export default function ModeratorOrdersPage() {
                       setSearchTerm('');
                       setCurrentPage(1);
                     }}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#C4B5C5] hover:text-[#EE4275]"
                   >
                     <FaTimes className="w-4 h-4" />
                   </button>
@@ -2878,7 +3164,7 @@ export default function ModeratorOrdersPage() {
                   setStatusFilter(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition text-sm"
+                className="px-4 py-2.5 border border-[#FFD2DB]/50 rounded-xl focus:ring-2 focus:ring-[#EE4275] focus:border-transparent bg-[#FFF5F6]/20 hover:bg-white transition text-[#2D1B2E] text-sm"
               >
                 <option value="">All Order Status</option>
                 {ORDER_STATUSES.map(status => (
@@ -2892,7 +3178,7 @@ export default function ModeratorOrdersPage() {
                   setPaymentFilter(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition text-sm"
+                className="px-4 py-2.5 border border-[#FFD2DB]/50 rounded-xl focus:ring-2 focus:ring-[#EE4275] focus:border-transparent bg-[#FFF5F6]/20 hover:bg-white transition text-[#2D1B2E] text-sm"
               >
                 <option value="">All Payment Status</option>
                 {PAYMENT_STATUSES.map(status => (
@@ -2906,7 +3192,7 @@ export default function ModeratorOrdersPage() {
                   setSortBy(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition text-sm"
+                className="px-4 py-2.5 border border-[#FFD2DB]/50 rounded-xl focus:ring-2 focus:ring-[#EE4275] focus:border-transparent bg-[#FFF5F6]/20 hover:bg-white transition text-[#2D1B2E] text-sm"
               >
                 <option value="-createdAt">Newest First</option>
                 <option value="createdAt_asc">Oldest First</option>
@@ -2916,9 +3202,9 @@ export default function ModeratorOrdersPage() {
             </div>
           </div>
           
-          {/* Status Tabs */}
+          {/* Status Tabs - Beauty Theme */}
           <div className="mb-6">
-            <div className="flex flex-wrap gap-2 border-b border-gray-200 pb-2">
+            <div className="flex flex-wrap gap-2 border-b border-[#FFD2DB]/30 pb-2">
               {statusTabs.map((tab) => (
                 <button
                   key={tab.value}
@@ -2926,10 +3212,10 @@ export default function ModeratorOrdersPage() {
                     setActiveStatusTab(tab.value);
                     setCurrentPage(1);
                   }}
-                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 flex items-center gap-2 ${
+                  className={`px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200 flex items-center gap-2 ${
                     activeStatusTab === tab.value
-                      ? 'bg-blue-600 text-white shadow-md'
-                      : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                      ? 'bg-gradient-to-r from-[#EE4275] to-[#FF6B9D] text-white shadow-lg shadow-[#EE4275]/25'
+                      : 'bg-white text-[#8B7A8C] hover:bg-[#FFF5F6] border border-[#FFD2DB]/40'
                   }`}
                 >
                   <span className={`w-2 h-2 rounded-full ${tab.color}`}></span>
@@ -2937,7 +3223,7 @@ export default function ModeratorOrdersPage() {
                   <span className={`px-2 py-0.5 rounded-full text-xs ${
                     activeStatusTab === tab.value
                       ? 'bg-white/20 text-white'
-                      : 'bg-gray-100 text-gray-600'
+                      : 'bg-[#FFF5F6] text-[#8B7A8C]'
                   }`}>
                     {tab.count}
                   </span>
@@ -2946,20 +3232,20 @@ export default function ModeratorOrdersPage() {
             </div>
           </div>
 
-          {/* Orders Table */}
-          <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+          {/* Orders Table - Beauty Theme */}
+          <div className="bg-white rounded-2xl border border-[#FFD2DB]/40 shadow-sm overflow-hidden">
             <div className="w-full overflow-x-visible">
               <table className="w-full min-w-[800px] lg:min-w-full">
-                <thead className="bg-gray-50 border-b border-gray-200">
+                <thead className="bg-[#FFF5F6]/50 border-b border-[#FFD2DB]/30">
                   <tr>
-                    <th className="px-3 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Order ID</th>
-                    <th className="px-3 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Customer</th>
-                    <th className="px-3 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Phone</th>
-                    <th className="px-3 py-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Total</th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Payment</th>
-                    <th className="px-3 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Date</th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                    <th className="px-3 py-3 text-left text-xs font-semibold text-[#8B7A8C] uppercase tracking-wider">Order ID</th>
+                    <th className="px-3 py-3 text-left text-xs font-semibold text-[#8B7A8C] uppercase tracking-wider">Customer</th>
+                    <th className="px-3 py-3 text-left text-xs font-semibold text-[#8B7A8C] uppercase tracking-wider">Phone</th>
+                    <th className="px-3 py-3 text-right text-xs font-semibold text-[#8B7A8C] uppercase tracking-wider">Total</th>
+                    <th className="px-3 py-3 text-center text-xs font-semibold text-[#8B7A8C] uppercase tracking-wider">Status</th>
+                    <th className="px-3 py-3 text-center text-xs font-semibold text-[#8B7A8C] uppercase tracking-wider">Payment</th>
+                    <th className="px-3 py-3 text-left text-xs font-semibold text-[#8B7A8C] uppercase tracking-wider">Date</th>
+                    <th className="px-3 py-3 text-center text-xs font-semibold text-[#8B7A8C] uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -2967,35 +3253,35 @@ export default function ModeratorOrdersPage() {
                     <tr>
                       <td colSpan="8" className="px-4 py-12 text-center">
                         <div className="flex justify-center">
-                          <div className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                          <div className="w-8 h-8 border-3 border-[#EE4275] border-t-transparent rounded-full animate-spin"></div>
                         </div>
-                        <p className="text-sm text-gray-500 mt-2">Loading orders...</p>
+                        <p className="text-sm text-[#8B7A8C] mt-2">Loading orders...</p>
                       </td>
                     </tr>
                   ) : orders.length === 0 ? (
                     <tr>
                       <td colSpan="8" className="px-4 py-16 text-center">
                         <div className="flex flex-col items-center gap-3">
-                          <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
-                            <FaBox className="w-8 h-8 text-gray-400" />
+                          <div className="w-16 h-16 rounded-full bg-[#FFF5F6] flex items-center justify-center border border-[#FFD2DB]/30">
+                            <FaBox className="w-8 h-8 text-[#C4B5C5]" />
                           </div>
-                          <p className="text-gray-500 text-sm font-medium">No orders found</p>
-                          <p className="text-xs text-gray-400">Try adjusting your search or filters</p>
+                          <p className="text-[#2D1B2E] text-sm font-medium">No orders found</p>
+                          <p className="text-xs text-[#8B7A8C]">Try adjusting your search or filters</p>
                         </div>
                       </td>
                     </tr>
                   ) : (
                     orders.map((order) => (
-                      <tr key={order._id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                        <td className="px-3 py-3 text-xs font-mono font-medium text-gray-900">
+                      <tr key={order._id} className="border-b border-[#FFD2DB]/20 hover:bg-[#FFF5F6]/30 transition-colors">
+                        <td className="px-3 py-3 text-xs font-mono font-medium text-[#2D1B2E]">
                           {order.orderNumber || order._id.slice(-8).toUpperCase()}
                         </td>
                         <td className="px-3 py-3 text-xs">
-                          <div className="font-medium text-gray-900 truncate max-w-[150px]">{order.customerInfo?.fullName}</div>
-                          <div className="text-gray-500 text-xs truncate max-w-[150px]">{order.customerInfo?.email}</div>
+                          <div className="font-medium text-[#2D1B2E] truncate max-w-[150px]">{order.customerInfo?.fullName}</div>
+                          <div className="text-[#8B7A8C] text-xs truncate max-w-[150px]">{order.customerInfo?.email}</div>
                         </td>
-                        <td className="px-3 py-3 text-xs text-gray-600">{order.customerInfo?.phone}</td>
-                        <td className="px-3 py-3 text-xs text-right font-bold text-blue-600">৳{order.total?.toFixed(2)}</td>
+                        <td className="px-3 py-3 text-xs text-[#2D1B2E]">{order.customerInfo?.phone}</td>
+                        <td className="px-3 py-3 text-xs text-right font-bold text-[#EE4275]">৳{order.total?.toFixed(2)}</td>
                         <td className="px-3 py-3 text-center">
                           <button onClick={() => { setSelectedOrder(order); setShowStatusModal(true); }} className="hover:opacity-80 transition-opacity">
                             {getStatusBadge(order.orderStatus)}
@@ -3006,11 +3292,11 @@ export default function ModeratorOrdersPage() {
                             {getPaymentBadge(order.paymentStatus)}
                           </button>
                         </td>
-                        <td className="px-3 py-3 text-xs text-gray-500 whitespace-nowrap">
+                        <td className="px-3 py-3 text-xs text-[#8B7A8C] whitespace-nowrap">
                           {order.orderStatus === 'delivered' && order.deliveredAt ? (
                             <div className="flex flex-col gap-0.5">
-                              <div className="text-gray-600">
-                                <span className="text-gray-400 text-[10px]">📦</span> {formatDate(order.createdAt)}
+                              <div className="text-[#8B7A8C]">
+                                <span className="text-[#C4B5C5] text-[10px]">📦</span> {formatDate(order.createdAt)}
                               </div>
                               <div className="text-green-600 font-medium text-xs">
                                 ✅ {new Date(order.deliveredAt).toLocaleDateString('en-BD', {
@@ -3020,8 +3306,8 @@ export default function ModeratorOrdersPage() {
                             </div>
                           ) : order.orderStatus === 'cancelled' && order.cancelledAt ? (
                             <div className="flex flex-col gap-0.5">
-                              <div className="text-gray-600">
-                                <span className="text-gray-400 text-[10px]">📦</span> {formatDate(order.createdAt)}
+                              <div className="text-[#8B7A8C]">
+                                <span className="text-[#C4B5C5] text-[10px]">📦</span> {formatDate(order.createdAt)}
                               </div>
                               <div className="text-red-600 font-medium text-xs">
                                 ❌ {new Date(order.cancelledAt).toLocaleDateString('en-BD', {
@@ -3030,8 +3316,8 @@ export default function ModeratorOrdersPage() {
                               </div>
                             </div>
                           ) : (
-                            <div className="text-gray-600">
-                              <span className="text-gray-400 text-[10px]">📦</span> {formatDate(order.createdAt)}
+                            <div className="text-[#8B7A8C]">
+                              <span className="text-[#C4B5C5] text-[10px]">📦</span> {formatDate(order.createdAt)}
                             </div>
                           )}
                         </td>
@@ -3039,14 +3325,26 @@ export default function ModeratorOrdersPage() {
                           <div className="flex items-center justify-center gap-1">
                             <button 
                               onClick={() => { setSelectedOrder(order); setShowDetailsModal(true); }} 
-                              className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" 
+                              className="p-1.5 text-[#EE4275] hover:bg-[#FFF5F6] rounded-xl transition-colors" 
                               title="View Details"
                             >
                               <FaEye className="w-3.5 h-3.5" />
                             </button>
+                            <button
+                              onClick={() => handleDownloadInvoice(order)}
+                              disabled={downloadingOrders[order._id]}
+                              className="p-1.5 text-[#EE4275] hover:bg-[#FFF5F6] rounded-xl transition-colors disabled:opacity-50" 
+                              title="Download Invoice"
+                            >
+                              {downloadingOrders[order._id] ? (
+                                <FaSpinner className="w-3.5 h-3.5 animate-spin" />
+                              ) : (
+                                <FaDownload className="w-3.5 h-3.5" />
+                              )}
+                            </button>
                             <button 
                               onClick={() => { setSelectedOrder(order); setShowEditModal(true); }} 
-                              className="p-1.5 text-green-600 hover:bg-green-50 rounded-lg transition-colors" 
+                              className="p-1.5 text-green-600 hover:bg-green-50 rounded-xl transition-colors" 
                               title="Edit Order"
                             >
                               <FaEdit className="w-3.5 h-3.5" />
@@ -3054,7 +3352,7 @@ export default function ModeratorOrdersPage() {
                             {userRole === 'admin' && (
                               <button 
                                 onClick={() => { setSelectedOrder(order); setShowDeleteModal(true); }} 
-                                className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors" 
+                                className="p-1.5 text-red-600 hover:bg-red-50 rounded-xl transition-colors" 
                                 title="Delete Order"
                               >
                                 <FaTrash className="w-3.5 h-3.5" />
@@ -3069,29 +3367,50 @@ export default function ModeratorOrdersPage() {
               </table>
             </div>
 
-            {/* Pagination */}
+            {/* Pagination - Beauty Theme */}
             {totalPages > 1 && (
-              <div className="px-4 py-3 border-t border-gray-200 bg-gray-50 flex items-center justify-between">
-                <p className="text-sm text-gray-500">Showing {orders.length} of {totalOrders} orders</p>
+              <div className="px-4 py-3 border-t border-[#FFD2DB]/30 bg-[#FFF5F6]/20 flex flex-wrap items-center justify-between gap-3">
+                <p className="text-sm text-[#8B7A8C]">Showing {orders.length} of {totalOrders} orders</p>
                 <div className="flex gap-1">
                   <button 
                     onClick={() => setCurrentPage(p => Math.max(1, p - 1))} 
                     disabled={currentPage === 1} 
-                    className="px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition"
+                    className="px-3 py-1.5 border border-[#FFD2DB]/50 rounded-xl hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition text-[#2D1B2E]"
                   >
                     <FaChevronLeft className="w-3 h-3" />
                   </button>
-                  <span className="px-3 py-1.5 text-sm font-medium text-gray-700">Page {currentPage} of {totalPages}</span>
+                  <span className="px-3 py-1.5 text-sm font-medium text-[#2D1B2E]">Page {currentPage} of {totalPages}</span>
                   <button 
                     onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} 
                     disabled={currentPage === totalPages} 
-                    className="px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition"
+                    className="px-3 py-1.5 border border-[#FFD2DB]/50 rounded-xl hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition text-[#2D1B2E]"
                   >
                     <FaChevronRight className="w-3 h-3" />
                   </button>
                 </div>
               </div>
             )}
+          </div>
+
+          {/* Help Section - Beauty Theme */}
+          <div className="mt-6 text-center">
+            <p className="text-xs text-[#8B7A8C]">Need help managing orders?</p>
+            <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
+              <a href="tel:+8801712345678" className="text-sm text-[#EE4275] hover:text-[#EE4275]/70 transition-colors flex items-center gap-1">
+                <FaPhone className="w-3 h-3" />
+                +880 1XXXXXXXXX
+              </a>
+              <span className="text-[#FFD2DB] hidden sm:inline">|</span>
+              <a href="mailto:support@beautybucket.com" className="text-sm text-[#EE4275] hover:text-[#EE4275]/70 transition-colors flex items-center gap-1">
+                <FaEnvelope className="w-3 h-3" />
+                support@beautybucket.com
+              </a>
+              <span className="text-[#FFD2DB] hidden sm:inline">|</span>
+              <a href="https://wa.me/8801712345678" target="_blank" rel="noopener noreferrer" className="text-sm text-[#EE4275] hover:text-[#EE4275]/70 transition-colors flex items-center gap-1">
+                <FaWhatsapp className="w-3 h-3" />
+                WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -3105,6 +3424,7 @@ export default function ModeratorOrdersPage() {
         order={selectedOrder} 
         onStatusUpdate={() => { setShowDetailsModal(false); setShowStatusModal(true); }} 
         onPaymentUpdate={() => { setShowDetailsModal(false); setShowPaymentModal(true); }}
+        onDownloadInvoice={handleDownloadInvoice}
         userRole={userRole}
       />
       <EditOrderModal isOpen={showEditModal} onClose={() => setShowEditModal(false)} order={selectedOrder} onUpdate={handleEditOrder} />

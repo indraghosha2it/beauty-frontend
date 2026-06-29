@@ -1,3 +1,191 @@
+// // app/register/page.js
+// import { Suspense } from 'react';
+// import RegisterClient from './RegisterClient';
+
+// // Import for loading state
+// import Navbar from '../components/layout/Navbar';
+// import Footer from '../components/layout/Footer';
+
+// // Loading fallback component for Register page
+// function RegisterLoading() {
+//   return (
+//     <>
+//       <Navbar />
+//       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+//         <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+//       </div>
+//       <Footer />
+//     </>
+//   );
+// }
+
+// // Smart Gadget Register Page SEO Metadata
+// export const metadata = {
+//   title: "Create Account | Join Smart Gadget - Premium Tech Store Bangladesh",
+//   description: "Create your Smart Gadget account today! Get exclusive tech deals, track orders, save wishlist, and access premium gadgets. Join thousands of satisfied tech enthusiasts in Bangladesh.",
+//   keywords: [
+//     // Registration specific
+//     "create account smart gadget",
+//     "sign up gadget store bd",
+//     "register electronics bangladesh",
+//     "smart gadget account creation",
+//     "new customer registration tech",
+    
+//     // Benefits
+//     "first purchase discount gadgets",
+//     "tech membership benefits",
+//     "premium gadget club bd",
+//     "gadget loyalty program",
+//     "exclusive tech deals members",
+    
+//     // Account features
+//     "track gadget orders online",
+//     "save favorite electronics",
+//     "gadget wishlist account",
+//     "fast checkout gadgets",
+//     "tech purchase history",
+    
+//     // User intent
+//     "join tech community bd",
+//     "become gadget member",
+//     "sign up for tech deals",
+//     "create electronics account bd",
+//     "register for gadget shopping",
+    
+//     // Trust signals
+//     "safe gadget shopping account",
+//     "secure registration tech",
+//     "verified electronics store bd",
+//     "trusted gadget store",
+    
+//     // Device specific
+//     "smartphone account registration",
+//     "laptop store sign up bd",
+//     "smartwatch account create",
+//     "headphones store register",
+//     "gaming gear sign up bd",
+    
+//     // Local keywords
+//     "premium tech account bd",
+//     "gadget store registration",
+//     "electronics shopping account",
+//     "tech store member sign up"
+//   ],
+//   openGraph: {
+//     title: "Join Smart Gadget - Create Your Premium Tech Account | Bangladesh",
+//     description: "Sign up for Smart Gadget and get exclusive tech deals! Shop premium smartphones, laptops, smartwatches, headphones, gaming accessories & more. Official warranty & best prices.",
+//     url: process.env.NEXT_PUBLIC_BASE_URL + '/register' || 'https://smartgadget.com.bd/register',
+//     siteName: "Smart Gadget",
+//     images: [
+//       {
+//         url: '/register-og-smartgadget.jpg',
+//         width: 1200,
+//         height: 630,
+//         alt: 'Smart Gadget Register - Join Thousands of Tech Enthusiasts',
+//       },
+//     ],
+//     type: 'website',
+//     locale: 'en_BD',
+//     alternateLocale: ['bn_BD'],
+//   },
+//   twitter: {
+//     card: 'summary_large_image',
+//     site: '@SmartGadgetBD',
+//     creator: '@SmartGadgetBD',
+//     title: "Join Smart Gadget - Create Your Account | Premium Tech Store Bangladesh",
+//     description: "Get exclusive tech deals! Track orders, save favorites, and access premium gadgets. Join thousands of satisfied tech enthusiasts today!",
+//     images: ['/register-twitter-smartgadget.jpg'],
+//   },
+//   alternates: {
+//     canonical: '/register',
+//     languages: {
+//       'en': '/register',
+//       'bn': '/bn/register',
+//     },
+//   },
+//   robots: {
+//     index: false,  // Registration pages should not be indexed
+//     follow: true,
+//     googleBot: {
+//       index: false,
+//       follow: true,
+//       'max-snippet': -1,
+//       'max-image-preview': 'large',
+//       'max-video-preview': -1,
+//     },
+//   },
+//   // Additional metadata
+//   other: {
+//     'application-name': 'Smart Gadget Registration',
+//     'msapplication-TileColor': '#2563EB',
+//     'theme-color': '#2563EB',
+//     'page-type': 'registration',
+//     'user-action': 'signup',
+//     'business-name': 'Smart Gadget Bangladesh',
+//     'business-type': 'E-commerce Gadget Store',
+//     'secure-registration': '256-bit SSL Encrypted',
+//     'welcome-offer': 'Exclusive Deals for New Members',
+//   },
+// };
+
+// // Generate JSON-LD structured data
+// export const generateJsonLd = () => {
+//   return {
+//     '@context': 'https://schema.org',
+//     '@type': 'WebPage',
+//     '@id': process.env.NEXT_PUBLIC_BASE_URL + '/register' || 'https://smartgadget.com.bd/register',
+//     name: 'Register - Smart Gadget',
+//     description: 'Create your Smart Gadget account to shop premium gadgets and electronics.',
+//     url: process.env.NEXT_PUBLIC_BASE_URL + '/register' || 'https://smartgadget.com.bd/register',
+//     inLanguage: 'en',
+//     breadcrumb: {
+//       '@type': 'BreadcrumbList',
+//       itemListElement: [
+//         {
+//           '@type': 'ListItem',
+//           position: 1,
+//           name: 'Home',
+//           item: process.env.NEXT_PUBLIC_BASE_URL || 'https://smartgadget.com.bd'
+//         },
+//         {
+//           '@type': 'ListItem',
+//           position: 2,
+//           name: 'Register',
+//           item: process.env.NEXT_PUBLIC_BASE_URL + '/register' || 'https://smartgadget.com.bd/register'
+//         }
+//       ]
+//     },
+//     mainEntity: {
+//       '@type': 'WebApplication',
+//       name: 'Customer Registration System',
+//       description: 'Create account to shop premium gadgets',
+//       applicationCategory: 'BusinessApplication',
+//       operatingSystem: 'All',
+//       browserRequirements: 'Requires modern browser'
+//     }
+//   };
+// };
+
+// // Server component with Suspense
+// export default function RegisterPage() {
+//   // Generate JSON-LD
+//   const jsonLd = generateJsonLd();
+  
+//   return (
+//     <>
+//       {/* JSON-LD Structured Data */}
+//       <script
+//         type="application/ld+json"
+//         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+//       />
+//       <Suspense fallback={<RegisterLoading />}>
+//         <RegisterClient />
+//       </Suspense>
+//     </>
+//   );
+// }
+
+
 // app/register/page.js
 import { Suspense } from 'react';
 import RegisterClient from './RegisterClient';
@@ -11,77 +199,93 @@ function RegisterLoading() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+      <div className="min-h-screen bg-[#FFF5F6] flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-[#EE4275] border-t-transparent rounded-full animate-spin"></div>
       </div>
       <Footer />
     </>
   );
 }
 
-// Smart Gadget Register Page SEO Metadata
+// Beauty Bucket Register Page SEO Metadata
 export const metadata = {
-  title: "Create Account | Join Smart Gadget - Premium Tech Store Bangladesh",
-  description: "Create your Smart Gadget account today! Get exclusive tech deals, track orders, save wishlist, and access premium gadgets. Join thousands of satisfied tech enthusiasts in Bangladesh.",
+  title: "Create Account | Join Beauty Bucket - Premium Beauty Store Bangladesh",
+  description: "Create your Beauty Bucket account today! Get exclusive beauty deals, track orders, save wishlist, and access premium skincare, makeup & cosmetics. Join thousands of beauty enthusiasts in Bangladesh.",
   keywords: [
     // Registration specific
-    "create account smart gadget",
-    "sign up gadget store bd",
-    "register electronics bangladesh",
-    "smart gadget account creation",
-    "new customer registration tech",
+    "create account beauty bucket",
+    "sign up cosmetics store bd",
+    "register beauty bangladesh",
+    "beauty bucket account creation",
+    "new customer registration cosmetics",
     
     // Benefits
-    "first purchase discount gadgets",
-    "tech membership benefits",
-    "premium gadget club bd",
-    "gadget loyalty program",
-    "exclusive tech deals members",
+    "first purchase discount beauty",
+    "beauty membership benefits",
+    "premium cosmetics club bd",
+    "beauty loyalty program",
+    "exclusive beauty deals members",
     
     // Account features
-    "track gadget orders online",
-    "save favorite electronics",
-    "gadget wishlist account",
-    "fast checkout gadgets",
-    "tech purchase history",
+    "track beauty orders online",
+    "save favorite cosmetics",
+    "beauty wishlist account",
+    "fast checkout beauty",
+    "cosmetics purchase history",
     
     // User intent
-    "join tech community bd",
-    "become gadget member",
-    "sign up for tech deals",
-    "create electronics account bd",
-    "register for gadget shopping",
+    "join beauty community bd",
+    "become cosmetics member",
+    "sign up for beauty deals",
+    "create beauty account bd",
+    "register for beauty shopping",
     
     // Trust signals
-    "safe gadget shopping account",
-    "secure registration tech",
-    "verified electronics store bd",
-    "trusted gadget store",
+    "safe beauty shopping account",
+    "secure registration cosmetics",
+    "verified beauty store bd",
+    "trusted cosmetics store",
     
-    // Device specific
-    "smartphone account registration",
-    "laptop store sign up bd",
-    "smartwatch account create",
-    "headphones store register",
-    "gaming gear sign up bd",
+    // Product specific
+    "skincare account registration",
+    "makeup store sign up bd",
+    "fragrance account create",
+    "hair care store register",
+    "body care sign up bd",
     
     // Local keywords
-    "premium tech account bd",
-    "gadget store registration",
-    "electronics shopping account",
-    "tech store member sign up"
+    "premium beauty account bd",
+    "cosmetics store registration",
+    "beauty shopping account",
+    "skincare store member sign up",
+    
+    // Skincare specific
+    "k-beauty account bd",
+    "organic skincare registration",
+    "vegan cosmetics account",
+    "cruelty free beauty sign up",
+    
+    // Makeup specific
+    "professional makeup account",
+    "bridal makeup store bd",
+    "makeup artist account",
+    
+    // Women focus
+    "beauty for women bd",
+    "cosmetics for girls bd",
+    "skincare for women bangladesh"
   ],
   openGraph: {
-    title: "Join Smart Gadget - Create Your Premium Tech Account | Bangladesh",
-    description: "Sign up for Smart Gadget and get exclusive tech deals! Shop premium smartphones, laptops, smartwatches, headphones, gaming accessories & more. Official warranty & best prices.",
-    url: process.env.NEXT_PUBLIC_BASE_URL + '/register' || 'https://smartgadget.com.bd/register',
-    siteName: "Smart Gadget",
+    title: "Join Beauty Bucket - Create Your Premium Beauty Account | Bangladesh",
+    description: "Sign up for Beauty Bucket and get exclusive beauty deals! Shop premium skincare, makeup, fragrances, hair care, body care & more. 100% authentic products & best prices.",
+    url: process.env.NEXT_PUBLIC_BASE_URL + '/register' || 'https://beautybucket.com.bd/register',
+    siteName: "Beauty Bucket",
     images: [
       {
-        url: '/register-og-smartgadget.jpg',
+        url: '/register-og-beautybucket.jpg',
         width: 1200,
         height: 630,
-        alt: 'Smart Gadget Register - Join Thousands of Tech Enthusiasts',
+        alt: 'Beauty Bucket Register - Join Thousands of Beauty Enthusiasts',
       },
     ],
     type: 'website',
@@ -90,11 +294,11 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@SmartGadgetBD',
-    creator: '@SmartGadgetBD',
-    title: "Join Smart Gadget - Create Your Account | Premium Tech Store Bangladesh",
-    description: "Get exclusive tech deals! Track orders, save favorites, and access premium gadgets. Join thousands of satisfied tech enthusiasts today!",
-    images: ['/register-twitter-smartgadget.jpg'],
+    site: '@BeautyBucketBD',
+    creator: '@BeautyBucketBD',
+    title: "Join Beauty Bucket - Create Your Account | Premium Beauty Store Bangladesh",
+    description: "Get exclusive beauty deals! Track orders, save favorites, and access premium cosmetics. Join thousands of beauty enthusiasts today!",
+    images: ['/register-twitter-beautybucket.jpg'],
   },
   alternates: {
     canonical: '/register',
@@ -116,15 +320,18 @@ export const metadata = {
   },
   // Additional metadata
   other: {
-    'application-name': 'Smart Gadget Registration',
-    'msapplication-TileColor': '#2563EB',
-    'theme-color': '#2563EB',
+    'application-name': 'Beauty Bucket Registration',
+    'msapplication-TileColor': '#EE4275',
+    'theme-color': '#EE4275',
     'page-type': 'registration',
     'user-action': 'signup',
-    'business-name': 'Smart Gadget Bangladesh',
-    'business-type': 'E-commerce Gadget Store',
+    'business-name': 'Beauty Bucket Bangladesh',
+    'business-type': 'E-commerce Beauty & Cosmetics Store',
     'secure-registration': '256-bit SSL Encrypted',
-    'welcome-offer': 'Exclusive Deals for New Members',
+    'welcome-offer': 'Exclusive Beauty Deals for New Members',
+    'product-categories': 'Skincare, Makeup, Fragrances, Hair Care, Body Care, Beauty Accessories',
+    'authenticity': '100% Authentic Products',
+    'beauty-type': 'Premium, Natural, Organic, Vegan, Cruelty-Free Options Available',
   },
 };
 
@@ -133,10 +340,10 @@ export const generateJsonLd = () => {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    '@id': process.env.NEXT_PUBLIC_BASE_URL + '/register' || 'https://smartgadget.com.bd/register',
-    name: 'Register - Smart Gadget',
-    description: 'Create your Smart Gadget account to shop premium gadgets and electronics.',
-    url: process.env.NEXT_PUBLIC_BASE_URL + '/register' || 'https://smartgadget.com.bd/register',
+    '@id': process.env.NEXT_PUBLIC_BASE_URL + '/register' || 'https://beautybucket.com.bd/register',
+    name: 'Register - Beauty Bucket',
+    description: 'Create your Beauty Bucket account to shop premium beauty products and cosmetics.',
+    url: process.env.NEXT_PUBLIC_BASE_URL + '/register' || 'https://beautybucket.com.bd/register',
     inLanguage: 'en',
     breadcrumb: {
       '@type': 'BreadcrumbList',
@@ -145,20 +352,20 @@ export const generateJsonLd = () => {
           '@type': 'ListItem',
           position: 1,
           name: 'Home',
-          item: process.env.NEXT_PUBLIC_BASE_URL || 'https://smartgadget.com.bd'
+          item: process.env.NEXT_PUBLIC_BASE_URL || 'https://beautybucket.com.bd'
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'Register',
-          item: process.env.NEXT_PUBLIC_BASE_URL + '/register' || 'https://smartgadget.com.bd/register'
+          item: process.env.NEXT_PUBLIC_BASE_URL + '/register' || 'https://beautybucket.com.bd/register'
         }
       ]
     },
     mainEntity: {
       '@type': 'WebApplication',
       name: 'Customer Registration System',
-      description: 'Create account to shop premium gadgets',
+      description: 'Create account to shop premium beauty products',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'All',
       browserRequirements: 'Requires modern browser'

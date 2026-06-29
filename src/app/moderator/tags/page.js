@@ -353,7 +353,7 @@ export default function TagsManagementPage() {
           <div className="flex items-center gap-3">
             <h1 className="text-2xl font-bold text-gray-900">Product Tags</h1>
             {userRole === 'moderator' && (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 text-pink-700 text-xs font-medium rounded-full">
                 <Shield className="w-3.5 h-3.5" />
                 Moderator
               </span>
@@ -374,7 +374,7 @@ export default function TagsManagementPage() {
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors"
         >
           <Plus className="w-4 h-4" />
           Create Tag
@@ -383,7 +383,7 @@ export default function TagsManagementPage() {
 
       {loading ? (
         <div className="flex justify-center py-12">
-          <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+          <Loader2 className="w-8 h-8 animate-spin text-pink-600" />
         </div>
       ) : tags.length === 0 ? (
         <div className="text-center py-12 bg-gray-50 rounded-xl border border-gray-200">
@@ -391,7 +391,7 @@ export default function TagsManagementPage() {
           <p className="text-gray-500">No tags created yet</p>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="mt-3 text-blue-600 hover:text-blue-700 font-medium"
+            className="mt-3 text-pink-600 hover:text-pink-700 font-medium"
           >
             Create your first tag
           </button>
@@ -483,7 +483,7 @@ export default function TagsManagementPage() {
                   value={tagName}
                   onChange={(e) => setTagName(e.target.value)}
                   placeholder="e.g., Best Seller, Trending"
-                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition"
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition"
                 />
               </div>
               
@@ -535,7 +535,7 @@ export default function TagsManagementPage() {
                 <button
                   onClick={handleCreateTag}
                   disabled={isSubmitting}
-                  className="flex-1 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-2 text-sm font-medium text-white bg-pink-600 rounded-lg hover:bg-pink-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
                   Create Tag
@@ -573,7 +573,7 @@ export default function TagsManagementPage() {
                   value={tagName}
                   onChange={(e) => setTagName(e.target.value)}
                   placeholder="e.g., Best Seller, Trending"
-                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition"
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-600 focus:border-transparent outline-none transition"
                 />
               </div>
               
@@ -619,7 +619,7 @@ export default function TagsManagementPage() {
                         onClick={() => {
                           document.getElementById('edit-image-input')?.click();
                         }}
-                        className="text-xs text-blue-600 hover:text-blue-700 mt-1 block"
+                        className="text-xs text-pink-600 hover:text-pink-700 mt-1 block"
                       >
                         Change image
                       </button>
@@ -648,7 +648,7 @@ export default function TagsManagementPage() {
                 <button
                   onClick={handleUpdateTag}
                   disabled={isSubmitting || !tagImagePreview}
-                  className="flex-1 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-2 text-sm font-medium text-white bg-pink-600 rounded-lg hover:bg-pink-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
                   Update Tag

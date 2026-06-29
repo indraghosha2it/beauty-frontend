@@ -181,7 +181,7 @@ const handleSubmit = async (e) => {
       className="space-y-6"
     >
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Enter Reset Code</h2>
+        <h2 className="text-2xl font-bold text-pink-600 mb-2">Enter Reset Code</h2>
         <p className="text-gray-600">
           We've sent a 6-digit code to<br />
           <span className="font-semibold" style={{ color: '#0274D6' }}>{email}</span>
@@ -201,7 +201,7 @@ const handleSubmit = async (e) => {
               onChange={(e) => handleChange(index, e.target.value)}
               onKeyDown={(e) => handleKeyDown(index, e)}
               onPaste={index === 0 ? handlePaste : undefined}
-              className="w-12 h-12 text-center text-xl font-semibold border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6B4F3A] focus:border-[#6B4F3A]"
+              className="w-12 h-12 text-center text-xl font-semibold border border-pink-300 rounded-lg focus:ring-2 focus:ring-[#6B4F3A] focus:border-[#6B4F3A]"
               required
             />
           ))}
@@ -216,7 +216,7 @@ const handleSubmit = async (e) => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-3 text-white bg-black rounded-lg hover:opacity-90 transition-all font-medium"
+          className="w-full py-3 text-white bg-pink-700 rounded-lg hover:opacity-90 transition-all font-medium"
   
         >
           {isSubmitting ? (
